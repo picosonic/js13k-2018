@@ -23,10 +23,10 @@ function dtmf_dial()
     for (var i=0; i<number.length; i++)
     {
       var pos=keys.indexOf(number[i]);
+
+      // Only process keys we know about
       if (pos>=0)
       {
-        var fl=dtmf_low[Math.floor(pos/4)];
-        var fh=dtmf_high[pos%4];
         var e=this.audioCtx.currentTime+(i*this.tonelen);
         var oscl=this.audioCtx.createOscillator();
         var osch=this.audioCtx.createOscillator();
@@ -36,8 +36,8 @@ function dtmf_dial()
         osch.connect(this.gainNode);
 
         // Set the low/high pitches
-        oscl.frequency.value=fl;
-        osch.frequency.value=fh;
+        oscl.frequency.value=dtmf_low[Math.floor(pos/4)];
+        osch.frequency.value=dtmf_high[pos%4];
 
         // Set the start and stop times for the oscillators
         oscl.start(e);
@@ -45,8 +45,6 @@ function dtmf_dial()
         osch.start(e);
         osch.stop(e+(this.tonelen*0.8));
       }
-      else
-        continue; // Don't process unknowns
     }
 
   };
