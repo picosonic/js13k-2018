@@ -2,7 +2,11 @@
 window.ondragstart=function(event) { event.preventDefault(); };
 
 // Init
-window.onload=function() {
-var dialler=new dtmf_dial;
-dialler.randomdial(10);
-};
+function init()
+{
+  var dialler=new dtmf_dial;
+  dialler.randomdial(10);
+}
+
+// Run the init() once page has loaded
+window.onload=function() { init(); };
