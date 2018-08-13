@@ -55,11 +55,11 @@ function dtmf_dial()
   this.carriertone=function(carrierdelay)
   {
     var carrier=this.audioCtx.createOscillator();
-    var cstart=this.audioCtx.currentTime+(carrierdelay*this.tonelen)+3;
+    var cstart=this.audioCtx.currentTime+(carrierdelay*this.tonelen)+1.5;
     carrier.connect(this.gainNode);
     carrier.frequency.value=1650;
     carrier.start(cstart);
-    carrier.stop(cstart+5);
+    carrier.stop(cstart+3);
   };
 
   this.nowtime=new Date();
