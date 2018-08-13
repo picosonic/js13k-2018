@@ -21,3 +21,4 @@ zip -j ${zipfile} "${buildpath}"/*
 
 # Determine file sizes and compression
 unzip -lv "${zipfile}"
+stat "${zipfile}"
