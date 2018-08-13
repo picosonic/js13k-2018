@@ -30,7 +30,7 @@ function randomizer(a,b,c,d)
     return a;
   };
 
-  // Generate pseudo-random number up to 16 bits
+  // Generate pseudo-random number up to 24 bits
   this.rnd=function(rmax)
   {
     var res=this.gen_rnd();
