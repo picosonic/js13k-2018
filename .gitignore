@@ -1,2 +1,5 @@
+# Build folder
+build
+
 # Zip files
 *.zip
