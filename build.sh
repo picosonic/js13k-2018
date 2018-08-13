@@ -16,6 +16,9 @@ do
   yui-compressor "${file}" >> "${jscat}"
 done
 
+# Copy in the index file
+cp index.html "${buildpath}/"
+
 # Zip everything up
 zip -j ${zipfile} "${buildpath}"/*
 
