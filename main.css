@@ -10,4 +10,5 @@ body
   background-color:black;
   color:white;
   font-size:0px;
+  white-space:nowrap;
 }
