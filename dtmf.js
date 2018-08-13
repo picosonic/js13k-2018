@@ -13,12 +13,13 @@ function dtmf_dial()
   this.tonelen=1/5;
 
   // Generate DTMF tones for the number passed
-  this.dial=function(number) {
+  this.dial=function(number)
+  {
     var keys="123A456B789C*0#D"; // All possible standard DTMF keys
     var dtmf_low=[697,770,852,941]; // DTMF low frequencies
     var dtmf_high=[1209,1336,1477,1633]; // DTMF high frequencies
 
-    // 
+    // Process individual number
     for (var i=0; i<number.length; i++)
     {
       var pos=keys.indexOf(number[i]);
@@ -47,17 +48,31 @@ function dtmf_dial()
       else
         continue; // Don't process unknowns
     }
+
+  };
+
+  // Simulate carrier tone
+  this.carriertone=function(carrierdelay)
+  {
+    var carrier=this.audioCtx.createOscillator();
+    var cstart=this.audioCtx.currentTime+(carrierdelay*this.tonelen)+3;
+    carrier.connect(this.gainNode);
+    carrier.frequency.value=1650;
+    carrier.start(cstart);
+    carrier.stop(cstart+5);
   };
 
   this.nowtime=new Date();
   this.randoms=new randomizer(this.nowtime.getHours()*10,this.nowtime.getMilliseconds()&0xff,this.nowtime.getMonth()*20,this.nowtime.getSeconds()*4);
 
-  this.randomdial=function(numlen) {
+  this.randomdial=function(numlen)
+  {
     var number="";
     for (var num=0; num<numlen; num++)
     {
       number+=this.randoms.rnd(10);
     }
     this.dial(number);
+    this.carriertone(numlen);
   };
 }
