@@ -4,6 +4,7 @@ window.ondragstart=function(event) { event.preventDefault(); };
 // Init
 function init()
 {
+  write("Connecting...");
   var dialler=new dtmf_dial;
   dialler.randomdial(10);
 }
