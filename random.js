@@ -1,10 +1,10 @@
 // Predictable random number generator with seeds
-function randomizer(a=3,b=6,c=6,d=4)
+function randomizer(a,b,c,d)
 {
-  this.seeda=a;
-  this.seedb=b;
-  this.seedc=c;
-  this.seedd=d;
+  this.seeda=a||3;
+  this.seedb=b||6;
+  this.seedc=c||6;
+  this.seedd=d||4;
 
   // Generate next 8 bit number in pseudo-random sequence
   this.gen_rnd=function()
