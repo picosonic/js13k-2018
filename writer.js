@@ -8,10 +8,7 @@ function write(text)
 
     // Don't try to draw characters outside our font set
     if ((offs<0) || (offs>101))
-    {
-      // console.log(i+" "+offs+" "+text.charCodeAt(i)+" '"+text.substr(i,1)+"'");
       continue;
-    }
 
     // Add character wrapper
     domtext+="<div class=\"alphablock\">";
