@@ -23,6 +23,10 @@ var gs={
 
   // control state
   keystate:0,
+  gamepads:{},
+  gamepadbuttons:[],
+  gamepadassignbutton:-1,
+  gamepadlastbutton:-1,
 
   // physics
   gravity:1,
@@ -33,6 +37,83 @@ var gs={
   player:new st(),
   enemies:[]
 };
+
+function pollGamepads()
+{
+  var i=0;
+  var j;
+
+  for (j in gs.gamepads)
+  {
+    var gamepad=gs.gamepads[j];
+
+    for (i=0; i<gamepad.buttons.length; i++)
+    {
+      var val=gamepad.buttons[i];
+      var pressed=val==1.0;
+
+      if (typeof(val)=="object")
+      {
+        pressed=val.pressed;
+        val=val.value;
+      }
+
+      // Check for assignment mode
+      if (gs.gamepadassignbutton>-1)
+      {
+        // Is this button pressed
+        if (pressed)
+        {
+          // Is it different to the last button assigned
+          if (gs.gamepadlastbutton!=i)
+          {
+            // Remember this button was pressed last
+            gs.gamepadlastbutton=i;
+            gs.gamepadbuttons[gs.gamepadassignbutton]=i;
+            console.log("Button["+gs.gamepadassignbutton+"]="+i);
+
+            // Move on to next button
+            gs.gamepadassignbutton++;
+
+            // Check for end of assignments
+            if (gs.gamepadassignbutton>4)
+            {
+              console.log("Gamepad mapping complete");
+              gs.gamepadassignbutton=-1;
+            }
+          }
+        }
+      }
+      else
+      {
+        if (i==gs.gamepadbuttons[4]) // jump
+        {
+          if (pressed)
+            gs.keystate|=2;
+          else
+            gs.keystate&=~2;
+        }
+
+        if (i==gs.gamepadbuttons[0]) // left
+        {
+          if (pressed)
+            gs.keystate|=1;
+          else
+            gs.keystate&=~1;
+        }
+
+        if (i==gs.gamepadbuttons[1]) // right
+        {
+          if (pressed)
+            gs.keystate|=4;
+          else
+            gs.keystate&=~4;
+        }
+
+      }
+    }
+  }
+}
 
 // Redraw the game world
 function redraw()
@@ -45,7 +126,7 @@ function redraw()
 function update()
 {
   // Check for gamepad input
-  // TODO
+  pollGamepads();
 
   // Move player when a key is pressed
   if (gs.keystate!=0)
@@ -127,6 +208,36 @@ function updatekeystate(e, dir)
       break;
   }
 }
+
+function gamepadHandler(event, connecting)
+{
+  var gamepad = event.gamepad;
+  // Note:
+  // gamepad === navigator.getGamepads()[gamepad.index]
+
+  if (connecting)
+  {
+    gs.gamepads[gamepad.index] = gamepad;
+    gs.gamepadassignbutton=0;
+  }
+  else
+    delete gs.gamepads[gamepad.index];
+}
+
+window.addEventListener("gamepadconnected", function(e)
+{
+  gamepadHandler(e, true);
+  console.log("Gamepad connected at index %d: %s. %d buttons, %d axes.",
+    e.gamepad.index, e.gamepad.id,
+    e.gamepad.buttons.length, e.gamepad.axes.length);
+});
+
+window.addEventListener("gamepaddisconnected", function(e)
+{
+  gamepadHandler(e, false);
+  console.log("Gamepad disconnected from index %d: %s",
+    e.gamepad.index, e.gamepad.id);
+});
 
 // Initial entry point
 function init()
