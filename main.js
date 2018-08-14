@@ -47,7 +47,7 @@ function getgamepadbyid(padid)
 
 function gamepadHandler(event, connecting)
 {
-  var gamepad = event.gamepad;
+  var gamepad=event.gamepad;
   // Note:
   // gamepad === navigator.getGamepads()[gamepad.index]
 
@@ -57,8 +57,17 @@ function gamepadHandler(event, connecting)
       gamepad.index, gamepad.id,
       gamepad.buttons.length, gamepad.axes.length);
 
-    gs.gamepads[gamepad.index] = gamepad.id;
-    gs.gamepadassignbutton=0;
+    gs.gamepads[gamepad.index]=gamepad.id;
+    if (gamepad.mapping==="standard")
+    {
+      gs.gamepadbuttons[0]=14; // left (left) d-left
+      gs.gamepadbuttons[1]=15; // right (left) d-right
+      gs.gamepadbuttons[2]=12; // top (left) d-up
+      gs.gamepadbuttons[3]=13; // bottom (left) d-down
+      gs.gamepadbuttons[4]=0;  // bottom button (right) x
+    }
+    else
+      gs.gamepadassignbutton=0; // require manual mapping
   }
   else
   {
