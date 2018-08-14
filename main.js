@@ -38,6 +38,53 @@ var gs={
   enemies:[]
 };
 
+function getgamepadbyid(padid)
+{
+  if ((navigator.getGamepads||navigator.webkitGetGamepads||navigator.webkitGamepads||undefined)==undefined) return undefined;
+
+  return (navigator.getGamepads && navigator.getGamepads()[padid]) || (navigator.webkitGetGamepads && navigator.webkitGetGamepads()[padid]);
+}
+
+function gamepadHandler(event, connecting)
+{
+  var gamepad = event.gamepad;
+  // Note:
+  // gamepad === navigator.getGamepads()[gamepad.index]
+
+  if (connecting)
+  {
+    console.log("Gamepad connected at index %d: %s. %d buttons, %d axes.",
+      gamepad.index, gamepad.id,
+      gamepad.buttons.length, gamepad.axes.length);
+
+    gs.gamepads[gamepad.index] = gamepad.id;
+    gs.gamepadassignbutton=0;
+  }
+  else
+  {
+    console.log("Gamepad disconnected from index %d: %s",
+      gamepad.index, gamepad.id);
+
+    delete gs.gamepads[gamepad.index];
+  }
+}
+
+function gamepadscan()
+{
+  if ((navigator.getGamepads||navigator.webkitGetGamepads||navigator.webkitGamepads||undefined)==undefined) return;
+
+  var gamepads=(navigator.getGamepads && navigator.getGamepads()) || (navigator.webkitGetGamepads && navigator.webkitGetGamepads());
+
+  for (var padid=0; padid<gamepads.length; padid++)
+  {
+    if (gamepads[padid]!=undefined)
+    {
+      var ev={gamepad:getgamepadbyid(padid)};
+      gamepadHandler(ev, true);
+    }
+  }
+}
+
 function pollGamepads()
 {
   var i=0;
@@ -45,7 +92,8 @@ function pollGamepads()
 
   for (j in gs.gamepads)
   {
-    var gamepad=gs.gamepads[j];
+    var gamepad=getgamepadbyid(j);
+    if (gamepad==undefined) continue;
 
     for (i=0; i<gamepad.buttons.length; i++)
     {
@@ -209,36 +257,6 @@ function updatekeystate(e, dir)
   }
 }
 
-function gamepadHandler(event, connecting)
-{
-  var gamepad = event.gamepad;
-  // Note:
-  // gamepad === navigator.getGamepads()[gamepad.index]
-
-  if (connecting)
-  {
-    gs.gamepads[gamepad.index] = gamepad;
-    gs.gamepadassignbutton=0;
-  }
-  else
-    delete gs.gamepads[gamepad.index];
-}
-
-window.addEventListener("gamepadconnected", function(e)
-{
-  gamepadHandler(e, true);
-  console.log("Gamepad connected at index %d: %s. %d buttons, %d axes.",
-    e.gamepad.index, e.gamepad.id,
-    e.gamepad.buttons.length, e.gamepad.axes.length);
-});
-
-window.addEventListener("gamepaddisconnected", function(e)
-{
-  gamepadHandler(e, false);
-  console.log("Gamepad disconnected from index %d: %s",
-    e.gamepad.index, e.gamepad.id);
-});
-
 // Initial entry point
 function init()
 {
@@ -258,6 +276,19 @@ function init()
 
   // Stop things from being dragged around
   window.ondragstart=function(event) { event.preventDefault(); };
+
+  // Gamepad support
+  gamepadscan();
+
+  window.addEventListener("gamepadconnected", function(e)
+  {
+    gamepadHandler(e, true);
+  });
+
+  window.addEventListener("gamepaddisconnected", function(e)
+  {
+    gamepadHandler(e, false);
+  });
 
   /////////////////////////////////////////////////////
   // Intro
