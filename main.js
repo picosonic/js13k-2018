@@ -38,6 +38,7 @@ var gs={
 function redraw()
 {
   // TODO
+  document.getElementById("debug").innerHTML=gs.keystate;
 }
 
 // Update the position of players/enemies
@@ -88,9 +89,9 @@ function updatekeystate(e, dir)
     case 65: // A
     case 81: // Q
       if (dir==1)
-        keystate|=1;
+        gs.keystate|=1;
       else
-        keystate&=~1;
+        gs.keystate&=~1;
       e.preventDefault();
       break;
 
@@ -98,27 +99,27 @@ function updatekeystate(e, dir)
     case 87: // W
     case 90: // Z
       if (dir==1)
-        keystate|=2;
+        gs.keystate|=2;
       else
-        keystate&=~2;
+        gs.keystate&=~2;
       e.preventDefault();
       break;
 
     case 39: // right
     case 68: // D
       if (dir==1)
-        keystate|=4;
+        gs.keystate|=4;
       else
-        keystate&=~4;
+        gs.keystate&=~4;
       e.preventDefault();
       break;
 
     case 40: // down
     case 83: // S
       if (dir==1)
-        keystate|=8;
+        gs.keystate|=8;
       else
-        keystate&=~8;
+        gs.keystate&=~8;
       e.preventDefault();
       break;
 
@@ -160,6 +161,7 @@ function init()
   /////////////////////////////////////////////////////
   // Start game
   // TODO
+  window.requestAnimationFrame(rafcallback);
 }
 
 // Run the init() once page has loaded

@@ -12,3 +12,11 @@ body
   font-size:0px;
   white-space:nowrap;
 }
+
+#debug
+{
+  position:absolute;
+  color:white;
+  background:black;
+  font-size:50px;
+}
