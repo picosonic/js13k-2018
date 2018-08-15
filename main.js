@@ -25,7 +25,7 @@ var gs={
   lasttime:0,
 
   // control state
-  keystate:0,
+  keystate:0, // bitfield [down][right][up][left]
   gamepads:{},
   gamepadbuttons:[],
   gamepadassignbutton:-1,
@@ -43,9 +43,11 @@ var gs={
   enemies:[],
 
   // level related
+  level:0,
   tiles:[]
 };
 
+// Find a gamepad by its ID
 function getgamepadbyid(padid)
 {
   if ((navigator.getGamepads||navigator.webkitGetGamepads||navigator.webkitGamepads||undefined)==undefined) return undefined;
@@ -53,6 +55,7 @@ function getgamepadbyid(padid)
   return (navigator.getGamepads && navigator.getGamepads()[padid]) || (navigator.webkitGetGamepads && navigator.webkitGetGamepads()[padid]);
 }
 
+// Handle connection/disconnection of a gamepad
 function gamepadHandler(event, connecting)
 {
   var gamepad=event.gamepad;
@@ -86,6 +89,7 @@ function gamepadHandler(event, connecting)
   }
 }
 
+// Scan for any gamepads already connected
 function gamepadscan()
 {
   if ((navigator.getGamepads||navigator.webkitGetGamepads||navigator.webkitGamepads||undefined)==undefined) return;
@@ -96,12 +100,14 @@ function gamepadscan()
   {
     if (gamepads[padid]!=undefined)
     {
+      // Simulate this gamepad being connected
       var ev={gamepad:getgamepadbyid(padid)};
       gamepadHandler(ev, true);
     }
   }
 }
 
+// Poll all gamepads to update keystate, also allow mapping
 function pollGamepads()
 {
   var i=0;
@@ -151,14 +157,6 @@ function pollGamepads()
       }
       else
       {
-        if (i==gs.gamepadbuttons[4]) // jump
-        {
-          if (pressed)
-            gs.keystate|=2;
-          else
-            gs.keystate&=~2;
-        }
-
         if (i==gs.gamepadbuttons[0]) // left
         {
           if (pressed)
@@ -175,6 +173,30 @@ function pollGamepads()
             gs.keystate&=~4;
         }
 
+        if (i==gs.gamepadbuttons[2]) // up
+        {
+          if (pressed)
+            gs.keystate|=2;
+          else
+            gs.keystate&=~2;
+        }
+
+        if (i==gs.gamepadbuttons[3]) // down
+        {
+          if (pressed)
+            gs.keystate|=8;
+          else
+            gs.keystate&=~8;
+        }
+
+        if (i==gs.gamepadbuttons[4]) // jump
+        {
+          if (pressed)
+            gs.keystate|=2;
+          else
+            gs.keystate&=~2;
+        }
+
       }
     }
   }
@@ -187,6 +209,33 @@ function redraw()
   player.style.top=gs.player.y+"px";
 }
 
+// Does DOM element a overlap with element b
+function overlap(a, b)
+{
+  // Check horiz
+  if (a.offsetLeft<b.offsetLeft)
+    if ((a.offsetLeft+a.clientWidth)<b.offsetLeft) return false;
+
+  if (a.offsetLeft>b.offsetLeft)
+    if ((b.offsetLeft+b.clientWidth)<a.offsetLeft) return false;
+
+  // Check vert
+  if (a.offsetTop<b.offsetTop)
+    if ((a.offsetTop+a.clientHeight)<b.offsetTop) return false;
+
+  if (a.offsetTop>b.offsetTop)
+    if ((b.offsetTop+b.clientHeight)<a.offsetTop) return false;
+
+  return true;
+}
+
+// Check if character collides with a tile
+function collide(x, y)
+{
+  // TODO
+}
+
+// Move character by up to horizontal/vertical speeds, stopping when a collision occurs
 function collisioncheck()
 {
   gs.player.x+=gs.player.hs;
@@ -201,6 +250,7 @@ function collisioncheck()
   gs.player.y+=gs.player.vs;
 }
 
+// If the player has moved "off" the map, then put them back at a start position
 function offmapcheck()
 {
   if ((gs.player.x<0) || (gs.player.y>500))
@@ -210,6 +260,7 @@ function offmapcheck()
   }
 }
 
+// Check for player being on the ground
 function groundcheck()
 {
   if (gs.player.y+1>=500)
@@ -235,6 +286,7 @@ function groundcheck()
   }
 }
 
+// Check for mid jump when the player is now falling
 function jumpcheck()
 {
   // When jumping ..
@@ -249,6 +301,7 @@ function jumpcheck()
   }
 }
 
+// Handle ducking and slowing player down by friction
 function standcheck()
 {
   // Check for ducking
