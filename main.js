@@ -6,12 +6,12 @@ function st(elem)
   this.y=0; // y position
   this.vs=0; // vertical speed
   this.hs=0; // horizontal speed
-  this.j=0; // jumping
-  this.f=0; // falling
-  this.d=0; // ducking
+  this.j=false; // jumping
+  this.f=false; // falling
+  this.d=false; // ducking
   this.dir=0; // direction (-1=left, 0=none, 1=right)
   this.hsp=10; // horizontal speed
-  this.vsp=20; // vertical (jumping) speed
+  this.vsp=20; // vertical speed
 }
 
 // Game state
@@ -32,6 +32,8 @@ var gs={
   gravity:1,
   terminalvelocity:50,
   friction:1.5,
+  speed:10,
+  jumpspeed:20,
 
   // entities
   player:new st(),
@@ -175,8 +177,94 @@ function pollGamepads()
 // Redraw the game world
 function redraw()
 {
-  // TODO
-  document.getElementById("debug").innerHTML=gs.keystate;
+  player.style.left=gs.player.x+"px";
+  player.style.top=gs.player.y+"px";
+}
+
+function collisioncheck()
+{
+  gs.player.x+=gs.player.hs;
+
+  if (gs.player.y+gs.player.vs>=500)
+  {
+    while (!(gs.player.y+(gs.player.vs>0?1:-1)>=500))
+      gs.player.y+=(gs.player.vs>0?1:-1);
+
+    gs.player.vs=0;
+  }
+  gs.player.y+=gs.player.vs;
+}
+
+function offmapcheck()
+{
+  if ((gs.player.x<0) || (gs.player.y>500))
+  {
+    gs.player.x=0;
+    gs.player.y=0;
+  }
+}
+
+function groundcheck()
+{
+  if (gs.player.y+1>=500)
+  {
+    gs.player.vs=0;
+    gs.player.j=false;
+    gs.player.f=false;
+
+    // Check for jump pressed
+    if ((gs.keystate&2)!=0)
+    {
+      gs.player.j=true;
+      gs.player.vs=-gs.jumpspeed;
+    }
+  }
+  else
+  {
+    if (gs.player.vs<gs.terminalvelocity)
+      gs.player.vs+=gs.gravity;
+
+    if (gs.player.vs>0)
+      gs.player.f=true;
+  }
+}
+
+function jumpcheck()
+{
+  // When jumping ..
+  if (gs.player.j)
+  {
+    // Check if loosing altitude
+    if (gs.player.vs>=0)
+    {
+      gs.player.j=false;
+      gs.player.f=true;
+    }
+  }
+}
+
+function standcheck()
+{
+  // When no horizontal movement pressed, slow down by friction
+  if ((((gs.keystate&1)==0) && ((gs.keystate&4)==0)) ||
+      (((gs.keystate&1)!=0) && ((gs.keystate&4)!=0)))
+  {
+    if (gs.player.dir==-1)
+    {
+      if (gs.player.hs<0)
+        gs.player.hs+=gs.friction;
+      else
+        gs.player.hs=0;
+    }
+
+    if (gs.player.dir==1)
+    {
+      if (gs.player.hs>0)
+        gs.player.hs-=gs.friction;
+      else
+        gs.player.hs=0;
+    }
+  }
 }
 
 // Update the position of players/enemies
@@ -185,10 +273,37 @@ function update()
   // Check for gamepad input
   pollGamepads();
 
+  // Check if player has left the map
+  offmapcheck();
+
+  // Check if player on the ground or falling
+  groundcheck();
+
+  // Process jumping
+  jumpcheck();
+
+  // Move player by appropriate amount, up to a collision
+  collisioncheck();
+
+  // If no input detected, slow the player using friction
+  standcheck();
+
   // Move player when a key is pressed
   if (gs.keystate!=0)
   {
-    // TODO
+    // Left key
+    if (((gs.keystate&1)!=0) && ((gs.keystate&4)==0))
+    {
+      gs.player.hs=-gs.speed;
+      gs.player.dir=-1;
+    }
+
+    // Right key
+    if (((gs.keystate&4)!=0) && ((gs.keystate&1)==0))
+    {
+      gs.player.hs=gs.speed;
+      gs.player.dir=1;
+    }
   }
 }
 
@@ -301,9 +416,9 @@ function init()
 
   /////////////////////////////////////////////////////
   // Intro
-  write("Connecting...");
-  var dialler=new dtmf_dial;
-  dialler.randomdial(10);
+//  write("Connecting...");
+//  var dialler=new dtmf_dial;
+//  dialler.randomdial(10);
 
   /////////////////////////////////////////////////////
   // Main menu
@@ -312,6 +427,7 @@ function init()
   /////////////////////////////////////////////////////
   // Start game
   // TODO
+  gs.player.e=document.getElementById("player");
   window.requestAnimationFrame(rafcallback);
 }
 
