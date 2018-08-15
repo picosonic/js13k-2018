@@ -2,6 +2,7 @@
 function st(elem)
 {
   this.e=(elem||null); // DOM element
+
   this.x=0; // x position
   this.y=0; // y position
   this.vs=0; // vertical speed
@@ -12,6 +13,8 @@ function st(elem)
   this.dir=0; // direction (-1=left, 0=none, 1=right)
   this.hsp=10; // horizontal speed
   this.vsp=20; // vertical speed
+
+  this.lf=100; // remaining "life force"
 }
 
 // Game state
@@ -37,7 +40,10 @@ var gs={
 
   // entities
   player:new st(),
-  enemies:[]
+  enemies:[],
+
+  // level related
+  tiles:[]
 };
 
 function getgamepadbyid(padid)
@@ -213,7 +219,7 @@ function groundcheck()
     gs.player.f=false;
 
     // Check for jump pressed
-    if ((gs.keystate&2)!=0)
+    if (((gs.keystate&2)!=0) && (!gs.player.d))
     {
       gs.player.j=true;
       gs.player.vs=-gs.jumpspeed;
@@ -245,6 +251,17 @@ function jumpcheck()
 
 function standcheck()
 {
+  // Check for ducking
+  if ((gs.keystate&8)!=0)
+  {
+    gs.player.d=true;
+  }
+  else
+  {
+    if (gs.player.d)
+      gs.player.d=false;
+  }
+
   // When no horizontal movement pressed, slow down by friction
   if ((((gs.keystate&1)==0) && ((gs.keystate&4)==0)) ||
       (((gs.keystate&1)!=0) && ((gs.keystate&4)!=0)))
