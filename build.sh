@@ -4,6 +4,7 @@ zipfile="js13k.zip"
 buildpath="build"
 jscat="${buildpath}/min.js"
 csscat="${buildpath}/min.css"
+indexcat="${buildpath}/index.html"
 
 # Create clean build folder
 rm -Rf "${buildpath}" >/dev/null 2>&1
@@ -21,7 +22,7 @@ done
 yui-compressor main.css > "${csscat}"
 
 # Copy in the index file
-cp index.html "${buildpath}/"
+cp indexmin.html "${indexcat}"
 
 # Zip everything up
 zip -j ${zipfile} "${buildpath}"/*
