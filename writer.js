@@ -1,6 +1,6 @@
 function write(text)
 {
-  var domtext="<style>.alphablock { font-size:0px; display:inline-block; } .block { display:inline-block; width:6px; height:6px; border-top-left-radius: 3px; border-bottom-right-radius: 3px; } .filled { background-color:#000000;} </style>";
+  var domtext="<style>.alphablock { font-size:0px; display:inline-block; } .block { display:inline-block; width:6px; height:6px; border-top-left-radius:3px; border-bottom-right-radius:3px; } .filled { background-color:#00ff00; background: linear-gradient(to bottom, rgba(0,255,0,0) 0%,rgba(0,255,0,1) 33%,rgba(0,255,0,1) 66%,rgba(0,255,0,0) 100%); }</style>";
 
   for (var i=0; i<text.length; i++)
   {
@@ -14,16 +14,26 @@ function write(text)
     domtext+="<div class=\"alphablock\">";
 
     // Add "pixels"
-    for (var j=0; j<(4*8); j++)
+    var p=0;
+    for (var j=0; j<4; j++)
     {
-      if ((font_8bit[offs][j]||0)==1)
-        domtext+="<div class=\"block filled\" style=\"background-color:#"+(2-(j%2))+""+(8-((j%4)*2))+""+(2-(j%2))+"\"></div>";
-      else
-        domtext+="<div class=\"block empty\"></div>";
+      var dual=font_8bit[(offs*4)+j];
 
-      // Add line break between character rows
-      if (((j+1)%4)==0)
-        domtext+="<br/>";
+      for (var k=0; k<8; k++)
+      {
+        if (dual&(1<<(8-k)))
+          domtext+="<div class=\"block filled\"></div>";
+        else
+          domtext+="<div class=\"block empty\"></div>";
+
+        // Add line break between character rows
+        p++;
+        if (p==4)
+        {
+          domtext+="<br/>";
+          p=0;
+        }
+      }
     }
 
     // Close wrapper
