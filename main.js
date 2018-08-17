@@ -236,7 +236,7 @@ function overlap(a, b)
 // Check if character collides with a tile
 function collide(x, y)
 {
-  // Make a collision box for the player in the centre/bottom of their icon
+  // Make a collision box for the player in the centre/bottom of their sprite
   //  1/3rd the width and 1/2 the height to allow for overlaps
   var pos={
     offsetLeft:x+(gs.player.w/3),
@@ -245,7 +245,7 @@ function collide(x, y)
     clientHeight:(gs.player.h/2)
   };
 
-  // look through all tiles
+  // look through all tiles for a collision
   for (var index=0; index<gs.tiles.length; index++)
   {
     // does this tile overlap with character?
@@ -575,6 +575,9 @@ function init()
 
   for (i=0; i<5; i++)
     addtile((i+15)*gs.tilewidth, 500-(gs.tileheight*i));
+
+  for (i=0; i<5; i++)
+    addtile((i+20)*gs.tilewidth, 236);
 
   window.requestAnimationFrame(rafcallback);
 }
