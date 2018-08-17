@@ -3,6 +3,8 @@ function st(elem)
 {
   this.e=(elem||null); // DOM element
 
+  this.keystate=0; // bitfield [down][right][up][left]
+
   this.x=0; // x position
   this.y=0; // y position
   this.w=0; // width
@@ -27,7 +29,6 @@ var gs={
   lasttime:0,
 
   // control state
-  keystate:0, // bitfield [down][right][up][left]
   gamepads:{},
   gamepadbuttons:[],
   gamepadassignbutton:-1,
@@ -164,41 +165,41 @@ function pollGamepads()
         if (i==gs.gamepadbuttons[0]) // left
         {
           if (pressed)
-            gs.keystate|=1;
+            gs.player.keystate|=1;
           else
-            gs.keystate&=~1;
+            gs.player.keystate&=~1;
         }
 
         if (i==gs.gamepadbuttons[1]) // right
         {
           if (pressed)
-            gs.keystate|=4;
+            gs.player.keystate|=4;
           else
-            gs.keystate&=~4;
+            gs.player.keystate&=~4;
         }
 
         if (i==gs.gamepadbuttons[2]) // up
         {
           if (pressed)
-            gs.keystate|=2;
+            gs.player.keystate|=2;
           else
-            gs.keystate&=~2;
+            gs.player.keystate&=~2;
         }
 
         if (i==gs.gamepadbuttons[3]) // down
         {
           if (pressed)
-            gs.keystate|=8;
+            gs.player.keystate|=8;
           else
-            gs.keystate&=~8;
+            gs.player.keystate&=~8;
         }
 
         if (i==gs.gamepadbuttons[4]) // jump
         {
           if (pressed)
-            gs.keystate|=2;
+            gs.player.keystate|=2;
           else
-            gs.keystate&=~2;
+            gs.player.keystate&=~2;
         }
 
       }
@@ -237,11 +238,11 @@ function overlap(a, b)
 function collide(character, x, y)
 {
   // Make a collision box for the character in the centre/bottom of their sprite
-  //  1/3rd the width and 1/2 the height to allow for overlaps
+  //  1/2 the width and 1/2 the height to allow for overlaps
   var pos={
-    offsetLeft:x+(character.w/3),
+    offsetLeft:x+(character.w/4),
     offsetTop:y+(character.h/2),
-    clientWidth:(character.w/3),
+    clientWidth:(character.w/2),
     clientHeight:(character.h/2)
   };
 
@@ -305,7 +306,7 @@ function groundcheck(character)
     character.f=false;
 
     // Check for jump pressed
-    if (((gs.keystate&2)!=0) && (!character.d))
+    if (((character.keystate&2)!=0) && (!character.d))
     {
       character.j=true;
       character.vs=-gs.jumpspeed;
@@ -340,7 +341,7 @@ function jumpcheck(character)
 function standcheck(character)
 {
   // Check for ducking
-  if ((gs.keystate&8)!=0)
+  if ((character.keystate&8)!=0)
   {
     character.d=true;
   }
@@ -351,8 +352,8 @@ function standcheck(character)
   }
 
   // When no horizontal movement pressed, slow down by friction
-  if ((((gs.keystate&1)==0) && ((gs.keystate&4)==0)) ||
-      (((gs.keystate&1)!=0) && ((gs.keystate&4)!=0)))
+  if ((((character.keystate&1)==0) && ((character.keystate&4)==0)) ||
+      (((character.keystate&1)!=0) && ((character.keystate&4)!=0)))
   {
     if (character.dir==-1)
     {
@@ -404,17 +405,17 @@ function update()
   standcheck(gs.player);
 
   // Move player when a key is pressed
-  if (gs.keystate!=0)
+  if (gs.player.keystate!=0)
   {
     // Left key
-    if (((gs.keystate&1)!=0) && ((gs.keystate&4)==0))
+    if (((gs.player.keystate&1)!=0) && ((gs.player.keystate&4)==0))
     {
       gs.player.hs=-gs.speed;
       gs.player.dir=-1;
     }
 
     // Right key
-    if (((gs.keystate&4)!=0) && ((gs.keystate&1)==0))
+    if (((gs.player.keystate&4)!=0) && ((gs.player.keystate&1)==0))
     {
       gs.player.hs=gs.speed;
       gs.player.dir=1;
@@ -457,9 +458,9 @@ function updatekeystate(e, dir)
     case 65: // A
     case 81: // Q
       if (dir==1)
-        gs.keystate|=1;
+        gs.player.keystate|=1;
       else
-        gs.keystate&=~1;
+        gs.player.keystate&=~1;
       e.preventDefault();
       break;
 
@@ -467,27 +468,27 @@ function updatekeystate(e, dir)
     case 87: // W
     case 90: // Z
       if (dir==1)
-        gs.keystate|=2;
+        gs.player.keystate|=2;
       else
-        gs.keystate&=~2;
+        gs.player.keystate&=~2;
       e.preventDefault();
       break;
 
     case 39: // right
     case 68: // D
       if (dir==1)
-        gs.keystate|=4;
+        gs.player.keystate|=4;
       else
-        gs.keystate&=~4;
+        gs.player.keystate&=~4;
       e.preventDefault();
       break;
 
     case 40: // down
     case 83: // S
       if (dir==1)
-        gs.keystate|=8;
+        gs.player.keystate|=8;
       else
-        gs.keystate&=~8;
+        gs.player.keystate&=~8;
       e.preventDefault();
       break;
 
@@ -520,7 +521,7 @@ function addtile(x, y)
   document.getElementById("playfield").appendChild(tile);
 }
 
-function addenemy(x, y, enemyclass)
+function addenemy(x, y, w, h, enemyclass)
 {
   var enemy=document.createElement("div");
   var enemyobj=new st(enemy);
@@ -529,14 +530,14 @@ function addenemy(x, y, enemyclass)
   enemy.style.position="absolute";
   enemy.style.left=x+"px";
   enemy.style.top=y+"px";
-  enemy.style.width="66px";
-  enemy.style.height="66px";
+  enemy.style.width=w+"px";
+  enemy.style.height=h+"px";
   enemy.classList.add(enemyclass);
 
   enemyobj.x=x;
   enemyobj.y=y;
-  enemyobj.w=66;
-  enemyobj.h=66;
+  enemyobj.w=w;
+  enemyobj.h=h;
 
   gs.enemies.push(enemyobj);
 
@@ -605,7 +606,7 @@ function init()
   for (i=0; i<5; i++)
     addtile((i+20)*gs.tilewidth, 236);
 
-  addenemy(1330, 0, "enemy");
+  addenemy(1330, 0, 66, 66, "enemy");
 
   window.requestAnimationFrame(rafcallback);
 }
