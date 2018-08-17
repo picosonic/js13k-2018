@@ -60,3 +60,13 @@ body
   background-color:blue;
   display:block;
 }
+
+.enemy
+{
+  position:absolute;
+  width:66px;
+  height:66px;
+  overflow:hidden;
+  background-color:green;
+  display:block;
+}

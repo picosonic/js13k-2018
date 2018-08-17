@@ -234,15 +234,15 @@ function overlap(a, b)
 }
 
 // Check if character collides with a tile
-function collide(x, y)
+function collide(character, x, y)
 {
-  // Make a collision box for the player in the centre/bottom of their sprite
+  // Make a collision box for the character in the centre/bottom of their sprite
   //  1/3rd the width and 1/2 the height to allow for overlaps
   var pos={
-    offsetLeft:x+(gs.player.w/3),
-    offsetTop:y+(gs.player.h/2),
-    clientWidth:(gs.player.w/3),
-    clientHeight:(gs.player.h/2)
+    offsetLeft:x+(character.w/3),
+    offsetTop:y+(character.h/2),
+    clientWidth:(character.w/3),
+    clientHeight:(character.h/2)
   };
 
   // look through all tiles for a collision
@@ -257,126 +257,126 @@ function collide(x, y)
 }
 
 // Move character by up to horizontal/vertical speeds, stopping when a collision occurs
-function collisioncheck()
+function collisioncheck(character)
 {
   // check for horizontal collisions
-  if (collide(gs.player.x+gs.player.hs, gs.player.y))
+  if (collide(character, character.x+character.hs, character.y))
   {
     // A collision occured, so move the character until it hits
-    while (!collide(gs.player.x+(gs.player.hs>0?1:-1), gs.player.y))
-      gs.player.x+=(gs.player.hs>0?1:-1);
+    while (!collide(character, character.x+(character.hs>0?1:-1), character.y))
+      character.x+=(character.hs>0?1:-1);
 
     // Stop horizontal movement
-    gs.player.hs=0;
+    character.hs=0;
   }
-  gs.player.x+=gs.player.hs;
+  character.x+=character.hs;
 
   // check for vertical collisions
-  if (collide(gs.player.x, gs.player.y+gs.player.vs))
+  if (collide(character, character.x, character.y+character.vs))
   {
     // A collision occured, so move the character until it hits
-    while (!collide(gs.player.x, gs.player.y+(gs.player.vs>0?1:-1)))
-      gs.player.y+=(gs.player.vs>0?1:-1);
+    while (!collide(character, character.x, character.y+(character.vs>0?1:-1)))
+      character.y+=(character.vs>0?1:-1);
 
     // Stop vertical movement
-    gs.player.vs=0;
+    character.vs=0;
   }
-  gs.player.y+=gs.player.vs;
+  character.y+=character.vs;
 }
 
 // If the player has moved "off" the map, then put them back at a start position
-function offmapcheck()
+function offmapcheck(character)
 {
-  if ((gs.player.x<0) || (gs.player.y>768))
+  if ((character.x<0) || (character.y>768))
   {
-    gs.player.x=0;
-    gs.player.y=0;
+    character.x=0;
+    character.y=0;
   }
 }
 
 // Check for player being on the ground
-function groundcheck()
+function groundcheck(character)
 {
   // Check we are on the ground
-  if (collide(gs.player.x, gs.player.y+1))
+  if (collide(character, character.x, character.y+1))
   {
-    gs.player.vs=0;
-    gs.player.j=false;
-    gs.player.f=false;
+    character.vs=0;
+    character.j=false;
+    character.f=false;
 
     // Check for jump pressed
-    if (((gs.keystate&2)!=0) && (!gs.player.d))
+    if (((gs.keystate&2)!=0) && (!character.d))
     {
-      gs.player.j=true;
-      gs.player.vs=-gs.jumpspeed;
+      character.j=true;
+      character.vs=-gs.jumpspeed;
     }
   }
   else
   {
-    if (gs.player.vs<gs.terminalvelocity)
-      gs.player.vs+=gs.gravity;
+    if (character.vs<gs.terminalvelocity)
+      character.vs+=gs.gravity;
 
-    if (gs.player.vs>0)
-      gs.player.f=true;
+    if (character.vs>0)
+      character.f=true;
   }
 }
 
 // Check for mid jump when the player is now falling
-function jumpcheck()
+function jumpcheck(character)
 {
   // When jumping ..
-  if (gs.player.j)
+  if (character.j)
   {
     // Check if loosing altitude
-    if (gs.player.vs>=0)
+    if (character.vs>=0)
     {
-      gs.player.j=false;
-      gs.player.f=true;
+      character.j=false;
+      character.f=true;
     }
   }
 }
 
 // Handle ducking and slowing player down by friction
-function standcheck()
+function standcheck(character)
 {
   // Check for ducking
   if ((gs.keystate&8)!=0)
   {
-    gs.player.d=true;
+    character.d=true;
   }
   else
   {
-    if (gs.player.d)
-      gs.player.d=false;
+    if (character.d)
+      character.d=false;
   }
 
   // When no horizontal movement pressed, slow down by friction
   if ((((gs.keystate&1)==0) && ((gs.keystate&4)==0)) ||
       (((gs.keystate&1)!=0) && ((gs.keystate&4)!=0)))
   {
-    if (gs.player.dir==-1)
+    if (character.dir==-1)
     {
-      if (gs.player.hs<0)
+      if (character.hs<0)
       {
-        gs.player.hs+=gs.friction;
+        character.hs+=gs.friction;
       }
       else
       {
-        gs.player.hs=0;
-        gs.player.dir=0;
+        character.hs=0;
+        character.dir=0;
       }
     }
 
-    if (gs.player.dir==1)
+    if (character.dir==1)
     {
-      if (gs.player.hs>0)
+      if (character.hs>0)
       {
-        gs.player.hs-=gs.friction;
+        character.hs-=gs.friction;
       }
       else
       {
-        gs.player.hs=0;
-        gs.player.dir=0;
+        character.hs=0;
+        character.dir=0;
       }
     }
   }
@@ -389,19 +389,19 @@ function update()
   pollGamepads();
 
   // Check if player has left the map
-  offmapcheck();
+  offmapcheck(gs.player);
 
   // Check if player on the ground or falling
-  groundcheck();
+  groundcheck(gs.player);
 
   // Process jumping
-  jumpcheck();
+  jumpcheck(gs.player);
 
   // Move player by appropriate amount, up to a collision
-  collisioncheck();
+  collisioncheck(gs.player);
 
   // If no input detected, slow the player using friction
-  standcheck();
+  standcheck(gs.player);
 
   // Move player when a key is pressed
   if (gs.keystate!=0)
@@ -520,6 +520,29 @@ function addtile(x, y)
   document.getElementById("playfield").appendChild(tile);
 }
 
+function addenemy(x, y, enemyclass)
+{
+  var enemy=document.createElement("div");
+  var enemyobj=new st(enemy);
+
+  enemy.innerHTML="";
+  enemy.style.position="absolute";
+  enemy.style.left=x+"px";
+  enemy.style.top=y+"px";
+  enemy.style.width="66px";
+  enemy.style.height="66px";
+  enemy.classList.add(enemyclass);
+
+  enemyobj.x=x;
+  enemyobj.y=y;
+  enemyobj.w=66;
+  enemyobj.h=66;
+
+  gs.enemies.push(enemyobj);
+
+  document.getElementById("playfield").appendChild(enemy);
+}
+
 // Initial entry point
 function init()
 {
@@ -578,6 +601,8 @@ function init()
 
   for (i=0; i<5; i++)
     addtile((i+20)*gs.tilewidth, 236);
+
+  addenemy(1330, 0, "enemy");
 
   window.requestAnimationFrame(rafcallback);
 }
