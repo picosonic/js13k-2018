@@ -3,7 +3,7 @@ function st(elem)
 {
   this.e=(elem||null); // DOM element
 
-  this.keystate=0; // bitfield [down][right][up][left]
+  this.keystate=0; // bitfield [action][down][right][up][left]
 
   this.x=0; // x position
   this.y=0; // y position
@@ -197,9 +197,9 @@ function pollGamepads()
         if (i==gs.gamepadbuttons[4]) // jump
         {
           if (pressed)
-            gs.player.keystate|=2;
+            gs.player.keystate|=16;
           else
-            gs.player.keystate&=~2;
+            gs.player.keystate&=~16;
         }
 
       }
@@ -314,7 +314,7 @@ function groundcheck(character)
     character.f=false;
 
     // Check for jump pressed
-    if (((character.keystate&2)!=0) && (!character.d))
+    if (((character.keystate&16)!=0) && (!character.d))
     {
       character.j=true;
       character.vs=-gs.jumpspeed;
@@ -507,6 +507,14 @@ function updatekeystate(e, dir)
         gs.player.keystate|=8;
       else
         gs.player.keystate&=~8;
+      e.preventDefault();
+      break;
+
+    case 32: // space
+      if (dir==1)
+        gs.player.keystate|=16;
+      else
+        gs.player.keystate&=~16;
       e.preventDefault();
       break;
 
