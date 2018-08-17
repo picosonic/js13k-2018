@@ -597,6 +597,9 @@ function init()
     addtile(i*gs.tilewidth, 500);
 
   for (i=0; i<5; i++)
+    addtile((i+5)*gs.tilewidth, 302);
+
+  for (i=0; i<5; i++)
     addtile((i+15)*gs.tilewidth, 500-(gs.tileheight*i));
 
   for (i=0; i<5; i++)
