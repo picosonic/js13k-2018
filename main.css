@@ -50,3 +50,13 @@ body
   display:block;
   z-index:1000;
 }
+
+.tile
+{
+  position:absolute;
+  width:66px;
+  height:66px;
+  overflow:hidden;
+  background-color:blue;
+  display:block;
+}

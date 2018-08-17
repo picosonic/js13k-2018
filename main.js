@@ -5,6 +5,8 @@ function st(elem)
 
   this.x=0; // x position
   this.y=0; // y position
+  this.w=0; // width
+  this.h=0; // height
   this.vs=0; // vertical speed
   this.hs=0; // horizontal speed
   this.j=false; // jumping
@@ -44,7 +46,9 @@ var gs={
 
   // level related
   level:0,
-  tiles:[]
+  tiles:[],
+  tilewidth:66,
+  tileheight:66
 };
 
 // Find a gamepad by its ID
@@ -232,19 +236,49 @@ function overlap(a, b)
 // Check if character collides with a tile
 function collide(x, y)
 {
-  // TODO
+  // Make a collision box for the player in the centre/bottom of their icon
+  //  1/3rd the width and 1/2 the height to allow for overlaps
+  var pos={
+    offsetLeft:x+(gs.player.w/3),
+    offsetTop:y+(gs.player.h/2),
+    clientWidth:(gs.player.w/3),
+    clientHeight:(gs.player.h/2)
+  };
+
+  // look through all tiles
+  for (var index=0; index<gs.tiles.length; index++)
+  {
+    // does this tile overlap with character?
+    if (overlap(gs.tiles[index], pos))
+      return true;
+  }
+
+  return false;
 }
 
 // Move character by up to horizontal/vertical speeds, stopping when a collision occurs
 function collisioncheck()
 {
+  // check for horizontal collisions
+  if (collide(gs.player.x+gs.player.hs, gs.player.y))
+  {
+    // A collision occured, so move the character until it hits
+    while (!collide(gs.player.x+(gs.player.hs>0?1:-1), gs.player.y))
+      gs.player.x+=(gs.player.hs>0?1:-1);
+
+    // Stop horizontal movement
+    gs.player.hs=0;
+  }
   gs.player.x+=gs.player.hs;
 
-  if (gs.player.y+gs.player.vs>=500)
+  // check for vertical collisions
+  if (collide(gs.player.x, gs.player.y+gs.player.vs))
   {
-    while (!(gs.player.y+(gs.player.vs>0?1:-1)>=500))
+    // A collision occured, so move the character until it hits
+    while (!collide(gs.player.x, gs.player.y+(gs.player.vs>0?1:-1)))
       gs.player.y+=(gs.player.vs>0?1:-1);
 
+    // Stop vertical movement
     gs.player.vs=0;
   }
   gs.player.y+=gs.player.vs;
@@ -253,7 +287,7 @@ function collisioncheck()
 // If the player has moved "off" the map, then put them back at a start position
 function offmapcheck()
 {
-  if ((gs.player.x<0) || (gs.player.y>500))
+  if ((gs.player.x<0) || (gs.player.y>768))
   {
     gs.player.x=0;
     gs.player.y=0;
@@ -263,7 +297,8 @@ function offmapcheck()
 // Check for player being on the ground
 function groundcheck()
 {
-  if (gs.player.y+1>=500)
+  // Check we are on the ground
+  if (collide(gs.player.x, gs.player.y+1))
   {
     gs.player.vs=0;
     gs.player.j=false;
@@ -461,6 +496,30 @@ function updatekeystate(e, dir)
   }
 }
 
+function addtile(x, y)
+{
+  var tile=document.createElement("div");
+  var tileobj={};
+
+  tile.innerHTML="";
+  tile.style.position="absolute";
+  tile.style.left=x+"px";
+  tile.style.top=y+"px";
+  tile.style.width=gs.tilewidth+"px";
+  tile.style.height=gs.tileheight+"px";
+  tile.classList.add("tile");
+
+  tileobj.element=tile;
+  tileobj.offsetLeft=x;
+  tileobj.offsetTop=y;
+  tileobj.clientWidth=gs.tilewidth;
+  tileobj.clientHeight=gs.tileheight;
+
+  gs.tiles.push(tileobj);
+
+  document.getElementById("playfield").appendChild(tile);
+}
+
 // Initial entry point
 function init()
 {
@@ -508,6 +567,15 @@ function init()
   // Start game
   // TODO
   gs.player.e=document.getElementById("player");
+  gs.player.w=66;
+  gs.player.h=66;
+
+  for (i=0; i<10; i++)
+    addtile(i*gs.tilewidth, 500);
+
+  for (i=0; i<5; i++)
+    addtile((i+15)*gs.tilewidth, 500-(gs.tileheight*i));
+
   window.requestAnimationFrame(rafcallback);
 }
 
