@@ -210,8 +210,16 @@ function pollGamepads()
 // Redraw the game world
 function redraw()
 {
+  // Move the player
   player.style.left=gs.player.x+"px";
   player.style.top=gs.player.y+"px";
+
+  // Move all the enemies
+  for (var i=0; i<gs.enemies.length; i++)
+  {
+    gs.enemies[i].e.style.left=gs.enemies[i].x+"px";
+    gs.enemies[i].e.style.top=gs.enemies[i].y+"px";
+  }
 }
 
 // Does DOM element a overlap with element b
@@ -384,43 +392,53 @@ function standcheck(character)
 }
 
 // Update the position of players/enemies
+function updatemovements(character)
+{
+  // Check if player has left the map
+  offmapcheck(character);
+
+  // Check if player on the ground or falling
+  groundcheck(character);
+
+  // Process jumping
+  jumpcheck(character);
+
+  // Move player by appropriate amount, up to a collision
+  collisioncheck(character);
+
+  // If no input detected, slow the player using friction
+  standcheck(character);
+
+  // Move player when a key is pressed
+  if (character.keystate!=0)
+  {
+    // Left key
+    if (((character.keystate&1)!=0) && ((character.keystate&4)==0))
+    {
+      character.hs=-gs.speed;
+      character.dir=-1;
+    }
+
+    // Right key
+    if (((character.keystate&4)!=0) && ((character.keystate&1)==0))
+    {
+      character.hs=gs.speed;
+      character.dir=1;
+    }
+  }
+}
+
 function update()
 {
   // Check for gamepad input
   pollGamepads();
 
-  // Check if player has left the map
-  offmapcheck(gs.player);
+  // Apply keystate/physics to player
+  updatemovements(gs.player);
 
-  // Check if player on the ground or falling
-  groundcheck(gs.player);
-
-  // Process jumping
-  jumpcheck(gs.player);
-
-  // Move player by appropriate amount, up to a collision
-  collisioncheck(gs.player);
-
-  // If no input detected, slow the player using friction
-  standcheck(gs.player);
-
-  // Move player when a key is pressed
-  if (gs.player.keystate!=0)
-  {
-    // Left key
-    if (((gs.player.keystate&1)!=0) && ((gs.player.keystate&4)==0))
-    {
-      gs.player.hs=-gs.speed;
-      gs.player.dir=-1;
-    }
-
-    // Right key
-    if (((gs.player.keystate&4)!=0) && ((gs.player.keystate&1)==0))
-    {
-      gs.player.hs=gs.speed;
-      gs.player.dir=1;
-    }
-  }
+  // Apply keystate/physics to enemies
+  for (var i=0; i<gs.enemies.length; i++)
+    updatemovements(gs.enemies[i]);
 }
 
 // Request animation frame callback
