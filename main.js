@@ -472,9 +472,9 @@ function updatekeystate(e, dir)
 {
   switch (e.which)
   {
-    case 37: // left
+    case 37: // cursor left
     case 65: // A
-    case 81: // Q
+    case 90: // Z
       if (dir==1)
         gs.player.keystate|=1;
       else
@@ -482,9 +482,9 @@ function updatekeystate(e, dir)
       e.preventDefault();
       break;
 
-    case 38: // up
+    case 38: // cursor up
     case 87: // W
-    case 90: // Z
+    case 59: // semicolon
       if (dir==1)
         gs.player.keystate|=2;
       else
@@ -492,8 +492,9 @@ function updatekeystate(e, dir)
       e.preventDefault();
       break;
 
-    case 39: // right
+    case 39: // cursor right
     case 68: // D
+    case 88: // X
       if (dir==1)
         gs.player.keystate|=4;
       else
@@ -501,8 +502,9 @@ function updatekeystate(e, dir)
       e.preventDefault();
       break;
 
-    case 40: // down
+    case 40: // cursor down
     case 83: // S
+    case 190: // dot
       if (dir==1)
         gs.player.keystate|=8;
       else
@@ -510,6 +512,7 @@ function updatekeystate(e, dir)
       e.preventDefault();
       break;
 
+    case 13: // enter
     case 32: // space
       if (dir==1)
         gs.player.keystate|=16;
