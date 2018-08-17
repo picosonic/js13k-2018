@@ -322,17 +322,27 @@ function standcheck()
     if (gs.player.dir==-1)
     {
       if (gs.player.hs<0)
+      {
         gs.player.hs+=gs.friction;
+      }
       else
+      {
         gs.player.hs=0;
+        gs.player.dir=0;
+      }
     }
 
     if (gs.player.dir==1)
     {
       if (gs.player.hs>0)
+      {
         gs.player.hs-=gs.friction;
+      }
       else
+      {
         gs.player.hs=0;
+        gs.player.dir=0;
+      }
     }
   }
 }
