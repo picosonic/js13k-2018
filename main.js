@@ -391,6 +391,44 @@ function standcheck(character)
   }
 }
 
+function updateenemyai(character)
+{
+  // Check we are on the ground
+  if (collide(character, character.x, character.y+1))
+  {
+    var tmpstate=0;
+
+    // If we're not moving left/right, then start
+    if (character.dir==0)
+    {
+      // If nothing to our right, then move right so long as theres no drop
+      if ((!collide(character, character.x+1, character.y))
+        && (collide(character, character.x+character.w, character.y+character.h)))
+        tmpstate|=4;
+
+      // try left
+      if ((tmpstate==0)
+        && (!collide(character, character.x-1, character.y))
+        && (collide(character, character.x-character.w, character.y+character.h)))
+        tmpstate|=1;
+
+      character.keystate=tmpstate;
+    }
+    else // if moving right
+    if (character.dir==1)
+    {
+      if (!collide(character, character.x+character.w, character.y+character.h))
+        character.keystate=0;
+    }
+    else // if moving left
+    if (character.dir==-1)
+    {
+      if (!collide(character, character.x-character.w, character.y+character.h))
+        character.keystate=0;
+    }
+  }
+}
+
 // Update the position of players/enemies
 function updatemovements(character)
 {
@@ -438,7 +476,10 @@ function update()
 
   // Apply keystate/physics to enemies
   for (var i=0; i<gs.enemies.length; i++)
+  {
+    updateenemyai(gs.enemies[i]);
     updatemovements(gs.enemies[i]);
+  }
 }
 
 // Request animation frame callback
