@@ -373,6 +373,7 @@ function standcheck(character)
       {
         character.hs=0;
         character.dir=0;
+        character.e.classList.remove("walk");
       }
     }
 
@@ -386,6 +387,7 @@ function standcheck(character)
       {
         character.hs=0;
         character.dir=0;
+        character.e.classList.remove("walk");
       }
     }
   }
@@ -455,6 +457,7 @@ function updatemovements(character)
     {
       character.hs=-character.speed;
       character.dir=-1;
+      character.e.classList.add("walk");
     }
 
     // Right key
@@ -462,6 +465,7 @@ function updatemovements(character)
     {
       character.hs=character.speed;
       character.dir=1;
+      character.e.classList.add("walk");
     }
   }
 }
