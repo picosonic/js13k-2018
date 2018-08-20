@@ -38,18 +38,6 @@ body
   font-size:50px;
 }
 
-#player
-{
-  position:absolute;
-  width:66px;
-  height:66px;
-  top:0px;
-  left:0px;
-  overflow:hidden;
-  background-color:red;
-  display:block;
-  z-index:1000;
-}
 
 .tile
 {
@@ -61,12 +49,3 @@ body
   display:block;
 }
 
-.enemy
-{
-  position:absolute;
-  width:66px;
-  height:66px;
-  overflow:hidden;
-  background-color:green;
-  display:block;
-}

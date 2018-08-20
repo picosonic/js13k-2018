@@ -18,8 +18,12 @@ do
   yui-compressor "${file}" >> "${jscat}"
 done
 
-# Add CSS file
-yui-compressor main.css > "${csscat}"
+# Concatenate the CSS files
+touch "${csscat}"
+for file in main.css player.css enemy.css
+do
+  yui-compressor "${file}" >> "${csscat}"
+done
 
 # Copy in the index file
 cp indexmin.html "${indexcat}"

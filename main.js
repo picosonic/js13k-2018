@@ -600,7 +600,7 @@ function addenemy(x, y, w, h, enemyclass)
   var enemy=document.createElement("div");
   var enemyobj=new st(enemy);
 
-  enemy.innerHTML="";
+  enemy.innerHTML="<div class=\"body\"><div class=\"eye\"><div class=\"iris\"></div></div></div><div class=\"leg rightleg\"></div><div class=\"leg leftleg\"></div>";
   enemy.style.position="absolute";
   enemy.style.left=x+"px";
   enemy.style.top=y+"px";
@@ -668,6 +668,7 @@ function init()
   gs.player.e=document.getElementById("player");
   gs.player.w=66;
   gs.player.h=66;
+  gs.player.e.innerHTML="<div class=\"body\"><div class=\"eye\"><div class=\"iris\"></div></div><div class=\"eyelid\"></div></div><div class=\"leg rightleg\"></div><div class=\"leg leftleg\"></div>";
 
   for (i=0; i<10; i++)
     addtile(i*gs.tilewidth, 500);
