@@ -17,6 +17,8 @@ function st(elem)
   this.dir=0; // direction (-1=left, 0=none, 1=right)
   this.hsp=10; // horizontal speed
   this.vsp=20; // vertical speed
+  this.speed=10; // walking speed
+  this.jumpspeed=20; // jumping speed
 
   this.lf=100; // remaining "life force"
 }
@@ -38,8 +40,6 @@ var gs={
   gravity:1,
   terminalvelocity:50,
   friction:1.5,
-  speed:10,
-  jumpspeed:20,
 
   // entities
   player:new st(),
@@ -317,7 +317,7 @@ function groundcheck(character)
     if (((character.keystate&16)!=0) && (!character.d))
     {
       character.j=true;
-      character.vs=-gs.jumpspeed;
+      character.vs=-character.jumpspeed;
     }
   }
   else
@@ -398,10 +398,10 @@ function updateenemyai(character)
   {
     var tmpstate=0;
 
-    // If we're not moving left/right, then start
+    // If we're not moving left/right, then start moving
     if (character.dir==0)
     {
-      // If nothing to our right, then move right so long as theres no drop
+      // If nothing to our right, then move right so long as there is no drop
       if ((!collide(character, character.x+1, character.y))
         && (collide(character, character.x+character.w, character.y+character.h)))
         tmpstate|=4;
@@ -453,14 +453,14 @@ function updatemovements(character)
     // Left key
     if (((character.keystate&1)!=0) && ((character.keystate&4)==0))
     {
-      character.hs=-gs.speed;
+      character.hs=-character.speed;
       character.dir=-1;
     }
 
     // Right key
     if (((character.keystate&4)!=0) && ((character.keystate&1)==0))
     {
-      character.hs=gs.speed;
+      character.hs=character.speed;
       character.dir=1;
     }
   }
@@ -608,6 +608,7 @@ function addenemy(x, y, w, h, enemyclass)
   enemyobj.y=y;
   enemyobj.w=w;
   enemyobj.h=h;
+  enemyobj.speed=5;
 
   gs.enemies.push(enemyobj);
 
