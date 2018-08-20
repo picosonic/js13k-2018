@@ -1,0 +1,106 @@
+
+.enemy
+{
+  position:absolute;
+  width:66px;
+  height:66px;
+  top:0px;
+  left:0px;
+  display:block;
+  margin:0px;
+  font-size:0px;
+  z-index:900;
+}
+
+.enemy .body
+{
+  position:relative;
+  width:38px;
+  height:38px;
+  left:15%;
+  top:30%;
+  background-color:#4a3632;
+  display:inline-block;
+  overflow:hidden;
+  border-radius: 50px 50px 0px 0px;
+}
+
+.enemy .eye
+{
+  position:relative;
+  width:20px;
+  height:20px;
+  left:23%;
+  top:34%;
+  background-color:#dd4e54;
+  display:inline-block;
+  overflow:hidden;
+  border-radius: 50px 50px;
+}
+
+.enemy .iris
+{
+  position:relative;
+  width:4px;
+  height:4px;
+  left:40%;
+  top:40%;
+  background-color:#fff;
+  display:inline-block;
+  overflow:hidden;
+  border-radius: 50px 50px;
+}
+
+.enemy .leg
+{
+  position:absolute;
+  width:6px;
+  height:27px;
+  background-color:#4a3632;
+  display:inline-block;
+  overflow:hidden;
+  border-radius: 5px 5px;
+  z-index:-1;
+  transform-origin: 50% 1%;
+}
+
+@keyframes enemy_right_walk
+{
+  0% { transform: rotate(0deg); }
+  50% { transform: rotate(45deg); }
+  100% { transform: rotate(0deg); }
+}
+
+@keyframes enemy_left_walk
+{
+  0% { transform: rotate(0deg); }
+  50% { transform: rotate(-45deg); }
+  100% { transform: rotate(0deg); }
+}
+
+.enemy .leftleg
+{
+  top:60%;
+  left:50%;
+  transform: rotate(0deg);
+}
+.enemy .rightleg
+{
+  top:60%;
+  left:31%;
+  transform: rotate(0deg);
+}
+
+.enemy.walk .leftleg
+{
+  animation-name:enemy_left_walk;
+  animation-duration:0.5s;
+  animation-iteration-count: infinite;
+}
+
+.enemy.walk .rightleg
+{
+  animation-name:enemy_right_walk;
+  animation-duration:0.5s;
+  animation-iteration-count: infinite;
+}

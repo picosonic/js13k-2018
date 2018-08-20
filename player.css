@@ -1,0 +1,126 @@
+#player
+{
+  position:absolute;
+  width:66px;
+  height:66px;
+  top:0px;
+  left:0px;
+  display:block;
+  margin:0px;
+  font-size:0px;
+  z-index:1000;
+}
+#player .body
+{
+  position:relative;
+  width:38px;
+  height:38px;
+  left:15%;
+  top:30%;
+  background-color:#dd4e54;
+  display:inline-block;
+  overflow:hidden;
+  border-radius: 5px 5px;
+}
+#player .eye
+{
+  position:relative;
+  width:20px;
+  height:20px;
+  left:23%;
+  top:34%;
+  background-color:#fff;
+  display:inline-block;
+  overflow:hidden;
+  border-radius: 50px 50px;
+}
+#player .iris
+{
+  position:relative;
+  width:4px;
+  height:4px;
+  left:40%;
+  top:40%;
+  background-color:#4b3733;
+  display:inline-block;
+  overflow:hidden;
+  border-radius: 50px 50px;
+}
+@keyframes player_blink
+{
+  0% { height:0px; }
+  46% { height:0px; }
+  50% { height:25px; }
+  54% { height:0px; }
+  100% { height:0px; }
+}
+
+#player .eyelid
+{
+  position:absolute;
+  top:33%;
+  left:23%;
+  width:20px;
+  height:5px;
+  background-color:#dd4e54;
+  display:inline-block;
+  overflow:hidden;
+  border-radius: 50px 50px;
+
+  animation-name:player_blink;
+  animation-duration:5s;
+  animation-iteration-count: infinite;
+}
+#player .leg
+{
+  position:absolute;
+  width:6px;
+  height:27px;
+  background-color:#dd4e54;
+  display:inline-block;
+  overflow:hidden;
+  border-radius: 5px 5px;
+  z-index:-1;
+  transform-origin: 50% 1%;
+}
+
+@keyframes player_right_walk
+{
+  0% { transform: rotate(0deg); }
+  50% { transform: rotate(90deg); }
+  100% { transform: rotate(0deg); }
+}
+
+@keyframes player_left_walk
+{
+  0% { transform: rotate(0deg); }
+  50% { transform: rotate(-90deg); }
+  100% { transform: rotate(0deg); }
+}
+
+#player .leftleg
+{
+  top:60%;
+  left:50%;
+  transform: rotate(0deg);
+}
+#player .rightleg
+{
+  top:60%;
+  left:31%;
+  transform: rotate(0deg);
+}
+
+#player.walk .leftleg
+{
+  animation-name:player_left_walk;
+  animation-duration:0.5s;
+  animation-iteration-count: infinite;
+}
+
+#player.walk .rightleg
+{
+  animation-name:player_right_walk;
+  animation-duration:0.5s;
+  animation-iteration-count: infinite;
+}
