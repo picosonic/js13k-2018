@@ -1,9 +1,8 @@
-
 .enemy
 {
   position:absolute;
-  width:66px;
-  height:66px;
+  width:64px;
+  height:64px;
   top:0px;
   left:0px;
   display:block;
@@ -49,6 +48,16 @@
   display:inline-block;
   overflow:hidden;
   border-radius: 50px 50px;
+}
+
+.enemy.right .iris
+{
+  left:65%;
+}
+
+.enemy.left .iris
+{
+  left:15%;
 }
 
 .enemy .leg

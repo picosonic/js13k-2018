@@ -20,7 +20,7 @@ done
 
 # Concatenate the CSS files
 touch "${csscat}"
-for file in main.css player.css enemy.css
+for file in main.css tiles.css player.css enemy.css
 do
   yui-compressor "${file}" >> "${csscat}"
 done

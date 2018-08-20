@@ -1,8 +1,8 @@
 #player
 {
   position:absolute;
-  width:66px;
-  height:66px;
+  width:64px;
+  height:64px;
   top:0px;
   left:0px;
   display:block;
@@ -46,6 +46,16 @@
   overflow:hidden;
   border-radius: 50px 50px;
 }
+#player.right .iris
+{
+  left:65%;
+}
+
+#player.left .iris
+{
+  left:15%;
+}
+
 @keyframes player_blink
 {
   0% { height:0px; }

@@ -48,8 +48,8 @@ var gs={
   // level related
   level:0,
   tiles:[],
-  tilewidth:66,
-  tileheight:66
+  tilewidth:64,
+  tileheight:64
 };
 
 // Find a gamepad by its ID
@@ -374,6 +374,9 @@ function standcheck(character)
         character.hs=0;
         character.dir=0;
         character.e.classList.remove("walk");
+        character.e.classList.remove("left");
+        character.e.classList.remove("right");
+        character.e.classList.add("idle");
       }
     }
 
@@ -388,6 +391,9 @@ function standcheck(character)
         character.hs=0;
         character.dir=0;
         character.e.classList.remove("walk");
+        character.e.classList.remove("left");
+        character.e.classList.remove("right");
+        character.e.classList.add("idle");
       }
     }
   }
@@ -458,6 +464,8 @@ function updatemovements(character)
       character.hs=-character.speed;
       character.dir=-1;
       character.e.classList.add("walk");
+      character.e.classList.add("left");
+      character.e.classList.remove("idle");
     }
 
     // Right key
@@ -466,8 +474,12 @@ function updatemovements(character)
       character.hs=character.speed;
       character.dir=1;
       character.e.classList.add("walk");
+      character.e.classList.add("right");
+      character.e.classList.remove("idle");
     }
   }
+  else
+    character.e.classList.add("idle");
 }
 
 function update()
@@ -666,23 +678,24 @@ function init()
   // Start game
   // TODO
   gs.player.e=document.getElementById("player");
-  gs.player.w=66;
-  gs.player.h=66;
+  gs.player.w=64;
+  gs.player.h=64;
   gs.player.e.innerHTML="<div class=\"body\"><div class=\"eye\"><div class=\"iris\"></div></div><div class=\"eyelid\"></div></div><div class=\"leg rightleg\"></div><div class=\"leg leftleg\"></div>";
 
   for (i=0; i<10; i++)
-    addtile(i*gs.tilewidth, 500);
+    addtile(i*gs.tilewidth, 7*gs.tileheight);
 
   for (i=0; i<5; i++)
-    addtile((i+5)*gs.tilewidth, 302);
+    addtile((i+5)*gs.tilewidth, 4*gs.tileheight);
 
   for (i=0; i<5; i++)
-    addtile((i+15)*gs.tilewidth, 500-(gs.tileheight*i));
+    addtile((i+15)*gs.tilewidth, (8*gs.tileheight)-(gs.tileheight*i));
 
   for (i=0; i<5; i++)
-    addtile((i+20)*gs.tilewidth, 236);
+    addtile((i+20)*gs.tilewidth, 3*gs.tileheight);
 
-  addenemy(1330, 0, 66, 66, "enemy");
+  addenemy(20*gs.tilewidth, 0, 64, 64, "enemy");
+  addenemy(6*gs.tilewidth, 0, 64, 64, "enemy");
 
   window.requestAnimationFrame(rafcallback);
 }
