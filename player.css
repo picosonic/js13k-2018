@@ -190,3 +190,14 @@
   transform:rotate(180deg);
   top:50%;
 }
+
+#player.jump.right .leftleg
+{
+  transform:rotate(-90deg);
+}
+
+#player.jump.left .rightleg
+{
+  transform:rotate(90deg);
+}
+
