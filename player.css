@@ -150,3 +150,13 @@
   transform:rotate(90deg);
   top:95%;
 }
+
+#player.duck.walk .leftleg
+{
+  top:75%;
+}
+
+#player.duck.walk .rightleg
+{
+  top:75%;
+}
