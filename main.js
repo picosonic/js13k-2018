@@ -643,7 +643,7 @@ function addenemy(x, y, w, h, enemyclass)
   var enemy=document.createElement("div");
   var enemyobj=new st(enemy);
 
-  enemy.innerHTML="<div class=\"body\"><div class=\"eye\"><div class=\"iris\"></div></div></div><div class=\"leg rightleg\"></div><div class=\"leg leftleg\"></div>";
+  enemy.innerHTML="<div class=\"body\"><div class=\"eye\"><div class=\"iris\"></div></div></div><div class=\"eyelid\"></div><div class=\"leg rightleg\"></div><div class=\"leg leftleg\"></div>";
   enemy.style.position="absolute";
   enemy.style.left=x+"px";
   enemy.style.top=y+"px";
