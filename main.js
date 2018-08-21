@@ -513,6 +513,39 @@ function updatemovements(character)
   updateanimation(character);
 }
 
+function checkplayerenemy(character)
+{
+  // Make a collision box for the character in the centre/bottom of their sprite
+  //  1/2 the width and 1/2 the height to allow for overlaps
+  var ppos={
+    offsetLeft:character.x+(character.w/4),
+    offsetTop:character.y+(character.h/2),
+    clientWidth:(character.w/2),
+    clientHeight:(character.h/2)
+  };
+
+  // look through all enemies for a collision
+  for (var i=0; i<gs.enemies.length; i++)
+  {
+    var epos={
+      offsetLeft:gs.enemies[i].x,
+      offsetTop:gs.enemies[i].y,
+      clientWidth:gs.enemies[i].w,
+      clientHeight:gs.enemies[i].h
+    };
+
+    // does this enemy overlap with character?
+    if (overlap(epos, ppos))
+    {
+      character.j=true;
+      character.vs=-character.jumpspeed;
+      character.y-=1;
+
+      return;
+    }
+  }
+}
+
 function update()
 {
   // Check for gamepad input
@@ -527,6 +560,9 @@ function update()
     updateenemyai(gs.enemies[i]);
     updatemovements(gs.enemies[i]);
   }
+
+  // Check for player/enemy collision
+  checkplayerenemy(gs.player);
 }
 
 // Request animation frame callback
