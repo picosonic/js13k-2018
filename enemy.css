@@ -24,6 +24,16 @@
   border-radius:50% 50% 0% 0%;
 }
 
+.enemy.walk.right .body
+{
+  transform:rotate(5deg);
+}
+
+.enemy.walk.left .body
+{
+  transform:rotate(-5deg);
+}
+
 .enemy .eye
 {
   position:relative;
