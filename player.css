@@ -13,38 +13,38 @@
 #player .body
 {
   position:relative;
-  width:38px;
-  height:38px;
+  width:59%;
+  height:59%;
   left:15%;
-  top:30%;
+  top:27%;
   background-color:#dd4e54;
   display:inline-block;
   overflow:hidden;
-  border-radius: 5px 5px;
+  border-radius:15% 15%;
 }
 #player .eye
 {
   position:relative;
-  width:20px;
-  height:20px;
+  width:52%;
+  height:52%;
   left:23%;
   top:34%;
   background-color:#fff;
   display:inline-block;
   overflow:hidden;
-  border-radius: 50px 50px;
+  border-radius:50% 50%;
 }
 #player .iris
 {
   position:relative;
-  width:4px;
-  height:4px;
+  width:20%;
+  height:20%;
   left:40%;
   top:40%;
   background-color:#4b3733;
   display:inline-block;
   overflow:hidden;
-  border-radius: 50px 50px;
+  border-radius:50% 50%;
 }
 #player.right .iris
 {
@@ -58,11 +58,11 @@
 
 @keyframes player_blink
 {
-  0% { height:0px; }
-  46% { height:0px; }
-  50% { height:25px; }
-  54% { height:0px; }
-  100% { height:0px; }
+  0% { height:0%; }
+  46% { height:0%; }
+  50% { height:52%; }
+  54% { height:0%; }
+  100% { height:0%; }
 }
 
 #player .eyelid
@@ -70,67 +70,66 @@
   position:absolute;
   top:33%;
   left:23%;
-  width:20px;
-  height:5px;
+  width:52%;
+  height:0%;
   background-color:#dd4e54;
   display:inline-block;
   overflow:hidden;
-  border-radius: 50px 50px;
+  border-radius:50% 50%;
 
   animation-name:player_blink;
   animation-duration:5s;
-  animation-iteration-count: infinite;
+  animation-iteration-count:infinite;
 }
 #player .leg
 {
   position:absolute;
-  width:6px;
-  height:27px;
+  top:60%;
+  width:10%;
+  height:42%;
   background-color:#dd4e54;
   display:inline-block;
   overflow:hidden;
-  border-radius: 5px 5px;
+  border-radius:0% 0% 25% 25%;
   z-index:-1;
-  transform-origin: 50% 1%;
+  transform-origin:50% 1%;
 }
 
 @keyframes player_right_walk
 {
-  0% { transform: rotate(0deg); }
-  50% { transform: rotate(90deg); }
-  100% { transform: rotate(0deg); }
+  0% { transform:rotate(0deg); }
+  50% { transform:rotate(90deg); }
+  100% { transform:rotate(0deg); }
 }
 
 @keyframes player_left_walk
 {
-  0% { transform: rotate(0deg); }
-  50% { transform: rotate(-90deg); }
-  100% { transform: rotate(0deg); }
+  0% { transform:rotate(0deg); }
+  50% { transform:rotate(-90deg); }
+  100% { transform:rotate(0deg); }
 }
 
 #player .leftleg
 {
-  top:60%;
-  left:50%;
-  transform: rotate(0deg);
+  left:48%;
+  transform:rotate(0deg);
 }
 #player .rightleg
 {
-  top:60%;
-  left:31%;
-  transform: rotate(0deg);
+  left:33%;
+  transform:rotate(0deg);
 }
 
 #player.walk .leftleg
 {
   animation-name:player_left_walk;
   animation-duration:0.5s;
-  animation-iteration-count: infinite;
+  animation-iteration-count:infinite;
 }
 
 #player.walk .rightleg
 {
   animation-name:player_right_walk;
   animation-duration:0.5s;
-  animation-iteration-count: infinite;
+  animation-iteration-count:infinite;
 }
