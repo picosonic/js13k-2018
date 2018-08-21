@@ -56,6 +56,16 @@
   left:15%;
 }
 
+#player.jump .iris
+{
+  top:15%;
+}
+
+#player.fall .iris
+{
+  top:70%;
+}
+
 @keyframes player_blink
 {
   0% { height:0%; }

@@ -454,9 +454,9 @@ function updateanimation(character)
     character.e.classList.remove("jump");
 
   if (character.f)
-    character.e.classList.add("falling");
+    character.e.classList.add("fall");
   else
-    character.e.classList.remove("falling");
+    character.e.classList.remove("fall");
 
   if (character.d)
     character.e.classList.add("duck");
