@@ -538,8 +538,8 @@ function checkplayerenemy(character)
     if (overlap(epos, ppos))
     {
       character.j=true;
-      character.vs=-character.jumpspeed;
-      character.y-=1;
+      character.vs=-(character.jumpspeed/2);
+      character.y-=1; // Needed or jump gets cancelled
 
       return;
     }
