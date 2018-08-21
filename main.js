@@ -9,14 +9,14 @@ function st(elem)
   this.y=0; // y position
   this.w=0; // width
   this.h=0; // height
-  this.vs=0; // vertical speed
-  this.hs=0; // horizontal speed
+  this.vs=0; // current vertical speed
+  this.hs=0; // current horizontal speed
   this.j=false; // jumping
   this.f=false; // falling
   this.d=false; // ducking
   this.dir=0; // direction (-1=left, 0=none, 1=right)
-  this.hsp=10; // horizontal speed
-  this.vsp=20; // vertical speed
+  this.hsp=10; // max horizontal speed
+  this.vsp=20; // max vertical speed
   this.speed=10; // walking speed
   this.jumpspeed=20; // jumping speed
 
@@ -313,7 +313,7 @@ function groundcheck(character)
     character.j=false;
     character.f=false;
 
-    // Check for jump pressed
+    // Check for jump pressed, when not ducking
     if (((character.keystate&16)!=0) && (!character.d))
     {
       character.j=true;
@@ -350,14 +350,9 @@ function standcheck(character)
 {
   // Check for ducking
   if ((character.keystate&8)!=0)
-  {
     character.d=true;
-  }
   else
-  {
-    if (character.d)
-      character.d=false;
-  }
+    character.d=false;
 
   // When no horizontal movement pressed, slow down by friction
   if ((((character.keystate&1)==0) && ((character.keystate&4)==0)) ||
@@ -373,10 +368,6 @@ function standcheck(character)
       {
         character.hs=0;
         character.dir=0;
-        character.e.classList.remove("walk");
-        character.e.classList.remove("left");
-        character.e.classList.remove("right");
-        character.e.classList.add("idle");
       }
     }
 
@@ -390,10 +381,6 @@ function standcheck(character)
       {
         character.hs=0;
         character.dir=0;
-        character.e.classList.remove("walk");
-        character.e.classList.remove("left");
-        character.e.classList.remove("right");
-        character.e.classList.add("idle");
       }
     }
   }
@@ -437,6 +424,56 @@ function updateenemyai(character)
   }
 }
 
+// Update the animation state of players/enemies
+function updateanimation(character)
+{
+  switch (character.dir)
+  {
+    case -1:
+      character.e.classList.add("left");
+      character.e.classList.remove("right");
+      break;
+
+    case 0:
+      character.e.classList.remove("left");
+      character.e.classList.remove("right");
+      break;
+
+    case 1:
+      character.e.classList.remove("left");
+      character.e.classList.add("right");
+      break;
+
+    default:
+      break;
+  }
+
+  if (character.j)
+    character.e.classList.add("jump");
+  else
+    character.e.classList.remove("jump");
+
+  if (character.f)
+    character.e.classList.add("falling");
+  else
+    character.e.classList.remove("falling");
+
+  if (character.d)
+    character.e.classList.add("duck");
+  else
+    character.e.classList.remove("duck");
+
+  if ((character.dir==0) && (character.hs==0) && (character.vs==0))
+    character.e.classList.add("idle");
+  else
+    character.e.classList.remove("idle");
+
+  if ((character.dir!=0) && (!character.j) && (!character.f))
+    character.e.classList.add("walk");
+  else
+    character.e.classList.remove("walk");
+}
+
 // Update the position of players/enemies
 function updatemovements(character)
 {
@@ -463,9 +500,6 @@ function updatemovements(character)
     {
       character.hs=-character.speed;
       character.dir=-1;
-      character.e.classList.add("walk");
-      character.e.classList.add("left");
-      character.e.classList.remove("idle");
     }
 
     // Right key
@@ -473,13 +507,10 @@ function updatemovements(character)
     {
       character.hs=character.speed;
       character.dir=1;
-      character.e.classList.add("walk");
-      character.e.classList.add("right");
-      character.e.classList.remove("idle");
     }
   }
-  else
-    character.e.classList.add("idle");
+
+  updateanimation(character);
 }
 
 function update()
