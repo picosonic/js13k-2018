@@ -133,3 +133,20 @@
   animation-duration:0.5s;
   animation-iteration-count:infinite;
 }
+
+#player.duck .body
+{
+  top:43%;
+}
+
+#player.duck .leftleg
+{
+  transform:rotate(-90deg);
+  top:95%;
+}
+
+#player.duck .rightleg
+{
+  transform:rotate(90deg);
+  top:95%;
+}
