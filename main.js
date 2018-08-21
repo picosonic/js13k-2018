@@ -26,9 +26,9 @@ function st(elem)
 // Game state
 var gs={
   // animation frame of reference
-  step:(1/60),
-  acc:0,
-  lasttime:0,
+  step:(1/60), // target step time @ 60 fps
+  acc:0, // accumulated time since last frame
+  lasttime:0, // time of last frame
 
   // control state
   gamepads:{},
@@ -36,7 +36,7 @@ var gs={
   gamepadassignbutton:-1,
   gamepadlastbutton:-1,
 
-  // physics
+  // physics in pixels per frame @ 60fps
   gravity:1,
   terminalvelocity:50,
   friction:1.5,
@@ -536,6 +536,10 @@ function rafcallback(timestamp)
   {
     // Determine accumulated time since last call
     gs.acc+=((timestamp-gs.lasttime) / 1000);
+
+    // If it's more than 15 seconds since last call, reset
+    if ((gs.acc>gs.step) && ((gs.acc/gs.step)>(60*15)))
+      gs.acc=gs.step*2;
 
     // Process "steps" since last call
     while (gs.acc>gs.step)
