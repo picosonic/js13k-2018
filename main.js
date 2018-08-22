@@ -299,6 +299,18 @@ function collisioncheck(character)
   }
   character.x+=character.hs;
 
+  // Climb stairs
+  if ((character==gs.player) // it's the player
+    && (character.keystate!=0) // key still pressed
+    && (character.dir!=0) // was moving
+    && (character.hs==0) // horizontal collision occured
+    && (!collide(character, character.x, character.y-character.h)) // nothing above us
+    && (!collide(character, character.x+(character.w*character.dir), character.y-character.h))) // nothing above and to right
+  {
+    character.j=true;
+    character.vs=-(character.jumpspeed/4);
+  }
+
   // check for vertical collisions
   if (collide(character, character.x, character.y+character.vs))
   {
