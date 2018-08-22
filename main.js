@@ -220,6 +220,9 @@ function redraw()
     gs.enemies[i].e.style.left=gs.enemies[i].x+"px";
     gs.enemies[i].e.style.top=gs.enemies[i].y+"px";
   }
+
+  // Scroll the screen to keep the player in view
+  window.scrollTo({left:gs.player.x-(document.documentElement.clientWidth/2), top:gs.player.y-(document.documentElement.clientHeight/2), behaviour:"smooth"});
 }
 
 // Does DOM element a overlap with element b
