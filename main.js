@@ -570,9 +570,21 @@ function checkplayerenemy(character)
     // does this enemy overlap with character?
     if (overlap(epos, ppos))
     {
-      character.j=true;
-      character.vs=-(character.jumpspeed/2);
-      character.y-=1; // Needed or jump gets cancelled
+      // Remove enemy if hit from above whilst player falling
+      if (((ppos.offsetTop+(ppos.clientHeight/3))<epos.offsetTop) && (character.f))
+      {
+        gs.enemies[i].e.remove();
+        gs.enemies.splice(i, 1);
+
+        character.j=true;
+        character.f=false;
+        character.vs=-(character.jumpspeed/2);
+      }
+      else
+      {
+        // Loose health
+        // TODO
+      }
 
       return;
     }
