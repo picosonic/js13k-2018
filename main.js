@@ -654,7 +654,7 @@ function updatekeystate(e, dir)
   }
 }
 
-function addtile(x, y)
+function addtile(x, y, tileid)
 {
   var tile=document.createElement("div");
   var tileobj={};
@@ -666,6 +666,7 @@ function addtile(x, y)
   tile.style.width=gs.tilewidth+"px";
   tile.style.height=gs.tileheight+"px";
   tile.classList.add("tile");
+  tile.classList.add("tile_"+tileid);
 
   tileobj.element=tile;
   tileobj.offsetLeft=x;
@@ -676,6 +677,22 @@ function addtile(x, y)
   gs.tiles.push(tileobj);
 
   document.getElementById("playfield").appendChild(tile);
+}
+
+function addtiles(level)
+{
+  var x, y, tile;
+
+  for (y=0; y<level.height; y++)
+  {
+    for (x=0; x<level.width; x++)
+    {
+      tile=level.layers[0].data[(y*level.width)+x];
+
+      if (tile!=0)
+        addtile(x*level.tilewidth, y*level.tileheight, tile);
+    }
+  }
 }
 
 function addenemy(x, y, w, h, enemyclass)
@@ -702,6 +719,31 @@ function addenemy(x, y, w, h, enemyclass)
   document.getElementById("playfield").appendChild(enemy);
 }
 
+function addcharacters(level)
+{
+  var obj, index;
+
+  for (index=0; index<level.layers[1].objects.length; index++)
+  {
+    obj=level.layers[1].objects[index];
+
+    switch (obj.gid)
+    {
+      case 11: // Player
+        gs.player.x=obj.x;
+        gs.player.y=obj.y;
+        break;
+
+      case 12: // Enemy
+        addenemy(obj.x, obj.y, level.tilewidth, level.tileheight, "enemy");
+        break;
+
+      default:
+        break;
+    }
+  }
+}
+
 function addstar(x, y)
 {
   var star=document.createElement("div");
@@ -711,6 +753,22 @@ function addstar(x, y)
   star.classList.add("star");
 
   document.getElementById("background").appendChild(star);
+}
+
+function loadlevel(level)
+{
+  // Set which level we are on
+  gs.level=level;
+
+  // Add the tiles for the level
+  addtiles(levels[level]);
+
+  // Add the collectables
+  // TODO
+  // addcollectables(levels[level]);
+
+  // Add the characters
+  addcharacters(levels[level]);
 }
 
 // Initial entry point
@@ -766,28 +824,11 @@ function init()
 
   // Add some stars to the background
   var randoms=new randomizer();
-  for (i=0; i<300; i++)
+  for (var i=0; i<300; i++)
     addstar(randoms.rnd(1920), randoms.rnd(1080));
 
-  // Add the tiles for the level
-  for (i=0; i<10; i++)
-    addtile(i*gs.tilewidth, 7*gs.tileheight);
-
-  for (i=0; i<5; i++)
-    addtile((i+5)*gs.tilewidth, 4*gs.tileheight);
-
-  for (i=0; i<5; i++)
-    addtile((i+15)*gs.tilewidth, (8*gs.tileheight)-(gs.tileheight*i));
-
-  for (i=0; i<5; i++)
-    addtile((i+20)*gs.tilewidth, 3*gs.tileheight);
-
-  // Add the collectables
-  // TODO
-
-  // Add the enemies
-  addenemy(20*gs.tilewidth, 0, 64, 64, "enemy");
-  addenemy(6*gs.tilewidth, 0, 64, 64, "enemy");
+  // Load everything for "current" level
+  loadlevel(0);
 
   // Start the game running
   window.requestAnimationFrame(rafcallback);

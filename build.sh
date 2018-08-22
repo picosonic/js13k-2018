@@ -13,7 +13,7 @@ mkdir "${buildpath}"
 
 # Concatenate the JS files
 touch "${jscat}"
-for file in random.js dtmf.js font.js writer.js main.js
+for file in random.js dtmf.js font.js writer.js levels.js main.js
 do
   yui-compressor "${file}" >> "${jscat}"
 done
