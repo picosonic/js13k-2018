@@ -702,6 +702,17 @@ function addenemy(x, y, w, h, enemyclass)
   document.getElementById("playfield").appendChild(enemy);
 }
 
+function addstar(x, y)
+{
+  var star=document.createElement("div");
+
+  star.style.left=x+"px";
+  star.style.top=y+"px";
+  star.classList.add("star");
+
+  document.getElementById("background").appendChild(star);
+}
+
 // Initial entry point
 function init()
 {
@@ -753,6 +764,12 @@ function init()
   gs.player.h=64;
   gs.player.e.innerHTML="<div class=\"body\"><div class=\"eye\"><div class=\"iris\"></div></div><div class=\"eyelid\"></div></div><div class=\"leg rightleg\"></div><div class=\"leg leftleg\"></div>";
 
+  // Add some stars to the background
+  var randoms=new randomizer();
+  for (i=0; i<300; i++)
+    addstar(randoms.rnd(1920), randoms.rnd(1080));
+
+  // Add the tiles for the level
   for (i=0; i<10; i++)
     addtile(i*gs.tilewidth, 7*gs.tileheight);
 
@@ -765,9 +782,14 @@ function init()
   for (i=0; i<5; i++)
     addtile((i+20)*gs.tilewidth, 3*gs.tileheight);
 
+  // Add the collectables
+  // TODO
+
+  // Add the enemies
   addenemy(20*gs.tilewidth, 0, 64, 64, "enemy");
   addenemy(6*gs.tilewidth, 0, 64, 64, "enemy");
 
+  // Start the game running
   window.requestAnimationFrame(rafcallback);
 }
 
