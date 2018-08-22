@@ -7,6 +7,8 @@ function st(elem)
 
   this.x=0; // x position
   this.y=0; // y position
+  this.px=0; // previous x position
+  this.py=0; // previous y position
   this.w=0; // width
   this.h=0; // height
   this.vs=0; // current vertical speed
@@ -211,8 +213,8 @@ function pollGamepads()
 function redraw()
 {
   // Move the player
-  player.style.left=gs.player.x+"px";
-  player.style.top=gs.player.y+"px";
+  gs.player.e.style.left=gs.player.x+"px";
+  gs.player.e.style.top=gs.player.y+"px";
 
   // Move all the enemies
   for (var i=0; i<gs.enemies.length; i++)
@@ -222,7 +224,21 @@ function redraw()
   }
 
   // Scroll the screen to keep the player in view
-  window.scrollTo({left:gs.player.x-(document.documentElement.clientWidth/2), top:gs.player.y-(document.documentElement.clientHeight/2), behaviour:"smooth"});
+  if ((gs.player.x!=gs.player.px) || (gs.player.y!=gs.player.py))
+  {
+    try
+    {
+      window.scrollTo({left:gs.player.x-(document.documentElement.clientWidth/2), top:gs.player.y-(document.documentElement.clientHeight/2), behaviour:"smooth"});
+    }
+    catch (e)
+    {
+      window.scrollTo(gs.player.x-(document.documentElement.clientWidth/2), gs.player.y-(document.documentElement.clientHeight/2));
+    }
+  }
+
+  // Update previous positions
+  gs.player.px=gs.player.x;
+  gs.player.py=gs.player.y;
 }
 
 // Does DOM element a overlap with element b
@@ -401,27 +417,29 @@ function updateenemyai(character)
     {
       // If nothing to our right, then move right so long as there is no drop
       if ((!collide(character, character.x+1, character.y))
-        && (collide(character, character.x+character.w, character.y+character.h)))
+        && ((collide(character, character.x+(character.w/2), character.y+character.h))))
         tmpstate|=4;
 
       // try left
       if ((tmpstate==0)
         && (!collide(character, character.x-1, character.y))
-        && (collide(character, character.x-character.w, character.y+character.h)))
+        && (collide(character, character.x-(character.w/2), character.y+character.h)))
         tmpstate|=1;
 
-      character.keystate=tmpstate;
+      character.keystate|=tmpstate;
     }
     else // if moving right
     if (character.dir==1)
     {
-      if (!collide(character, character.x+character.w, character.y+character.h))
+      if ((collide(character, character.x+1, character.y))
+        || (!collide(character, character.x+(character.w/2), character.y+character.h)))
         character.keystate=0;
     }
     else // if moving left
     if (character.dir==-1)
     {
-      if (!collide(character, character.x-character.w, character.y+character.h))
+      if ((collide(character, character.x-1, character.y))
+      || (!collide(character, character.x-(character.w/2), character.y+character.h)))
         character.keystate=0;
     }
   }
@@ -734,11 +752,11 @@ function addcharacters(level)
     {
       case 11: // Player
         gs.player.x=obj.x;
-        gs.player.y=obj.y;
+        gs.player.y=obj.y-level.tileheight;
         break;
 
       case 12: // Enemy
-        addenemy(obj.x, obj.y, level.tilewidth, level.tileheight, "enemy");
+        addenemy(obj.x, obj.y-level.tileheight, level.tilewidth, level.tileheight, "enemy");
         break;
 
       default:
