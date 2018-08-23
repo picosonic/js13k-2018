@@ -53,7 +53,8 @@ var gs={
   level:0,
   tiles:[],
   tilewidth:64,
-  tileheight:64
+  tileheight:64,
+  things:[] // collectables
 };
 
 // Find a gamepad by its ID
@@ -803,6 +804,37 @@ function addcharacters(level)
   }
 }
 
+function addcollectable(x, y, id)
+{
+  var thing=document.createElement("div");
+  var thingobj={};
+
+  thing.innerHTML="";
+  thing.style.position="absolute";
+  thing.style.left=x+"px";
+  thing.style.top=y+"px";
+  thing.classList.add("thing_"+id);
+
+  thingobj.x=x;
+  thingobj.y=y;
+
+  gs.things.push(thingobj);
+
+  document.getElementById("playfield").appendChild(thing);
+}
+
+function addcollectables(level)
+{
+  var obj, index;
+
+  for (index=0; index<level.layers[2].objects.length; index++)
+  {
+    obj=level.layers[2].objects[index];
+
+    addcollectable(obj.x, obj.y, obj.gid);
+  }
+}
+
 function addstar(x, y)
 {
   var star=document.createElement("div");
@@ -823,8 +855,7 @@ function loadlevel(level)
   addtiles(levels[level]);
 
   // Add the collectables
-  // TODO
-  // addcollectables(levels[level]);
+  addcollectables(levels[level]);
 
   // Add the characters
   addcharacters(levels[level]);
