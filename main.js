@@ -732,7 +732,7 @@ function addtiles(level)
   {
     for (x=0; x<level.width; x++)
     {
-      tile=level.layers[0].data[(y*level.width)+x];
+      tile=level.layers[0].data[(y*level.width)+x]||0;
 
       if (tile!=0)
         addtile(x*level.tilewidth, y*level.tileheight, tile);

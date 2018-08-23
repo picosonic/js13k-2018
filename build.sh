@@ -5,11 +5,21 @@ buildpath="build"
 jscat="${buildpath}/min.js"
 csscat="${buildpath}/min.css"
 indexcat="${buildpath}/index.html"
+leveljs="levels.js"
 
 # Create clean build folder
 rm -Rf "${buildpath}" >/dev/null 2>&1
 rm -Rf "${zipfile}"
 mkdir "${buildpath}"
+
+# Concatenate the JSON level files
+echo "var levels=[" > "${leveljs}"
+for file in level*.json
+do
+  cat "${file}" | sed 's/ 0,/,/g' >> "${leveljs}"
+  echo "," >> "${leveljs}"
+done
+echo "];" >> "${leveljs}"
 
 # Concatenate the JS files
 touch "${jscat}"
