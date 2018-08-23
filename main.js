@@ -549,6 +549,39 @@ function updatemovements(character)
   updateanimation(character);
 }
 
+function checkplayercollectable(character)
+{
+  // Make a collision box for the character in the centre/bottom of their sprite
+  //  1/2 the width and 1/2 the height to allow for overlaps
+  var ppos={
+    offsetLeft:character.x+(character.w/4),
+    offsetTop:character.y+(character.h/2),
+    clientWidth:(character.w/2),
+    clientHeight:(character.h/2)
+  };
+
+  // look through all enemies for a collision
+  for (var i=0; i<gs.things.length; i++)
+  {
+    var tpos={
+      offsetLeft:gs.things[i].x,
+      offsetTop:gs.things[i].y,
+      clientWidth:gs.things[i].w,
+      clientHeight:gs.things[i].h
+    };
+
+    // does this thing overlap with character?
+    if (overlap(tpos, ppos))
+    {
+      // Remove thing that was collected
+      gs.things[i].e.remove();
+      gs.things.splice(i, 1);
+
+      return;
+    }
+  }
+}
+
 function checkplayerenemy(character)
 {
   // Make a collision box for the character in the centre/bottom of their sprite
@@ -611,6 +644,9 @@ function update()
 
   // Check for player/enemy collision
   checkplayerenemy(gs.player);
+
+  // Check for player/collectable collision
+  checkplayercollectable(gs.player);
 }
 
 // Request animation frame callback
@@ -834,6 +870,8 @@ function addcollectable(x, y, id)
   thingobj.id=id;
   thingobj.x=x;
   thingobj.y=y;
+  thingobj.w=64;
+  thingobj.h=64;
 
   gs.things.push(thingobj);
 
@@ -934,8 +972,8 @@ function init()
   // Start game
   // TODO
   gs.player.e=document.getElementById("player");
-  gs.player.w=64;
-  gs.player.h=64;
+  gs.player.w=levels[gs.level].tilewidth;
+  gs.player.h=levels[gs.level].tileheight;
   gs.player.e.innerHTML="<div class=\"body\"><div class=\"eye\"><div class=\"iris\"></div></div><div class=\"eyelid\"></div></div><div class=\"leg rightleg\"></div><div class=\"leg leftleg\"></div>";
 
   // Add some stars to the background
