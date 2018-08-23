@@ -701,12 +701,12 @@ function updatekeystate(e, dir)
   }
 }
 
-function addtile(x, y, tileid)
+function addtile(x, y, tileid, content)
 {
   var tile=document.createElement("div");
   var tileobj={};
 
-  tile.innerHTML="";
+  tile.innerHTML=content;
   tile.style.position="absolute";
   tile.style.left=x+"px";
   tile.style.top=y+"px";
@@ -728,7 +728,7 @@ function addtile(x, y, tileid)
 
 function addtiles(level)
 {
-  var x, y, tile;
+  var x, y, tile, content;
 
   for (y=0; y<level.height; y++)
   {
@@ -736,8 +736,20 @@ function addtiles(level)
     {
       tile=level.layers[0].data[(y*level.width)+x]||0;
 
+      switch (tile)
+      {
+        case 6: // Green Lock
+        case 7: // Red Lock
+         content="<div class=\"boltnw\"></div><div class=\"boltne\"></div><div class=\"boltsw\"></div><div class=\"boltse\"></div><div class=\"keyhole\"></div><div class=\"keyhole2\"></div>";
+         break;
+
+        default:
+          content="";
+          break;
+      }
+
       if (tile!=0)
-        addtile(x*level.tilewidth, y*level.tileheight, tile);
+        addtile(x*level.tilewidth, y*level.tileheight, tile, content);
     }
   }
 }

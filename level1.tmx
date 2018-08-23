@@ -6,18 +6,67 @@
  <tileset firstgid="11" name="Characters" tilewidth="64" tileheight="64">
   <image source="charsheet.png" width="640" height="64"/>
  </tileset>
+ <tileset firstgid="21" name="Collectables" tilewidth="64" tileheight="64">
+  <image source="collectsheet.png" width="640" height="64"/>
+ </tileset>
  <layer name="Tiles" width="100" height="15">
   <data encoding="base64" compression="zlib">
-   eJzt1tEKgCAMhWErff9XDi+CJds0FZL6P5AuViE7moXwnk2MHvvEueCeRyxqudeHMaJ4HvNswd4jLb0mj7pyXUelJtd3mUcSNe0eL8Ov8nrqyb2s9U/2cHR/wPY0i6DUklPT3kNmup4sav56fnj/MS3fq9lZcH70G8kiGdcLvV5LS87sEwAAsKITEbgBDA==
+   eJztlosKwjAMRdPauv//Yx2smF6zvgyo7B4IHQuFkJtHRb5HfNrtsBWyYyxEJChL4NNaWXY/7hE/Ahj6Ru6TNljXyfCVf1Y+M/hafXIVPVo5bbHnEms+SJ0/ncPybe2QmVxzj7xzpkVvJmmdsuGzbK+PTV51Y+2fK7OiRY+Z/XH2Jiix/RO9d0xvXhUtvMD90YoL9UBNonNsv85oX+jZk9Rd6wxwjmD1YZS1viQ1Wo9e3+I7wWNOkhrv/FGPz5jpi9HeIYQQ4s8D+8wB2A==
   </data>
  </layer>
  <objectgroup name="Characters" width="100" height="15">
-  <object gid="11" x="0" y="64"/>
+  <object gid="11" x="2784" y="42"/>
   <object gid="12" x="448" y="64"/>
   <object gid="12" x="1408" y="64"/>
   <object gid="12" x="1136" y="125"/>
   <object gid="12" x="1632" y="193"/>
   <object gid="12" x="2168" y="468"/>
   <object gid="12" x="2184" y="37"/>
+  <object gid="12" x="3072" y="256"/>
+  <object gid="12" x="2368" y="576"/>
+ </objectgroup>
+ <objectgroup name="Collectables" width="100" height="15">
+  <object gid="21" x="576" y="448"/>
+  <object gid="21" x="1920" y="512"/>
+  <object gid="21" x="2304" y="192"/>
+  <object gid="21" x="2560" y="448"/>
+  <object gid="21" x="2624" y="448"/>
+  <object gid="21" x="2688" y="448"/>
+  <object gid="21" x="2752" y="448"/>
+  <object gid="21" x="2816" y="448"/>
+  <object gid="21" x="2880" y="448"/>
+  <object gid="21" x="2944" y="448"/>
+  <object gid="21" x="2304" y="448"/>
+  <object gid="21" x="960" y="512"/>
+  <object gid="21" x="3392" y="576"/>
+  <object gid="22" x="1152" y="512"/>
+  <object gid="23" x="3520" y="704"/>
+  <object gid="21" x="2496" y="448"/>
+  <object gid="21" x="2496" y="512"/>
+  <object gid="21" x="2496" y="576"/>
+  <object gid="21" x="2560" y="576"/>
+  <object gid="21" x="2624" y="576"/>
+  <object gid="21" x="2688" y="576"/>
+  <object gid="21" x="2752" y="576"/>
+  <object gid="21" x="2816" y="576"/>
+  <object gid="21" x="2880" y="576"/>
+  <object gid="21" x="2944" y="576"/>
+  <object gid="21" x="3008" y="576"/>
+  <object gid="21" x="3072" y="576"/>
+  <object gid="21" x="3072" y="512"/>
+  <object gid="21" x="3072" y="448"/>
+  <object gid="21" x="2048" y="320"/>
+  <object gid="21" x="2048" y="512"/>
+  <object gid="21" x="1472" y="192"/>
+  <object gid="21" x="1792" y="192"/>
+  <object gid="21" x="1792" y="128"/>
+  <object gid="21" x="1792" y="512"/>
+  <object gid="21" x="1216" y="512"/>
+  <object gid="21" x="1280" y="512"/>
+  <object gid="21" x="1344" y="512"/>
+  <object gid="21" x="1408" y="512"/>
+  <object gid="21" x="1472" y="512"/>
+  <object gid="21" x="1536" y="512"/>
+  <object gid="21" x="1600" y="512"/>
  </objectgroup>
 </map>
