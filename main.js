@@ -815,6 +815,23 @@ function addcollectable(x, y, id)
   thing.style.top=y+"px";
   thing.classList.add("thing_"+id);
 
+  switch (id)
+  {
+    case 22:
+    case 23:
+      var svg=atob("PHN2ZyB4bWxuczpkYz0iaHR0cDovL3B1cmwub3JnL2RjL2VsZW1lbnRzLzEuMS8iIHhtbG5zOmNjPSJodHRwOi8vY3JlYXRpdmVjb21tb25zLm9yZy9ucyMiIHhtbG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyIgeG1sbnM6c3ZnPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgdmlld0JveD0iMCAwIDY0IDY0Ij4KPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMCwtOTg4LjM2MjE4KSI+CjxwYXRoIGQ9Im0gNDMuMzk4MDI2LDEwMDguNDcyNSBjIC0yLjAzNjI1LC0yLjA2NSAtNC41MDI1LC0zLjEgLTcuNDAyNSwtMy4xIC0yLjksMCAtNS4zNjYyNSwxLjAzNSAtNy40MDI1LDMuMSAtMS4xMzI1LDEuMTY3NSAtMS45NDc1LDIuNDUxMyAtMi40NDYyNSwzLjg0ODggLTAuNCwxLjEzMjUgLTAuNiwyLjM1MjUgLTAuNiwzLjY1MTIgMCwxLjMgMC4yLDIuNTM1IDAuNiwzLjcwMTMgMC4wOTc1LDAuMjYzNyAwLjIxNSwwLjU0NzUgMC4zNDYyNSwwLjg1IGwgLTguMjk1LDguMzk4NyBjIC0xLjEwMzc1LDEuNjM1IC0wLjg4Mzc1LDMuMzM1IDAuNjQ4NzUsNS4xMDI1IDAuOTk2MjUsMS4wOTg4IDIuODY2MjUsMS41MTM4IDUuNjAxMjUsMS4yNSBsIDEuODk4NzUsMCAwLC00LjQwNSA0LjI0ODc1LDAgLTAuNDAxMjUsLTQuMzQ1IDYuMDAxMjUsMC4wNDkgYyAyLjc5NzUsLTAuMDY5IDUuMiwtMS4xMDM3IDcuMjAyNSwtMy4xMDEyIDIuMDY1LC0yLjA5ODggMy4wOTUsLTQuNTk4OCAzLjA5NSwtNy41IDAsLTIuOTMzOCAtMS4wMywtNS40MzM4IC0zLjA5NSwtNy41IG0gLTExLjYwMTI1LDcuNSBjIDAsLTEuMTY2MyAwLjQxNSwtMi4xNjc1IDEuMjUsLTMuMDAyNSAwLjgsLTAuODMgMS43ODEyNSwtMS4yNSAyLjk0ODc1LC0xLjI1IDEuMTY3NSwwIDIuMTQ4NzUsMC40MiAyLjk0ODc1LDEuMjUgMC44MzUsMC44MzUgMS4yNSwxLjgzNjIgMS4yNSwzLjAwMjUgMCwxLjE2NzUgLTAuNDE1LDIuMTY4NyAtMS4yNSwyLjk5ODcgLTAuOCwwLjgwMTMgLTEuNzgxMjUsMS4yMDEzIC0yLjk0ODc1LDEuMjAxMyAtMS4xNjc1LDAgLTIuMTQ4NzUsLTAuNCAtMi45NDg3NSwtMS4yMDEzIC0wLjgzNSwtMC44MyAtMS4yNSwtMS44MzEyIC0xLjI1LC0yLjk5ODciIHN0eWxlPSJmaWxsOiNkZDRlNTQ7ZmlsbC1vcGFjaXR5OjE7ZmlsbC1ydWxlOm5vbnplcm87c3Ryb2tlOm5vbmUiIC8+CjwvZz4KPC9zdmc+Cg==");
+      if (id==22) // make green key green
+        svg=svg.replace("#dd4e54", "#49b47e");
+
+      thing.innerHTML=svg;
+      break;
+
+    default:
+      break;
+  }
+
+  thingobj.e=thing;
+  thingobj.id=id;
   thingobj.x=x;
   thingobj.y=y;
 
@@ -851,11 +868,20 @@ function loadlevel(level)
   // Set which level we are on
   gs.level=level;
 
+  // Clear any existing tiles
+  // TODO
+
   // Add the tiles for the level
   addtiles(levels[level]);
 
+  // Clear any existing collectables
+  // TODO
+
   // Add the collectables
   addcollectables(levels[level]);
+
+  // Clear any existing characters
+  // TODO
 
   // Add the characters
   addcharacters(levels[level]);
