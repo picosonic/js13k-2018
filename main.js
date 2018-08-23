@@ -831,7 +831,7 @@ function addcollectables(level)
   {
     obj=level.layers[2].objects[index];
 
-    addcollectable(obj.x, obj.y, obj.gid);
+    addcollectable(obj.x, obj.y-level.tileheight, obj.gid);
   }
 }
 
