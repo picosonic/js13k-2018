@@ -4,27 +4,20 @@ var levels=[
         {
          "data":[0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,, 2, 3, 3,,,,,,,,,,,,,, 5,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,, 1, 1, 1, 4,,,, 2, 3, 3, 3, 3, 3, 3, 3, 6, 1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,, 1, 1, 1, 1,,,, 1,,,,,,,,, 1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,, 2, 3, 3, 3, 4,,, 2, 3, 4,, 1,,,,, 5,, 1,, 2, 3, 3, 3, 3, 3, 3, 1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,, 2, 3, 3, 3, 4,,,,,,,,,, 5, 1, 1, 1, 1, 1, 3, 3, 1, 1,,, 1,, 3, 3,,,, 1,,,,,,,,,,, 5,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,, 5, 1, 1, 1, 1, 1, 1, 1, 1, 1,,,, 1, 3, 1, 1, 5,,, 1, 3, 3, 3, 3, 3, 3, 4, 7, 2, 3, 1, 4,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,, 5, 1, 1, 1, 1, 1, 1, 1, 1, 1,,,,,,,,,,,, 1,,,,,,,,, 1,, 1, 1, 4,,,,, 5,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,, 2, 3, 3, 3, 3, 3, 3, 3, 3, 4,,,,,,, 5, 1,,,,,,,,,,,,,,,,,,, 5,, 1,, 3, 3, 3, 3, 3, 3, 3, 1,, 1, 1, 1, 4,,, 2, 1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,, 5, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 3, 4,, 5,, 5,, 5,, 1,, 1,,,,,,,,,,, 1, 1, 1, 1,, 2, 1, 1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,, 1,, 1, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 1, 1, 1, 1, 1, 1, 1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,, 1,,,,,,,,,,,,,,,,,,,, 1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,, 1, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,, 0],
          "height":15,
-         "name":"Tiles",
-         "opacity":1,
-         "type":"tilelayer",
-         "visible":true,
          "width":100,
          "x":0,
          "y":0
         }, 
         {
          "height":15,
-         "name":"Characters",
          "objects":[
                 {
                  "gid":11,
                  "height":0,
-                 "name":"",
                  "properties":
                     {
 
                     },
-                 "type":"",
                  "width":0,
                  "x":2784,
                  "y":42
@@ -32,12 +25,10 @@ var levels=[
                 {
                  "gid":12,
                  "height":0,
-                 "name":"",
                  "properties":
                     {
 
                     },
-                 "type":"",
                  "width":0,
                  "x":448,
                  "y":64
@@ -45,12 +36,10 @@ var levels=[
                 {
                  "gid":12,
                  "height":0,
-                 "name":"",
                  "properties":
                     {
 
                     },
-                 "type":"",
                  "width":0,
                  "x":1408,
                  "y":64
@@ -58,12 +47,10 @@ var levels=[
                 {
                  "gid":12,
                  "height":0,
-                 "name":"",
                  "properties":
                     {
 
                     },
-                 "type":"",
                  "width":0,
                  "x":1136,
                  "y":125
@@ -71,12 +58,10 @@ var levels=[
                 {
                  "gid":12,
                  "height":0,
-                 "name":"",
                  "properties":
                     {
 
                     },
-                 "type":"",
                  "width":0,
                  "x":1632,
                  "y":193
@@ -84,12 +69,10 @@ var levels=[
                 {
                  "gid":12,
                  "height":0,
-                 "name":"",
                  "properties":
                     {
 
                     },
-                 "type":"",
                  "width":0,
                  "x":2168,
                  "y":468
@@ -97,12 +80,10 @@ var levels=[
                 {
                  "gid":12,
                  "height":0,
-                 "name":"",
                  "properties":
                     {
 
                     },
-                 "type":"",
                  "width":0,
                  "x":2184,
                  "y":37
@@ -110,12 +91,10 @@ var levels=[
                 {
                  "gid":12,
                  "height":0,
-                 "name":"",
                  "properties":
                     {
 
                     },
-                 "type":"",
                  "width":0,
                  "x":3072,
                  "y":256
@@ -123,36 +102,28 @@ var levels=[
                 {
                  "gid":12,
                  "height":0,
-                 "name":"",
                  "properties":
                     {
 
                     },
-                 "type":"",
                  "width":0,
                  "x":2368,
                  "y":576
                 }],
-         "opacity":1,
-         "type":"objectgroup",
-         "visible":true,
          "width":100,
          "x":0,
          "y":0
         }, 
         {
          "height":15,
-         "name":"Collectables",
          "objects":[
                 {
                  "gid":21,
                  "height":0,
-                 "name":"",
                  "properties":
                     {
 
                     },
-                 "type":"",
                  "width":0,
                  "x":576,
                  "y":448
@@ -160,12 +131,10 @@ var levels=[
                 {
                  "gid":21,
                  "height":0,
-                 "name":"",
                  "properties":
                     {
 
                     },
-                 "type":"",
                  "width":0,
                  "x":1920,
                  "y":512
@@ -173,12 +142,10 @@ var levels=[
                 {
                  "gid":21,
                  "height":0,
-                 "name":"",
                  "properties":
                     {
 
                     },
-                 "type":"",
                  "width":0,
                  "x":2304,
                  "y":192
@@ -186,12 +153,10 @@ var levels=[
                 {
                  "gid":21,
                  "height":0,
-                 "name":"",
                  "properties":
                     {
 
                     },
-                 "type":"",
                  "width":0,
                  "x":2560,
                  "y":448
@@ -199,12 +164,10 @@ var levels=[
                 {
                  "gid":21,
                  "height":0,
-                 "name":"",
                  "properties":
                     {
 
                     },
-                 "type":"",
                  "width":0,
                  "x":2624,
                  "y":448
@@ -212,12 +175,10 @@ var levels=[
                 {
                  "gid":21,
                  "height":0,
-                 "name":"",
                  "properties":
                     {
 
                     },
-                 "type":"",
                  "width":0,
                  "x":2688,
                  "y":448
@@ -225,12 +186,10 @@ var levels=[
                 {
                  "gid":21,
                  "height":0,
-                 "name":"",
                  "properties":
                     {
 
                     },
-                 "type":"",
                  "width":0,
                  "x":2752,
                  "y":448
@@ -238,12 +197,10 @@ var levels=[
                 {
                  "gid":21,
                  "height":0,
-                 "name":"",
                  "properties":
                     {
 
                     },
-                 "type":"",
                  "width":0,
                  "x":2816,
                  "y":448
@@ -251,12 +208,10 @@ var levels=[
                 {
                  "gid":21,
                  "height":0,
-                 "name":"",
                  "properties":
                     {
 
                     },
-                 "type":"",
                  "width":0,
                  "x":2880,
                  "y":448
@@ -264,12 +219,10 @@ var levels=[
                 {
                  "gid":21,
                  "height":0,
-                 "name":"",
                  "properties":
                     {
 
                     },
-                 "type":"",
                  "width":0,
                  "x":2944,
                  "y":448
@@ -277,12 +230,10 @@ var levels=[
                 {
                  "gid":21,
                  "height":0,
-                 "name":"",
                  "properties":
                     {
 
                     },
-                 "type":"",
                  "width":0,
                  "x":2304,
                  "y":448
@@ -290,12 +241,10 @@ var levels=[
                 {
                  "gid":21,
                  "height":0,
-                 "name":"",
                  "properties":
                     {
 
                     },
-                 "type":"",
                  "width":0,
                  "x":960,
                  "y":512
@@ -303,12 +252,10 @@ var levels=[
                 {
                  "gid":21,
                  "height":0,
-                 "name":"",
                  "properties":
                     {
 
                     },
-                 "type":"",
                  "width":0,
                  "x":3392,
                  "y":576
@@ -316,12 +263,10 @@ var levels=[
                 {
                  "gid":22,
                  "height":0,
-                 "name":"",
                  "properties":
                     {
 
                     },
-                 "type":"",
                  "width":0,
                  "x":1152,
                  "y":512
@@ -329,12 +274,10 @@ var levels=[
                 {
                  "gid":23,
                  "height":0,
-                 "name":"",
                  "properties":
                     {
 
                     },
-                 "type":"",
                  "width":0,
                  "x":3520,
                  "y":704
@@ -342,12 +285,10 @@ var levels=[
                 {
                  "gid":21,
                  "height":0,
-                 "name":"",
                  "properties":
                     {
 
                     },
-                 "type":"",
                  "width":0,
                  "x":2496,
                  "y":448
@@ -355,12 +296,10 @@ var levels=[
                 {
                  "gid":21,
                  "height":0,
-                 "name":"",
                  "properties":
                     {
 
                     },
-                 "type":"",
                  "width":0,
                  "x":2496,
                  "y":512
@@ -368,12 +307,10 @@ var levels=[
                 {
                  "gid":21,
                  "height":0,
-                 "name":"",
                  "properties":
                     {
 
                     },
-                 "type":"",
                  "width":0,
                  "x":2496,
                  "y":576
@@ -381,12 +318,10 @@ var levels=[
                 {
                  "gid":21,
                  "height":0,
-                 "name":"",
                  "properties":
                     {
 
                     },
-                 "type":"",
                  "width":0,
                  "x":2560,
                  "y":576
@@ -394,12 +329,10 @@ var levels=[
                 {
                  "gid":21,
                  "height":0,
-                 "name":"",
                  "properties":
                     {
 
                     },
-                 "type":"",
                  "width":0,
                  "x":2624,
                  "y":576
@@ -407,12 +340,10 @@ var levels=[
                 {
                  "gid":21,
                  "height":0,
-                 "name":"",
                  "properties":
                     {
 
                     },
-                 "type":"",
                  "width":0,
                  "x":2688,
                  "y":576
@@ -420,12 +351,10 @@ var levels=[
                 {
                  "gid":21,
                  "height":0,
-                 "name":"",
                  "properties":
                     {
 
                     },
-                 "type":"",
                  "width":0,
                  "x":2752,
                  "y":576
@@ -433,12 +362,10 @@ var levels=[
                 {
                  "gid":21,
                  "height":0,
-                 "name":"",
                  "properties":
                     {
 
                     },
-                 "type":"",
                  "width":0,
                  "x":2816,
                  "y":576
@@ -446,12 +373,10 @@ var levels=[
                 {
                  "gid":21,
                  "height":0,
-                 "name":"",
                  "properties":
                     {
 
                     },
-                 "type":"",
                  "width":0,
                  "x":2880,
                  "y":576
@@ -459,12 +384,10 @@ var levels=[
                 {
                  "gid":21,
                  "height":0,
-                 "name":"",
                  "properties":
                     {
 
                     },
-                 "type":"",
                  "width":0,
                  "x":2944,
                  "y":576
@@ -472,12 +395,10 @@ var levels=[
                 {
                  "gid":21,
                  "height":0,
-                 "name":"",
                  "properties":
                     {
 
                     },
-                 "type":"",
                  "width":0,
                  "x":3008,
                  "y":576
@@ -485,12 +406,10 @@ var levels=[
                 {
                  "gid":21,
                  "height":0,
-                 "name":"",
                  "properties":
                     {
 
                     },
-                 "type":"",
                  "width":0,
                  "x":3072,
                  "y":576
@@ -498,12 +417,10 @@ var levels=[
                 {
                  "gid":21,
                  "height":0,
-                 "name":"",
                  "properties":
                     {
 
                     },
-                 "type":"",
                  "width":0,
                  "x":3072,
                  "y":512
@@ -511,12 +428,10 @@ var levels=[
                 {
                  "gid":21,
                  "height":0,
-                 "name":"",
                  "properties":
                     {
 
                     },
-                 "type":"",
                  "width":0,
                  "x":3072,
                  "y":448
@@ -524,12 +439,10 @@ var levels=[
                 {
                  "gid":21,
                  "height":0,
-                 "name":"",
                  "properties":
                     {
 
                     },
-                 "type":"",
                  "width":0,
                  "x":2048,
                  "y":320
@@ -537,12 +450,10 @@ var levels=[
                 {
                  "gid":21,
                  "height":0,
-                 "name":"",
                  "properties":
                     {
 
                     },
-                 "type":"",
                  "width":0,
                  "x":2048,
                  "y":512
@@ -550,12 +461,10 @@ var levels=[
                 {
                  "gid":21,
                  "height":0,
-                 "name":"",
                  "properties":
                     {
 
                     },
-                 "type":"",
                  "width":0,
                  "x":1472,
                  "y":192
@@ -563,12 +472,10 @@ var levels=[
                 {
                  "gid":21,
                  "height":0,
-                 "name":"",
                  "properties":
                     {
 
                     },
-                 "type":"",
                  "width":0,
                  "x":1792,
                  "y":192
@@ -576,12 +483,10 @@ var levels=[
                 {
                  "gid":21,
                  "height":0,
-                 "name":"",
                  "properties":
                     {
 
                     },
-                 "type":"",
                  "width":0,
                  "x":1792,
                  "y":128
@@ -589,12 +494,10 @@ var levels=[
                 {
                  "gid":21,
                  "height":0,
-                 "name":"",
                  "properties":
                     {
 
                     },
-                 "type":"",
                  "width":0,
                  "x":1792,
                  "y":512
@@ -602,12 +505,10 @@ var levels=[
                 {
                  "gid":21,
                  "height":0,
-                 "name":"",
                  "properties":
                     {
 
                     },
-                 "type":"",
                  "width":0,
                  "x":1216,
                  "y":512
@@ -615,12 +516,10 @@ var levels=[
                 {
                  "gid":21,
                  "height":0,
-                 "name":"",
                  "properties":
                     {
 
                     },
-                 "type":"",
                  "width":0,
                  "x":1280,
                  "y":512
@@ -628,12 +527,10 @@ var levels=[
                 {
                  "gid":21,
                  "height":0,
-                 "name":"",
                  "properties":
                     {
 
                     },
-                 "type":"",
                  "width":0,
                  "x":1344,
                  "y":512
@@ -641,12 +538,10 @@ var levels=[
                 {
                  "gid":21,
                  "height":0,
-                 "name":"",
                  "properties":
                     {
 
                     },
-                 "type":"",
                  "width":0,
                  "x":1408,
                  "y":512
@@ -654,12 +549,10 @@ var levels=[
                 {
                  "gid":21,
                  "height":0,
-                 "name":"",
                  "properties":
                     {
 
                     },
-                 "type":"",
                  "width":0,
                  "x":1472,
                  "y":512
@@ -667,12 +560,10 @@ var levels=[
                 {
                  "gid":21,
                  "height":0,
-                 "name":"",
                  "properties":
                     {
 
                     },
-                 "type":"",
                  "width":0,
                  "x":1536,
                  "y":512
@@ -680,19 +571,14 @@ var levels=[
                 {
                  "gid":21,
                  "height":0,
-                 "name":"",
                  "properties":
                     {
 
                     },
-                 "type":"",
                  "width":0,
                  "x":1600,
                  "y":512
                 }],
-         "opacity":1,
-         "type":"objectgroup",
-         "visible":true,
          "width":100,
          "x":0,
          "y":0
@@ -710,7 +596,6 @@ var levels=[
          "imageheight":64,
          "imagewidth":640,
          "margin":0,
-         "name":"Tiles",
          "properties":
             {
 
@@ -725,7 +610,6 @@ var levels=[
          "imageheight":64,
          "imagewidth":640,
          "margin":0,
-         "name":"Characters",
          "properties":
             {
 
@@ -740,7 +624,6 @@ var levels=[
          "imageheight":64,
          "imagewidth":640,
          "margin":0,
-         "name":"Collectables",
          "properties":
             {
 
@@ -752,5 +635,6 @@ var levels=[
  "tilewidth":64,
  "version":1,
  "width":100
-},
+}
+,
 ];
