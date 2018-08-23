@@ -9,6 +9,8 @@ function st(elem)
   this.y=0; // y position
   this.px=0; // previous x position
   this.py=0; // previous y position
+  this.sx=0; // start x position
+  this.sy=0; // start y position
   this.w=0; // width
   this.h=0; // height
   this.vs=0; // current vertical speed
@@ -329,8 +331,8 @@ function offmapcheck(character)
 {
   if ((character.x<0) || (character.y>768))
   {
-    character.x=0;
-    character.y=0;
+    character.x=character.sx;
+    character.y=character.sy;
   }
 }
 
@@ -753,8 +755,8 @@ function addenemy(x, y, w, h, enemyclass)
   enemy.style.height=h+"px";
   enemy.classList.add(enemyclass);
 
-  enemyobj.x=x;
-  enemyobj.y=y;
+  enemyobj.sx=enemyobj.x=x;
+  enemyobj.sy=enemyobj.y=y;
   enemyobj.w=w;
   enemyobj.h=h;
   enemyobj.speed=5;
@@ -775,8 +777,8 @@ function addcharacters(level)
     switch (obj.gid)
     {
       case 11: // Player
-        gs.player.x=obj.x;
-        gs.player.y=obj.y-level.tileheight;
+        gs.player.sx=gs.player.x=obj.x;
+        gs.player.sy=gs.player.y=obj.y-level.tileheight;
         break;
 
       case 12: // Enemy
