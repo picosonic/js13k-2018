@@ -330,7 +330,7 @@ function collisioncheck(character)
 // If the player has moved "off" the map, then put them back at a start position
 function offmapcheck(character)
 {
-  if ((character.x<0) || (character.y>768))
+  if ((character.x<0) || (character.y>levels[gs.level].height*levels[gs.level].tileheight))
   {
     character.x=character.sx;
     character.y=character.sy;
