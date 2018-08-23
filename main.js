@@ -57,7 +57,9 @@ var gs={
   tilewidth:64,
   tileheight:64,
   things:[], // collectables
-  score:0
+  score:0,
+
+  state:0 // state machine, 0=intro, 1=menu, 2=playing, 3=complete
 };
 
 // Find a gamepad by its ID
@@ -661,7 +663,7 @@ function checkplayerenemy(character)
       else
       {
         // Loose health
-        // TODO
+        character.lf-=10;
       }
 
       return;
