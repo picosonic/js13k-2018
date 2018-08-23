@@ -1,3 +1,15 @@
 .thing_21
 {
+  position:absolute;
+  display:inline-block;
+  width:21px;
+  height:21px;
+  background:#ead94c;
+  background:-moz-linear-gradient(top, #ead94c 0%, #ead94c 50%, #d7c745 50%, #d7c745 100%);
+  background:-webkit-linear-gradient(top, #ead94c 0%,#ead94c 50%,#d7c745 50%,#d7c745 100%);
+  background:linear-gradient(to bottom, #ead94c 0%,#ead94c 50%,#d7c745 50%,#d7c745 100%);
+  filter:progid:DXImageTransform.Microsoft.gradient( startColorstr='#ead94c', endColorstr='#d7c745',GradientType=0 );
+  transform-origin:0px 0px;
+  transform:translate(30px, 15px) rotate(45deg);
+  border-radius:5px 5px;
 }
