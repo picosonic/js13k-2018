@@ -52,9 +52,12 @@ var gs={
   // level related
   level:0,
   tiles:[],
+  tilerows:0,
+  tilecolumns:0,
   tilewidth:64,
   tileheight:64,
-  things:[] // collectables
+  things:[], // collectables
+  score:0
 };
 
 // Find a gamepad by its ID
@@ -549,6 +552,27 @@ function updatemovements(character)
   updateanimation(character);
 }
 
+function removetilebyid(id)
+{
+  var removed;
+
+  do
+  {
+    removed=0;
+
+    for (var i=0; i<gs.tiles.length; i++)
+    {
+      if (gs.tiles[i].id==id)
+      {
+        gs.tiles[i].e.remove(); // remove from DOM
+        gs.tiles.splice(i, 1); // remove from tile list
+        removed++;
+        break;
+      }
+    }
+  } while (removed>0);
+}
+
 function checkplayercollectable(character)
 {
   // Make a collision box for the character in the centre/bottom of their sprite
@@ -573,6 +597,24 @@ function checkplayercollectable(character)
     // does this thing overlap with character?
     if (overlap(tpos, ppos))
     {
+      switch (gs.things[i].id)
+      {
+        case 21: // cube
+          gs.score+=5;
+          break;
+
+        case 22: // red key
+          removetilebyid(6);
+          break;
+
+        case 23: // green key
+          removetilebyid(7);
+          break;
+
+        default:
+          break;
+      }
+
       // Remove thing that was collected
       gs.things[i].e.remove();
       gs.things.splice(i, 1);
@@ -752,7 +794,8 @@ function addtile(x, y, tileid, content)
   tile.classList.add("tile");
   tile.classList.add("tile_"+tileid);
 
-  tileobj.element=tile;
+  tileobj.e=tile;
+  tileobj.id=tileid;
   tileobj.offsetLeft=x;
   tileobj.offsetTop=y;
   tileobj.clientWidth=gs.tilewidth;
@@ -905,6 +948,11 @@ function loadlevel(level)
 {
   // Set which level we are on
   gs.level=level;
+  gs.tilerows=levels[level].height;
+  gs.tilecolumns=levels[level].width;
+
+  // Reset collectable
+  gs.score=0;
 
   // Clear any existing tiles
   // TODO
@@ -976,13 +1024,18 @@ function init()
   gs.player.h=levels[gs.level].tileheight;
   gs.player.e.innerHTML="<div class=\"body\"><div class=\"eye\"><div class=\"iris\"></div></div><div class=\"eyelid\"></div></div><div class=\"leg rightleg\"></div><div class=\"leg leftleg\"></div>";
 
+  // Load everything for "current" level
+  loadlevel(0);
+
+  // Resize background to fit playfield
+  var bg=document.getElementById("background");
+  bg.style.width=(gs.tilecolumns*gs.tilewidth)+"px";
+  bg.style.height=(gs.tilerows*gs.tileheight)+"px";
+
   // Add some stars to the background
   var randoms=new randomizer();
   for (var i=0; i<300; i++)
-    addstar(randoms.rnd(1920), randoms.rnd(1080));
-
-  // Load everything for "current" level
-  loadlevel(0);
+    addstar(randoms.rnd(gs.tilecolumns*gs.tilewidth), randoms.rnd(gs.tilerows*gs.tileheight));
 
   // Start the game running
   window.requestAnimationFrame(rafcallback);
