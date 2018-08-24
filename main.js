@@ -59,6 +59,8 @@ var gs={
   things:[], // collectables
   score:0,
 
+  dialler:new dtmf_dial,
+
   state:0 // state machine, 0=intro, 1=menu, 2=playing, 3=complete
 };
 
@@ -603,6 +605,7 @@ function checkplayercollectable(character)
       {
         case 21: // cube
           gs.score+=5;
+          gs.dialler("D");
           break;
 
         case 22: // red key
@@ -1011,8 +1014,7 @@ function init()
   /////////////////////////////////////////////////////
   // Intro
 //  write("Connecting...");
-//  var dialler=new dtmf_dial;
-//  dialler.randomdial(10);
+//  gs.dialler.randomdial(10);
 
   /////////////////////////////////////////////////////
   // Main menu
@@ -1027,7 +1029,7 @@ function init()
   gs.player.e.innerHTML="<div class=\"body\"><div class=\"eye\"><div class=\"iris\"></div></div><div class=\"eyelid\"></div></div><div class=\"leg rightleg\"></div><div class=\"leg leftleg\"></div>";
 
   // Load everything for "current" level
-  loadlevel(0);
+  loadlevel(1);
 
   // Resize background to fit playfield
   var bg=document.getElementById("background");
