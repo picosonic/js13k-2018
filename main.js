@@ -1030,7 +1030,7 @@ function init()
   gs.player.e.innerHTML="<div class=\"body\"><div class=\"eye\"><div class=\"iris\"></div></div><div class=\"eyelid\"></div></div><div class=\"leg rightleg\"></div><div class=\"leg leftleg\"></div>";
 
   // Load everything for "current" level
-  loadlevel(1);
+  loadlevel(2);
 
   // Resize background to fit playfield
   var bg=document.getElementById("background");
