@@ -28,7 +28,11 @@ do
   yui-compressor "${file}" >> "${jscat}"
 done
 
+#php packer/example-cli.php "${jscat}" build/min2.js
+#mv build/min2.js "${jscat}"
+
 sed -i "s/,height:0,properties:{},width:0,/,/g" "${jscat}"
+sed -i "s/,height:64,properties:{},width:64,/,/g" "${jscat}"
 
 # Concatenate the CSS files
 touch "${csscat}"
