@@ -816,6 +816,18 @@ function addtiles(level)
 {
   var x, y, tile, content;
 
+  // Add a border
+  for (y=0; y<level.height; y++)
+  {
+    addtile(0-level.tilewidth, y*level.tileheight, 1, "");
+    addtile(level.width*level.tilewidth, y*level.tileheight, 1, "");
+  }
+  for (x=0; x<level.width; x++)
+  {
+    addtile(x*level.tilewidth, 0-level.tileheight, 1, "");
+    addtile(x*level.tilewidth, level.height*level.tileheight, 1, "");
+  }
+
   for (y=0; y<level.height; y++)
   {
     for (x=0; x<level.width; x++)
