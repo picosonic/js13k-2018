@@ -59,9 +59,13 @@ var gs={
   things:[], // collectables
   score:0,
 
+  // audio related
   dialler:new dtmf_dial,
+  music:new gen_music,
 
-  state:0 // state machine, 0=intro, 1=menu, 2=playing, 3=complete
+  randoms:new randomizer(),
+
+  state:0 // state machine, 0=intro, 1=menu, 2=playing, 3=status, 4=complete
 };
 
 // Find a gamepad by its ID
@@ -877,7 +881,7 @@ function addenemy(x, y, w, h, enemyclass)
   enemyobj.sy=enemyobj.y=y;
   enemyobj.w=w;
   enemyobj.h=h;
-  enemyobj.speed=5;
+  enemyobj.speed=3;
 
   gs.enemies.push(enemyobj);
 
@@ -1059,15 +1063,13 @@ function init()
   bg.style.height=(gs.tilerows*gs.tileheight)+"px";
 
   // Add some stars to the background
-  var randoms=new randomizer();
   for (var i=0; i<300; i++)
-    addstar(randoms.rnd(gs.tilecolumns*gs.tilewidth), randoms.rnd(gs.tilerows*gs.tileheight));
+    addstar(gs.randoms.rnd(gs.tilecolumns*gs.tilewidth), gs.randoms.rnd(gs.tilerows*gs.tileheight));
 
   // Start the game running
   window.requestAnimationFrame(rafcallback);
 
-  var music=new gen_music();
-  music.play_tune();
+  gs.music.play_tune();
 }
 
 // Run the init() once page has loaded
