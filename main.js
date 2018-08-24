@@ -880,7 +880,7 @@ function addcharacters(level)
         break;
 
       case 12: // Enemy
-        addenemy(obj.x, obj.y-level.tileheight, level.tilewidth, level.tileheight, "enemy");
+        addenemy(obj.x, obj.y-level.tileheight-5, level.tilewidth, level.tileheight, "enemy");
         break;
 
       default:
