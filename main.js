@@ -614,7 +614,7 @@ function checkplayercollectable(character)
       {
         case 21: // cube
           gs.score+=5;
-          gs.dialler.dial("D");
+          gs.dialler.randomdial(1);
           break;
 
         case 22: // red key
