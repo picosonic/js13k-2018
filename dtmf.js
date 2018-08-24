@@ -1,16 +1,11 @@
 // DTMF dialler object
 function dtmf_dial()
 {
-  // Set up audio context
-  this.audioCtx=new (window.AudioContext || window.webkitAudioContext)();
-  this.gainNode=this.audioCtx.createGain();
-
-  // Add volume control, connecting to audio context
-  this.gainNode.connect(this.audioCtx.destination);
-  this.gainNode.gain.setValueAtTime(0.05, this.audioCtx.currentTime);
-
   // Set default tone length
   this.tonelen=1/5;
+
+  this.audioCtx=null;
+  this.gainNode=null;
 
   // Generate DTMF tones for the number passed
   this.dial=function(number)
@@ -18,6 +13,14 @@ function dtmf_dial()
     var keys="123A456B789C*0#D"; // All possible standard DTMF keys
     var dtmf_low=[697,770,852,941]; // DTMF low frequencies
     var dtmf_high=[1209,1336,1477,1633]; // DTMF high frequencies
+
+  // Set up audio context
+  this.audioCtx=new (window.AudioContext || window.webkitAudioContext)();
+  this.gainNode=this.audioCtx.createGain();
+
+  // Add volume control, connecting to audio context
+  this.gainNode.connect(this.audioCtx.destination);
+  this.gainNode.gain.setValueAtTime(0.05, this.audioCtx.currentTime);
 
     // Process individual number
     for (var i=0; i<number.length; i++)
@@ -52,6 +55,14 @@ function dtmf_dial()
   // Simulate carrier tone
   this.carriertone=function(carrierdelay)
   {
+  // Set up audio context
+  this.audioCtx=new (window.AudioContext || window.webkitAudioContext)();
+  this.gainNode=this.audioCtx.createGain();
+
+  // Add volume control, connecting to audio context
+  this.gainNode.connect(this.audioCtx.destination);
+  this.gainNode.gain.setValueAtTime(0.05, this.audioCtx.currentTime);
+
     var carrier=this.audioCtx.createOscillator();
     var cstart=this.audioCtx.currentTime+(carrierdelay*this.tonelen)+1.5;
     carrier.connect(this.gainNode);

@@ -309,6 +309,7 @@ function collisioncheck(character)
   }
   character.x+=character.hs;
 
+/*
   // Climb stairs
   if ((character==gs.player) // it's the player
     && (character.keystate!=0) // key still pressed
@@ -320,7 +321,7 @@ function collisioncheck(character)
     character.j=true;
     character.vs=-(character.jumpspeed/4);
   }
-
+*/
   // check for vertical collisions
   if (collide(character, character.x, character.y+character.vs))
   {
