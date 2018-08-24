@@ -28,10 +28,6 @@ body
   margin:0px;
   padding:0px;
   font-height:0px;
-  background: -moz-linear-gradient(top, #000000 0%, #2a5298 100%);
-  background: -webkit-linear-gradient(top, #000000 0%,#2a5298 100%);
-  background: linear-gradient(to bottom, #000000 0%,#2a5298 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#2a5298',GradientType=0 );
 }
 
 #debug
@@ -40,6 +36,14 @@ body
   color:white;
   background:black;
   font-size:50px;
+}
+
+#background
+{
+  background: -moz-linear-gradient(top, #000000 0%, #2a5298 100%);
+  background: -webkit-linear-gradient(top, #000000 0%,#2a5298 100%);
+  background: linear-gradient(to bottom, #000000 0%,#2a5298 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#2a5298',GradientType=0 );
 }
 
 .star

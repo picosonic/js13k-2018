@@ -1059,8 +1059,8 @@ function init()
 
   // Resize background to fit playfield
   var bg=document.getElementById("background");
-  bg.style.width=(gs.tilecolumns*gs.tilewidth)+"px";
-  bg.style.height=(gs.tilerows*gs.tileheight)+"px";
+  bg.style.width=((gs.tilecolumns+2)*gs.tilewidth)+"px";
+  bg.style.height=((gs.tilerows+2)*gs.tileheight)+"px";
 
   // Add some stars to the background
   for (var i=0; i<300; i++)
