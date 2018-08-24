@@ -14,13 +14,13 @@ function dtmf_dial()
     var dtmf_low=[697,770,852,941]; // DTMF low frequencies
     var dtmf_high=[1209,1336,1477,1633]; // DTMF high frequencies
 
-  // Set up audio context
-  this.audioCtx=new (window.AudioContext || window.webkitAudioContext)();
-  this.gainNode=this.audioCtx.createGain();
+    // Set up audio context
+    this.audioCtx=new (window.AudioContext || window.webkitAudioContext)();
+    this.gainNode=this.audioCtx.createGain();
 
-  // Add volume control, connecting to audio context
-  this.gainNode.connect(this.audioCtx.destination);
-  this.gainNode.gain.setValueAtTime(0.05, this.audioCtx.currentTime);
+    // Add volume control, connecting to audio context
+    this.gainNode.connect(this.audioCtx.destination);
+    this.gainNode.gain.setValueAtTime(0.05, this.audioCtx.currentTime);
 
     // Process individual number
     for (var i=0; i<number.length; i++)
@@ -55,13 +55,13 @@ function dtmf_dial()
   // Simulate carrier tone
   this.carriertone=function(carrierdelay)
   {
-  // Set up audio context
-  this.audioCtx=new (window.AudioContext || window.webkitAudioContext)();
-  this.gainNode=this.audioCtx.createGain();
+    // Set up audio context
+    this.audioCtx=new (window.AudioContext || window.webkitAudioContext)();
+    this.gainNode=this.audioCtx.createGain();
 
-  // Add volume control, connecting to audio context
-  this.gainNode.connect(this.audioCtx.destination);
-  this.gainNode.gain.setValueAtTime(0.05, this.audioCtx.currentTime);
+    // Add volume control, connecting to audio context
+    this.gainNode.connect(this.audioCtx.destination);
+    this.gainNode.gain.setValueAtTime(0.05, this.audioCtx.currentTime);
 
     var carrier=this.audioCtx.createOscillator();
     var cstart=this.audioCtx.currentTime+(carrierdelay*this.tonelen)+1.5;
