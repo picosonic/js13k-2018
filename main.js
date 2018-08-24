@@ -578,6 +578,14 @@ function removetilebyid(id)
   } while (removed>0);
 }
 
+function clearobjects(items)
+{
+  for (var i=0; i<items.length; i++)
+    items[i].e.remove(); // remove from DOM
+
+  items.splice(0, items.length); // clear array
+}
+
 function checkplayercollectable(character)
 {
   // Make a collision box for the character in the centre/bottom of their sprite
@@ -887,12 +895,12 @@ function addcharacters(level)
     switch (obj.gid)
     {
       case 11: // Player
-        gs.player.sx=gs.player.x=obj.x+16;
+        gs.player.sx=gs.player.x=obj.x;
         gs.player.sy=gs.player.y=obj.y-level.tileheight;
         break;
 
       case 12: // Enemy
-        addenemy(obj.x, obj.y-level.tileheight-16, level.tilewidth, level.tileheight, "enemy");
+        addenemy(obj.x, obj.y-level.tileheight, level.tilewidth, level.tileheight, "enemy");
         break;
 
       default:
@@ -973,19 +981,19 @@ function loadlevel(level)
   gs.score=0;
 
   // Clear any existing tiles
-  // TODO
+  clearobjects(gs.tiles);
 
   // Add the tiles for the level
   addtiles(levels[level]);
 
   // Clear any existing collectables
-  // TODO
+  clearobjects(gs.things);
 
   // Add the collectables
   addcollectables(levels[level]);
 
   // Clear any existing characters
-  // TODO
+  clearobjects(gs.enemies);
 
   // Add the characters
   addcharacters(levels[level]);
