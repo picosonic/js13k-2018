@@ -1065,6 +1065,9 @@ function init()
 
   // Start the game running
   window.requestAnimationFrame(rafcallback);
+
+  var music=new gen_music();
+  music.play_tune();
 }
 
 // Run the init() once page has loaded
