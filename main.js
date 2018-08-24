@@ -18,6 +18,7 @@ function st(elem)
   this.j=false; // jumping
   this.f=false; // falling
   this.d=false; // ducking
+  this.htime=0; // hurt following an enemy collision
   this.dir=0; // direction (-1=left, 0=none, 1=right)
   this.hsp=10; // max horizontal speed
   this.vsp=20; // max vertical speed
@@ -395,7 +396,7 @@ function jumpcheck(character)
 function standcheck(character)
 {
   // Check for ducking
-  if ((character.keystate&8)!=0)
+  if (((character.keystate&8)!=0) || (character.htime>0))
     character.d=true;
   else
     character.d=false;
@@ -506,7 +507,7 @@ function updateanimation(character)
   else
     character.e.classList.remove("fall");
 
-  if (character.d)
+  if ((character.d) || (character.htime>0))
     character.e.classList.add("duck");
   else
     character.e.classList.remove("duck");
@@ -557,6 +558,9 @@ function updatemovements(character)
       character.dir=1;
     }
   }
+
+  // Decrease hurt timer
+  if (character.htime>0) character.htime--;
 
   updateanimation(character);
 }
@@ -678,8 +682,12 @@ function checkplayerenemy(character)
       }
       else
       {
-        // Loose health
-        character.lf-=10;
+        // Loose health (if not already hurt)
+        if (character.htime==0)
+          character.lf-=10;
+
+        character.htime=60;
+        character.d=true;
       }
 
       return;
@@ -901,6 +909,8 @@ function addcharacters(level)
       case 11: // Player
         gs.player.sx=gs.player.x=(obj.x+level.tilewidth);
         gs.player.sy=gs.player.y=obj.y;
+        gs.player.e.style.left=gs.player.x+"px";
+        gs.player.e.style.top=gs.player.y+"px";
         break;
 
       case 12: // Enemy
