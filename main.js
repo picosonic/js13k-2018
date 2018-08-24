@@ -825,15 +825,15 @@ function addtiles(level)
   var x, y, tile, content;
 
   // Add a border
-  for (y=0; y<level.height; y++)
+  for (y=0; y<(level.height+2); y++)
   {
-    addtile(0-level.tilewidth, y*level.tileheight, 1, "");
-    addtile(level.width*level.tilewidth, y*level.tileheight, 1, "");
+    addtile(0, y*level.tileheight, 1, "");
+    addtile((level.width+1)*level.tilewidth, y*level.tileheight, 1, "");
   }
-  for (x=0; x<level.width; x++)
+  for (x=0; x<(level.width+2); x++)
   {
-    addtile(x*level.tilewidth, 0-level.tileheight, 1, "");
-    addtile(x*level.tilewidth, level.height*level.tileheight, 1, "");
+    addtile(x*level.tilewidth, 0, 1, "");
+    addtile(x*level.tilewidth, (level.height+1)*level.tileheight, 1, "");
   }
 
   for (y=0; y<level.height; y++)
@@ -855,7 +855,7 @@ function addtiles(level)
       }
 
       if (tile!=0)
-        addtile(x*level.tilewidth, y*level.tileheight, tile, content);
+        addtile((x+1)*level.tilewidth, (y+1)*level.tileheight, tile, content);
     }
   }
 }
@@ -895,12 +895,12 @@ function addcharacters(level)
     switch (obj.gid)
     {
       case 11: // Player
-        gs.player.sx=gs.player.x=obj.x;
-        gs.player.sy=gs.player.y=obj.y-level.tileheight;
+        gs.player.sx=gs.player.x=(obj.x+level.tilewidth);
+        gs.player.sy=gs.player.y=obj.y;
         break;
 
       case 12: // Enemy
-        addenemy(obj.x, obj.y-level.tileheight, level.tilewidth, level.tileheight, "enemy");
+        addenemy(obj.x+level.tilewidth, obj.y, level.tilewidth, level.tileheight, "enemy");
         break;
 
       default:
@@ -955,7 +955,7 @@ function addcollectables(level)
   {
     obj=level.layers[2].objects[index];
 
-    addcollectable(obj.x, obj.y-level.tileheight, obj.gid);
+    addcollectable(obj.x+level.tilewidth, obj.y, obj.gid);
   }
 }
 
