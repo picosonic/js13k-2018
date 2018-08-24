@@ -887,12 +887,12 @@ function addcharacters(level)
     switch (obj.gid)
     {
       case 11: // Player
-        gs.player.sx=gs.player.x=obj.x;
-        gs.player.sy=gs.player.y=obj.y-level.tileheight+32;
+        gs.player.sx=gs.player.x=obj.x+16;
+        gs.player.sy=gs.player.y=obj.y-level.tileheight;
         break;
 
       case 12: // Enemy
-        addenemy(obj.x, obj.y-level.tileheight-32, level.tilewidth, level.tileheight, "enemy");
+        addenemy(obj.x, obj.y-level.tileheight-16, level.tilewidth, level.tileheight, "enemy");
         break;
 
       default:
