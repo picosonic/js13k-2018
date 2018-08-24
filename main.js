@@ -1036,6 +1036,7 @@ function init()
   // Intro
 //  write("Connecting...");
 //  gs.dialler.randomdial(10);
+//  gs.dialler.carriertone(10);
 
   /////////////////////////////////////////////////////
   // Main menu

@@ -82,6 +82,5 @@ function dtmf_dial()
       number+=this.randoms.rnd(10);
     }
     this.dial(number);
-    this.carriertone(numlen);
   };
 }
