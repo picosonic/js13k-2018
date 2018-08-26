@@ -30,12 +30,19 @@ body
   font-height:0px;
 }
 
-#debug
+#console
 {
   position:absolute;
-  color:white;
-  background:black;
-  font-size:50px;
+  top:5%;
+  left:5%;
+  width:90%;
+  height:90%;
+  box-sizing:border-box;
+  border:6px solid #e28809;
+  border-radius:10px;
+  padding:5px;
+  background-color:#000;
+  overflow:hidden;
 }
 
 #background
