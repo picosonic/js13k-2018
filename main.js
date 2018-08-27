@@ -61,8 +61,8 @@ var gs={
   score:0,
 
   // audio related
-  dialler:new dtmf_dial,
-  music:new gen_music,
+  dialler:new dtmf_dial(),
+  music:new gen_music(),
 
   randoms:new randomizer(),
 
@@ -222,6 +222,15 @@ function pollGamepads()
       }
     }
   }
+}
+
+// Has this level been completed?
+function levelcomplete()
+{
+  if ((gs.enemies.length==0) && (gs.things.length==0))
+    return true;
+
+  return false;
 }
 
 // Redraw the game world
@@ -622,7 +631,7 @@ function checkplayercollectable(character)
       {
         case 21: // cube
           gs.score+=5;
-          gs.dialler.randomdial(1);
+//          gs.dialler.randomdial(1);
           break;
 
         case 22: // red key
@@ -734,6 +743,16 @@ function rafcallback(timestamp)
     {
       update();
       gs.acc-=gs.step;
+    }
+
+    if (levelcomplete())
+    {
+      var level=gs.level+1;
+
+      if (level>=levels.length)
+        level=0;
+
+      launchgame(level);
     }
 
     // Redraw the game world
