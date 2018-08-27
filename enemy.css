@@ -89,6 +89,15 @@
   100% { height:0%; }
 }
 
+@-webkit-keyframes enemy_blink
+{
+  0% { height:0%; }
+  46% { height:0%; }
+  50% { height:36%; }
+  54% { height:0%; }
+  100% { height:0%; }
+}
+
 .enemy .eyelid
 {
   position:absolute;
@@ -104,6 +113,10 @@
   animation-name:enemy_blink;
   animation-duration:5s;
   animation-iteration-count:infinite;
+
+  -webkit-animation-name:enemy_blink;
+  -webkit-animation-duration:5s;
+  -webkit-animation-iteration-count:infinite;
 }
 
 .enemy .leg
@@ -127,7 +140,21 @@
   100% { transform:rotate(0deg); }
 }
 
+@-webkit-keyframes enemy_right_walk
+{
+  0% { transform:rotate(0deg); }
+  50% { transform:rotate(45deg); }
+  100% { transform:rotate(0deg); }
+}
+
 @keyframes enemy_left_walk
+{
+  0% { transform:rotate(0deg); }
+  50% { transform:rotate(-45deg); }
+  100% { transform:rotate(0deg); }
+}
+
+@-webkit-keyframes enemy_left_walk
 {
   0% { transform:rotate(0deg); }
   50% { transform:rotate(-45deg); }
@@ -150,6 +177,10 @@
   animation-name:enemy_left_walk;
   animation-duration:0.5s;
   animation-iteration-count:infinite;
+
+  -webkit-animation-name:enemy_left_walk;
+  -webkit-animation-duration:0.5s;
+  -webkit-animation-iteration-count:infinite;
 }
 
 .enemy.walk .rightleg
@@ -157,6 +188,10 @@
   animation-name:enemy_right_walk;
   animation-duration:0.5s;
   animation-iteration-count:infinite;
+
+  -webkit-animation-name:enemy_right_walk;
+  -webkit-animation-duration:0.5s;
+  -webkit-animation-iteration-count:infinite;
 }
 
 .enemy.duck .body
