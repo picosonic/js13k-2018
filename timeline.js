@@ -1,50 +1,53 @@
-var timeline=[];
-var timelinepos=0;
-var timelineepoch=0;
-
-function timelineadd(itemstart, newitem)
+function timelineobj()
 {
-  var newobj={start:itemstart, item:newitem, done:false};
+  this.timeline=[];
+  this.timelinepos=0;
+  this.timelineepoch=0;
 
-  timeline.push(newobj);
-
-  timeline.sort(function(a,b) {return ((b.start<a.start)?1:(b.start==a.start)?0:-1)});
-}
-
-function timelineraf(timestamp)
-{
-  var remain=0;
-
-  if (timelinepos==0)
+  this.add=function(itemstart, newitem)
   {
-    timelineepoch=timestamp;
-  }
-  else
-  {
-    var delta=timestamp-timelineepoch;
+    var newobj={start:itemstart, item:newitem, done:false};
 
-    for (var i=0; i<timeline.length; i++)
+    this.timeline.push(newobj);
+
+    this.timeline.sort(function(a,b) {return ((b.start<a.start)?1:(b.start==a.start)?0:-1)});
+  };
+
+  this.timelineraf=function(timestamp)
+  {
+    var remain=0;
+
+    if (this.timelinepos==0)
     {
-      if ((!timeline[i].done) && (timeline[i].start<delta))
+      this.timelineepoch=timestamp;
+    }
+    else
+    {
+      var delta=timestamp-this.timelineepoch;
+
+      for (var i=0; i<this.timeline.length; i++)
       {
-        timeline[i].done=true;
-        timeline[i].item();
+        if ((!this.timeline[i].done) && (this.timeline[i].start<delta))
+        {
+          this.timeline[i].done=true;
+          this.timeline[i].item();
+        }
+
+        if (!this.timeline[i].done)
+          remain++;
       }
 
-      if (!timeline[i].done)
-        remain++;
+      gs.writer.typechar();
     }
 
-    gs.writer.typechar();
-  }
+    this.timelinepos=timestamp;
 
-  timelinepos=timestamp;
+    if ((this.timelinepos==this.timelineepoch) || (remain>0))
+      window.requestAnimationFrame(this.timelineraf.bind(this));
+  };
 
-  if ((timelinepos==timelineepoch) || (remain>0))
-    window.requestAnimationFrame(timelineraf);
-}
-
-function timelinebegin()
-{
-  window.requestAnimationFrame(timelineraf);
+  this.begin=function()
+  {
+    window.requestAnimationFrame(this.timelineraf.bind(this));
+  };
 }

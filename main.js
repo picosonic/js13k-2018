@@ -66,6 +66,7 @@ var gs={
 
   randoms:new randomizer(),
   writer:new textwriter(),
+  timeline:new timelineobj,
 
   state:0 // state machine, 0=intro, 1=menu, 2=playing, 3=status, 4=complete
 };
@@ -1171,18 +1172,19 @@ function init()
   // Intro
   show_screen(4);
 
-  timelineadd(0, function(){ gs.writer.typewrite("console", "search 'cat videos'"); });
-  timelineadd(3000, function(){ gs.writer.write("console", "CONNECTING TO PARALLAX SHIFT..."); });
-  timelineadd(3100, function(){ gs.dialler.randomdial(10); });
-  timelineadd(3100, function(){ gs.dialler.carriertone(10); });
-  timelineadd(11000, function(){ gs.writer.write("console", "418 OFFLINE"); });
-  timelineadd(12000, function(){ gs.writer.typewrite("console", "run project 23"); });
-  timelineadd(15000, function(){ gs.writer.write("console", "451 PARTICLE ACCELERATOR NOT CHARGED"); });
-  timelineadd(16000, function(){ gs.writer.typewrite("console", "execute order 66"); });
-  timelineadd(19000, function(){ gs.writer.write("console", "429 FILE NOT FOUND"); });
-  timelineadd(20000, function(){ gs.state=1; });
+  gs.timeline.add(0, function(){ gs.writer.typewrite("console", "search 'cat videos'"); });
+  gs.timeline.add(3000, function(){ gs.writer.write("console", "CONNECTING TO PARALLAX SHIFT..."); });
+  gs.timeline.add(3100, function(){ gs.dialler.randomdial(10); });
+  gs.timeline.add(3100, function(){ gs.dialler.carriertone(10); });
+  gs.timeline.add(11000, function(){ gs.writer.write("console", "418 OFFLINE"); });
+  gs.timeline.add(12000, function(){ gs.writer.typewrite("console", "run project 23"); });
+  gs.timeline.add(15000, function(){ gs.writer.write("console", "451 PARTICLE ACCELERATOR NOT CHARGED"); });
+  gs.timeline.add(16000, function(){ gs.writer.typewrite("console", "execute order 66"); });
+  gs.timeline.add(19000, function(){ gs.writer.write("console", "429 FILE NOT FOUND"); });
+  gs.timeline.add(20000, function(){ gs.state=1; });
+  gs.timeline.add(21000, function(){ hide_screen(); gs.state=2; launchgame(1); });
 
-  timelinebegin();
+  gs.timeline.begin();
 }
 
 // Run the init() once page has loaded
