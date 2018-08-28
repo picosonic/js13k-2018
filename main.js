@@ -875,6 +875,45 @@ function addtiles(level)
 
       switch (tile)
       {
+        case 2:
+        case 3:
+        case 4:
+        case 5:
+          var svg='<svg version="1.1" width="64" height="64" viewBox="0 0 64 64" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg"><g transform="translate(122.86 -368.93)"><path d="m-85.557 387.84 10.655 5.85 10.746-5.85 5.3038 2.9012v-17.804h-64.005v17.804l5.3525 2.9488 10.649-5.85 10.65 5.85 10.649-5.85" fill="#2185d5"/><path d="m-58.852 372.93v-3.9988h-64.005v3.9988h64.005" fill="#2493ec"/><path d="m-96.206 418.09-5.2987-2.95h-0.0487v-0.0488l-5.3025-2.9-10.649 5.8988-5.3525-2.95v17.798h64.005v-17.798l-5.3038-2.9488-10.746 5.8988-10.655-5.8988-10.649 5.8988" fill="#303841"/><path d="m-96.206 399.74-5.2987-3.5012-0.0487-0.0488-5.3025-3.55-10.649 7.1-5.3525-3.55v18.95l5.3525 2.95 10.649-5.8988 5.3025 2.9v0.0488h0.0487l5.2987 2.95 10.649-5.8988 10.655 5.8988 10.746-5.8988 5.3038 2.9488v-18.95l-5.3038-3.55-10.746 7.1-10.655-7.1-10.649 7.1" fill="#3a4750"/><path d="m-74.902 393.69-10.655-5.85-10.649 5.85-10.65-5.85-10.649 5.85-5.3525-2.9488v5.4488l5.3525 3.55 10.649-7.1 5.3025 3.55 0.0487 0.0488 5.2987 3.5012 10.649-7.1 10.655 7.1 10.746-7.1 5.3038 3.55v-5.4488l-5.3038-2.9012-10.746 5.85" fill="#f3f3f3"/></g></svg>';
+
+          switch (gs.level % 4)
+          {
+            case 0:
+              svg=svg.replace("#2493ec", "#ff5960");
+              svg=svg.replace("#2185d5", "#dd4e54");
+              svg=svg.replace("#f3f3f3", "#ead94c");
+              svg=svg.replace("#3a4750", "#5d433e");
+              svg=svg.replace("#303841", "#4a3632");
+              break;
+
+            case 1:
+              svg=svg.replace("#2493ec", "#ffe580");
+              svg=svg.replace("#2185d5", "#ffd944");
+              svg=svg.replace("#f3f3f3", "#94dd4d");
+              svg=svg.replace("#3a4750", "#49b47e");
+              svg=svg.replace("#303841", "#409f6e");
+              break;
+
+            case 2:
+              svg=svg.replace("#2493ec", "#3a7080");
+              svg=svg.replace("#2185d5", "#2c5460");
+              svg=svg.replace("#f3f3f3", "#bbdc2f");
+              svg=svg.replace("#3a4750", "#67bd39");
+              svg=svg.replace("#303841", "#59a331");
+              break;
+
+            default:
+              break;
+          }
+
+          content=svg;
+          break;
+
         case 6: // Green Lock
         case 7: // Red Lock
          content="<div class=\"boltnw\"></div><div class=\"boltne\"></div><div class=\"boltsw\"></div><div class=\"boltse\"></div><div class=\"keyhole\"></div><div class=\"keyhole2\"></div>";
@@ -1009,6 +1048,7 @@ function loadlevel(level)
   gs.level=level;
   gs.tilerows=levels[level].height;
   gs.tilecolumns=levels[level].width;
+  document.getElementById("playfield").setAttribute("level", level % 4);
 
   // Reset collectable
   gs.score=0;
