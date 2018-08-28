@@ -65,6 +65,7 @@ var gs={
   music:new gen_music(),
 
   randoms:new randomizer(),
+  writer:new textwriter(),
 
   state:0 // state machine, 0=intro, 1=menu, 2=playing, 3=status, 4=complete
 };
@@ -763,7 +764,8 @@ function rafcallback(timestamp)
   gs.lasttime=timestamp;
 
   // Request we are called on the next frame
-  window.requestAnimationFrame(rafcallback);
+  if (gs.state==2)
+    window.requestAnimationFrame(rafcallback);
 }
 
 // Update the player key state
@@ -818,6 +820,14 @@ function updatekeystate(e, dir)
       else
         gs.player.keystate&=~16;
       e.preventDefault();
+
+      // If in menu start playing
+      if (gs.state==1)
+      {
+        hide_screen();
+        gs.state=2;
+        launchgame(1);
+      }
       break;
 
     default:
@@ -1042,10 +1052,10 @@ function addstar(x, y)
   document.getElementById("background").appendChild(star);
 }
 
-function loadlevel(level)
+function loadlevel()
 {
   // Set which level we are on
-  gs.level=level;
+  var level=gs.level;
   gs.tilerows=levels[level].height;
   gs.tilecolumns=levels[level].width;
   document.getElementById("playfield").setAttribute("level", level % 4);
@@ -1070,6 +1080,56 @@ function loadlevel(level)
 
   // Add the characters
   addcharacters(levels[level]);
+}
+
+// Launch game
+function launchgame(level)
+{
+  /////////////////////////////////////////////////////
+  // Start game
+  gs.level=level;
+  gs.player.e=document.getElementById("player");
+  gs.player.w=levels[gs.level].tilewidth;
+  gs.player.h=levels[gs.level].tileheight;
+  gs.player.e.innerHTML="<div class=\"body\"><div class=\"eye\"><div class=\"iris\"></div></div><div class=\"eyelid\"></div></div><div class=\"leg rightleg\"></div><div class=\"leg leftleg\"></div>";
+
+  // Load everything for "current" level
+  loadlevel();
+
+  // Resize background to fit playfield
+  var bg=document.getElementById("background");
+  bg.style.width=((gs.tilecolumns+2)*gs.tilewidth)+"px";
+  bg.style.height=((gs.tilerows+2)*gs.tileheight)+"px";
+
+  // Add some stars to the background
+  for (var i=0; i<300; i++)
+    addstar(gs.randoms.rnd(gs.tilecolumns*gs.tilewidth), gs.randoms.rnd(gs.tilerows*gs.tileheight));
+
+  // Start the game running
+  window.requestAnimationFrame(rafcallback);
+
+  //gs.music.play_tune();
+}
+
+function show_menu()
+{
+  /////////////////////////////////////////////////////
+  // Main menu
+  // TODO
+}
+
+function show_screen(pixelsize)
+{
+  var screen=document.getElementById("ui");
+  var domtext="<style>.alphablock { font-size:0px; display:inline-block; margin-bottom: "+(pixelsize/3)+"px; } .block { display:inline-block; width:"+pixelsize+"px; height:"+pixelsize+"px; border-top-left-radius:"+(pixelsize/2)+"px; border-bottom-right-radius:"+(pixelsize/2)+"px; } .filled { background-color:#00ff00; background: linear-gradient(to bottom, rgba(0,255,0,0) 0%,rgba(0,255,0,1) 33%,rgba(0,255,0,1) 66%,rgba(0,255,0,0) 100%); }</style><div id=\"console\"></div>";
+
+  screen.innerHTML=domtext;
+}
+
+function hide_screen()
+{
+  var screen=document.getElementById("ui");
+  screen.innerHTML="";
 }
 
 // Initial entry point
@@ -1105,40 +1165,24 @@ function init()
     gamepadHandler(e, false);
   });
 
+  // gs.state, 0=intro, 1=menu, 2=playing, 3=status, 4=complete
+
   /////////////////////////////////////////////////////
   // Intro
-//  write("Connecting...");
-//  gs.dialler.randomdial(10);
-//  gs.dialler.carriertone(10);
+  show_screen(4);
 
-  /////////////////////////////////////////////////////
-  // Main menu
-  // TODO
+  timelineadd(0, function(){ gs.writer.typewrite("console", "search 'cat videos'"); });
+  timelineadd(3000, function(){ gs.writer.write("console", "CONNECTING TO PARALLAX SHIFT..."); });
+  timelineadd(3100, function(){ gs.dialler.randomdial(10); });
+  timelineadd(3100, function(){ gs.dialler.carriertone(10); });
+  timelineadd(11000, function(){ gs.writer.write("console", "418 OFFLINE"); });
+  timelineadd(12000, function(){ gs.writer.typewrite("console", "run project 23"); });
+  timelineadd(15000, function(){ gs.writer.write("console", "451 PARTICLE ACCELERATOR NOT CHARGED"); });
+  timelineadd(16000, function(){ gs.writer.typewrite("console", "execute order 66"); });
+  timelineadd(19000, function(){ gs.writer.write("console", "429 FILE NOT FOUND"); });
+  timelineadd(20000, function(){ gs.state=1; });
 
-  /////////////////////////////////////////////////////
-  // Start game
-  // TODO
-  gs.player.e=document.getElementById("player");
-  gs.player.w=levels[gs.level].tilewidth;
-  gs.player.h=levels[gs.level].tileheight;
-  gs.player.e.innerHTML="<div class=\"body\"><div class=\"eye\"><div class=\"iris\"></div></div><div class=\"eyelid\"></div></div><div class=\"leg rightleg\"></div><div class=\"leg leftleg\"></div>";
-
-  // Load everything for "current" level
-  loadlevel(2);
-
-  // Resize background to fit playfield
-  var bg=document.getElementById("background");
-  bg.style.width=((gs.tilecolumns+2)*gs.tilewidth)+"px";
-  bg.style.height=((gs.tilerows+2)*gs.tileheight)+"px";
-
-  // Add some stars to the background
-  for (var i=0; i<300; i++)
-    addstar(gs.randoms.rnd(gs.tilecolumns*gs.tilewidth), gs.randoms.rnd(gs.tilerows*gs.tileheight));
-
-  // Start the game running
-  window.requestAnimationFrame(rafcallback);
-
-  gs.music.play_tune();
+  timelinebegin();
 }
 
 // Run the init() once page has loaded
