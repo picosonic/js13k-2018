@@ -40,7 +40,7 @@ function timelineraf(timestamp)
 
   timelinepos=timestamp;
 
-  if (remain>0)
+  if ((timelinepos==timelineepoch) || (remain>0))
     window.requestAnimationFrame(timelineraf);
 }
 
