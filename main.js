@@ -597,6 +597,36 @@ function removetilebyid(id)
   } while (removed>0);
 }
 
+function calcHypotenuse(a, b)
+{
+  return(Math.sqrt((a * a) + (b * b)));
+}
+
+function removenearesttilebyid(x, y, id)
+{
+  var nearest=-1;
+  var neardelta=999;
+
+  for (var i=0; i<gs.tiles.length; i++)
+  {
+    if (gs.tiles[i].id==id)
+    {
+      var delta=calcHypotenuse(Math.abs(x-gs.tiles[i].offsetLeft), Math.abs(y-gs.tiles[i].offsetTop));
+      if (delta<neardelta)
+      {
+        nearest=i;
+        neardelta=delta;
+      }
+    }
+  }
+
+  if (nearest!=-1)
+  {
+    gs.tiles[nearest].e.remove(); // remove from DOM
+    gs.tiles.splice(nearest, 1); // remove from tile list
+  }
+}
+
 function clearobjects(items)
 {
   for (var i=0; i<items.length; i++)
@@ -637,11 +667,11 @@ function checkplayercollectable(character)
           break;
 
         case 22: // red key
-          removetilebyid(6);
+          removenearesttilebyid(gs.things[i].x, gs.things[i].y, 6);
           break;
 
         case 23: // green key
-          removetilebyid(7);
+          removenearesttilebyid(gs.things[i].x, gs.things[i].y, 7);
           break;
 
         default:
@@ -827,7 +857,7 @@ function updatekeystate(e, dir)
       {
         hide_screen();
         gs.state=2;
-        launchgame(1);
+        launchgame(0);
       }
       break;
 
@@ -1182,7 +1212,7 @@ function init()
   gs.timeline.add(16000, function(){ gs.writer.typewrite("console", "execute order 66"); });
   gs.timeline.add(19000, function(){ gs.writer.write("console", "429 FILE NOT FOUND"); });
   gs.timeline.add(20000, function(){ gs.state=1; });
-  gs.timeline.add(21000, function(){ hide_screen(); gs.state=2; launchgame(3); });
+  gs.timeline.add(21000, function(){ hide_screen(); gs.state=2; launchgame(0); });
 
   gs.timeline.begin();
 }
