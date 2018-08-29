@@ -13,22 +13,22 @@
   background:none;
 }
 
-[level="0"] .tile_1
+[level='0'] .tile_1
 {
   background-color:#4a3632;
 }
 
-[level="1"] .tile_1
+[level='1'] .tile_1
 {
   background-color:#409f6e;
 }
 
-[level="2"] .tile_1
+[level='2'] .tile_1
 {
   background-color:#59a331;
 }
 
-[level="3"] .tile_1
+[level='3'] .tile_1
 {
   background-color:#303841;
 }
