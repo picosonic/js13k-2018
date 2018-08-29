@@ -1182,7 +1182,7 @@ function init()
   gs.timeline.add(16000, function(){ gs.writer.typewrite("console", "execute order 66"); });
   gs.timeline.add(19000, function(){ gs.writer.write("console", "429 FILE NOT FOUND"); });
   gs.timeline.add(20000, function(){ gs.state=1; });
-  gs.timeline.add(21000, function(){ hide_screen(); gs.state=2; launchgame(1); });
+  gs.timeline.add(21000, function(){ hide_screen(); gs.state=2; launchgame(3); });
 
   gs.timeline.begin();
 }
