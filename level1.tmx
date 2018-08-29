@@ -11,7 +11,7 @@
  </tileset>
  <layer name="Tiles" width="100" height="15">
   <data encoding="base64" compression="zlib">
-   eJztl40KgzAMhFNXt/d/402wLLudaS1RKeaD4LAWs1zzo8h1TB97rNbD7OhLIJKUZVjTWjF7rvsCPxIYrrXsD2zwXGeyVu6xeM6wZuXJXfSwYmqxxBLPfJLf+OkYlt+sh+yJdfSRf7a0qNUkrdNM1pgt5+Ml33PD+s+d6dGixp7+sTUTFN9GojbH1OpV0cIL7B+WX6gHajI5+3YGe/zFZ1vzQteerPaya4Jrq1+Yh5P05eXVWHUaY3jGf9N61PzCOcGjTl5NzV82Dx2J9ztG1IN9G7OcOEuP1rxozZ2RsGYTjXffDjhsNtH5gc8Gx9I6H43YG0fkDQOxAi4=
+   eJztl4EKAyEIhq11t/d/4+3gYu6faTXpiOsDacwF5p/piK4jvu1xWg+bYywLosAsgY9rJdl+7lv4EcDQV7N/oYP3Ogm+/J2Uzw18Wp3cRQ8tpxpHLvHOB/rOH89h/iz1kJZcrz7yS0kL603iOm2CT7Ljfjzpc2+k/nNnerSwaOkfpZkgxzYT1hxjvVdZCy+wf2hxoR6oSXSObQQ83t1Y8Wy1dcHfnsT2SmuAtfYMWIeR+uryarR3GnM44mxcDysunBM83smrseKV5qGZmC3m0n9jqSZGnK2mn7XYjHrUzIvefVtixv7rjTSb8PrA32r8M1vO2n+9qZ2PVq7G8AIrUAJS
   </data>
  </layer>
  <objectgroup name="Characters" width="100" height="15">
@@ -21,7 +21,7 @@
   <object gid="12" x="1136" y="125"/>
   <object gid="12" x="1632" y="193"/>
   <object gid="12" x="2168" y="468"/>
-  <object gid="12" x="2184" y="37"/>
+  <object gid="12" x="1821" y="925"/>
   <object gid="12" x="3072" y="256"/>
   <object gid="12" x="2368" y="576"/>
  </objectgroup>
@@ -68,5 +68,23 @@
   <object gid="21" x="1472" y="512"/>
   <object gid="21" x="1536" y="512"/>
   <object gid="21" x="1600" y="512"/>
+  <object gid="21" x="1088" y="832"/>
+  <object gid="21" x="1113" y="788"/>
+  <object gid="21" x="1144" y="741"/>
+  <object gid="21" x="1187" y="708"/>
+  <object gid="21" x="1239" y="727"/>
+  <object gid="21" x="1268" y="757"/>
+  <object gid="21" x="1288" y="791"/>
+  <object gid="21" x="1307" y="815"/>
+  <object gid="21" x="1339" y="848"/>
+  <object gid="21" x="1365" y="877"/>
+  <object gid="21" x="1385" y="908"/>
+  <object gid="21" x="1415" y="944"/>
+  <object gid="21" x="1792" y="64"/>
+  <object gid="22" x="384" y="448"/>
+  <object gid="22" x="704" y="512"/>
+  <object gid="22" x="384" y="704"/>
+  <object gid="22" x="64" y="704"/>
+  <object gid="21" x="64" y="576"/>
  </objectgroup>
 </map>
