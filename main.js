@@ -725,7 +725,10 @@ function checkplayerenemy(character)
       {
         // Loose health (if not already hurt)
         if (character.htime==0)
+        {
           character.lf-=10;
+          showhealth();
+        }
 
         character.htime=60;
         character.d=true;
@@ -1113,9 +1116,38 @@ function loadlevel()
   addcharacters(levels[level]);
 }
 
+// Show health when it's lost
+function showhealth()
+{
+  var screen=document.getElementById("ui");
+  var pixelsize=12;
+  var domtext="<style>.alphablock { font-size:0px; display:inline-block; margin-bottom: "+(pixelsize/3)+"px; } .block { display:inline-block; width:"+pixelsize+"px; height:"+pixelsize+"px; border-top-left-radius:"+(pixelsize/2)+"px; border-bottom-right-radius:"+(pixelsize/2)+"px; } .filled { background-color:#00ff00; background: linear-gradient(to bottom, rgba(0,255,0,0) 0%,rgba(0,255,0,1) 33%,rgba(0,255,0,1) 66%,rgba(0,255,0,0) 100%); }</style><div id=\"health\"></div>";
+  var healthdisplay="";
+
+  for (var i=0; i<10; i++)
+  {
+    if (gs.player.lf>(i*10))
+      healthdisplay+="|";
+    else
+      healthdisplay+="-";
+  }
+
+  screen.innerHTML=domtext;
+  gs.writer.write("health", healthdisplay);
+  setTimeout(function(){ document.getElementById("ui").innerHTML=""; }, 3000);
+}
+
 // Launch game
 function launchgame(level)
 {
+  var screen=document.getElementById("ui");
+  var pixelsize=12;
+  var domtext="<style>.alphablock { font-size:0px; display:inline-block; margin-bottom: "+(pixelsize/3)+"px; } .block { display:inline-block; width:"+pixelsize+"px; height:"+pixelsize+"px; border-top-left-radius:"+(pixelsize/2)+"px; border-bottom-right-radius:"+(pixelsize/2)+"px; } .filled { background-color:#00ff00; background: linear-gradient(to bottom, rgba(0,255,0,0) 0%,rgba(0,255,0,1) 33%,rgba(0,255,0,1) 66%,rgba(0,255,0,0) 100%); }</style><div id=\"title\" style=\"background:none;\"></div>";
+
+  screen.innerHTML=domtext;
+  gs.writer.write("title", "Level "+(level+1));
+  setTimeout(function(){ document.getElementById("ui").innerHTML=""; }, 3000);
+
   /////////////////////////////////////////////////////
   // Start game
   gs.level=level;

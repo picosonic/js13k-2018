@@ -99,6 +99,15 @@ body
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#2a5298',GradientType=0 );
 }
 
+#health
+{
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  text-align:center;
+}
+
 .star
 {
   position:absolute;
