@@ -1142,17 +1142,27 @@ function launchgame(level)
   //gs.music.play_tune();
 }
 
-function show_menu()
+function show_title()
 {
   /////////////////////////////////////////////////////
   // Main menu
-  // TODO
+  var screen=document.getElementById("ui");
+  var pixelsize=12;
+  var domtext="<style>.alphablock { font-size:0px; display:inline-block; margin-bottom: "+(pixelsize/3)+"px; } .block { display:inline-block; width:"+pixelsize+"px; height:"+pixelsize+"px; border-top-left-radius:"+(pixelsize/2)+"px; border-bottom-right-radius:"+(pixelsize/2)+"px; } .filled { background-color:#00ff00; background: linear-gradient(to bottom, rgba(0,255,0,0) 0%,rgba(0,255,0,1) 33%,rgba(0,255,0,1) 66%,rgba(0,255,0,0) 100%); } #backstory .block { width:3px; height:3px; } #controls .block { width:3px; height:3px; }</style><div id=\"title\"></div><div id=\"backstory\"></div>";
+
+  screen.innerHTML=domtext;
+  gs.writer.write("title", "Planet");
+  gs.writer.write("title", "FIGADORE");
+  gs.writer.write("title", "has gone");
+  gs.writer.write("title", "OFFLINE!");
+
+  gs.writer.write("backstory", "Fred lives on planet Figadore in the Hercules cluster, he likes watching cat videos from planet Earth, but the network link has gone **OFFLINE**!  Help Fred by unlocking doors, solving puzzles and collecting cubes to pay for the entanglement repolarisation required to get his planet back online. Keys unlock nearest lock of same colour, you need to collect all the gold cubes and sqaush all the guards to progress through the levels."+String.fromCharCode(13)+"WASD or cursors to move, ENTER or SPACE to jump. Press jump to start");
 }
 
 function show_screen(pixelsize)
 {
   var screen=document.getElementById("ui");
-  var domtext="<style>.alphablock { font-size:0px; display:inline-block; margin-bottom: "+(pixelsize/3)+"px; } .block { display:inline-block; width:"+pixelsize+"px; height:"+pixelsize+"px; border-top-left-radius:"+(pixelsize/2)+"px; border-bottom-right-radius:"+(pixelsize/2)+"px; } .filled { background-color:#00ff00; background: linear-gradient(to bottom, rgba(0,255,0,0) 0%,rgba(0,255,0,1) 33%,rgba(0,255,0,1) 66%,rgba(0,255,0,0) 100%); }</style><div id=\"console\"></div>";
+  var domtext="<style>.alphablock { font-size:0px; display:inline-block; margin-bottom: "+(pixelsize/3)+"px; } .block { display:inline-block; width:"+pixelsize+"px; height:"+pixelsize+"px; border-top-left-radius:"+(pixelsize/2)+"px; border-bottom-right-radius:"+(pixelsize/2)+"px; } .filled { background-color:#00ff00; background: linear-gradient(to bottom, rgba(0,255,0,0) 0%,rgba(0,255,0,1) 33%,rgba(0,255,0,1) 66%,rgba(0,255,0,0) 100%); }</style><div id=\"console\"><span id=\"console_1\"></span><span id=\"console_2\"></span><span id=\"console_3\"></span><span id=\"console_4\"></span><span id=\"console_5\"></span><span id=\"console_6\"></span><span id=\"console_7\"></span><span id=\"cursor\"></span></div>";
 
   screen.innerHTML=domtext;
 }
@@ -1202,17 +1212,17 @@ function init()
   // Intro
   show_screen(4);
 
-  gs.timeline.add(0, function(){ gs.writer.typewrite("console", "search 'cat videos'"); });
-  gs.timeline.add(3000, function(){ gs.writer.write("console", "CONNECTING TO PARALLAX SHIFT..."); });
+  gs.timeline.add(0, function(){ gs.writer.write("cursor", "_"); });
+  gs.timeline.add(0, function(){ gs.writer.typewrite("console_1", "search 'cat videos'"); });
+  gs.timeline.add(3000, function(){ gs.writer.write("console_2", "CONNECTING TO PARALLAX SHIFT..."); });
   gs.timeline.add(3100, function(){ gs.dialler.randomdial(10); });
   gs.timeline.add(3100, function(){ gs.dialler.carriertone(10); });
-  gs.timeline.add(11000, function(){ gs.writer.write("console", "418 OFFLINE"); });
-  gs.timeline.add(12000, function(){ gs.writer.typewrite("console", "run project 23"); });
-  gs.timeline.add(15000, function(){ gs.writer.write("console", "451 PARTICLE ACCELERATOR NOT CHARGED"); });
-  gs.timeline.add(16000, function(){ gs.writer.typewrite("console", "execute order 66"); });
-  gs.timeline.add(19000, function(){ gs.writer.write("console", "429 FILE NOT FOUND"); });
-  gs.timeline.add(20000, function(){ gs.state=1; });
-  gs.timeline.add(21000, function(){ hide_screen(); gs.state=2; launchgame(0); });
+  gs.timeline.add(11000, function(){ gs.writer.write("console_3", "418 OFFLINE"); });
+  gs.timeline.add(12000, function(){ gs.writer.typewrite("console_4", "run project 23"); });
+  gs.timeline.add(15000, function(){ gs.writer.write("console_5", "451 PARTICLE ACCELERATOR NOT CHARGED"); });
+  gs.timeline.add(16000, function(){ gs.writer.typewrite("console_6", "execute order 66"); });
+  gs.timeline.add(19000, function(){ gs.writer.write("console_7", "429 FILE NOT FOUND"); });
+  gs.timeline.add(20000, function(){ hide_screen(); gs.state=1; show_title();});
 
   gs.timeline.begin();
 }

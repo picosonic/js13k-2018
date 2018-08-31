@@ -4,12 +4,13 @@ function textwriter()
   {
     var domtext="";
 
-    if ((crlf==undefined) || (crlf!=false))
-      domtext+="<br/>";
-  
     for (var i=0; i<text.length; i++)
     {
       var offs=(text.charCodeAt(i)-32);
+
+      // Add crlf when in string
+      if (offs==(13-32))
+        domtext+="<br/>";
   
       // Don't try to draw characters outside our font set
       if ((offs<0) || (offs>101))
@@ -44,7 +45,10 @@ function textwriter()
       // Close wrapper
       domtext+="</div>";
     }
-  
+
+    if ((crlf==undefined) || (crlf!=false))
+      domtext+="<br/>";
+
     // Pass domtext to the DOM for rendering
     document.getElementById(id).innerHTML+=domtext;
   };
@@ -68,6 +72,6 @@ function textwriter()
 
     this.id=id;
     this.pos=0;
-    this.text=text;
+    this.text=text+String.fromCharCode(13);
   };
 }
