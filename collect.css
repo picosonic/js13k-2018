@@ -1,3 +1,17 @@
+@keyframes thing_float
+{
+  0% { transform:translate(30px, 10px) rotate(45deg); }
+  50% { transform:translate(30px, 20px) rotate(45deg); }
+  100% { transform:translate(30px, 10px) rotate(45deg); }
+}
+
+@-webkit-keyframes thing_float
+{
+  0% { transform:translate(30px, 10px) rotate(45deg); }
+  50% { transform:translate(30px, 20px) rotate(45deg); }
+  100% { transform:translate(30px, 10px) rotate(45deg); }
+}
+
 .thing_21
 {
   position:absolute;
@@ -12,6 +26,14 @@
   transform-origin:0px 0px;
   transform:translate(30px, 15px) rotate(45deg);
   border-radius:5px 5px;
+
+  animation-name:thing_float;
+  animation-duration:2s;
+  animation-iteration-count:infinite;
+
+  -webkit-animation-name:thing_float;
+  -webkit-animation-duration:2s;
+  -webkit-animation-iteration-count:infinite;
 }
 
 .thing_22
