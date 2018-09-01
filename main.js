@@ -44,7 +44,7 @@ var gs={
   // physics in pixels per frame @ 60fps
   gravity:1,
   terminalvelocity:50,
-  friction:1.5,
+  friction:2,
 
   // entities
   player:new st(),
