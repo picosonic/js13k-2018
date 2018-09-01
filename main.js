@@ -558,14 +558,14 @@ function updatemovements(character)
     // Left key
     if (((character.keystate&1)!=0) && ((character.keystate&4)==0))
     {
-      character.hs=-character.speed;
+      character.hs=character.htime==0?-character.speed:-2;
       character.dir=-1;
     }
 
     // Right key
     if (((character.keystate&4)!=0) && ((character.keystate&1)==0))
     {
-      character.hs=character.speed;
+      character.hs=character.htime==0?character.speed:2;
       character.dir=1;
     }
   }
