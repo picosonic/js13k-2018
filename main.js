@@ -752,11 +752,15 @@ function checkplayerenemy(character)
             // Clear player
             document.getElementById("player").innerHTML="";
 
+            // Reset scroll
+            window.scrollTo(0,0);
+
             show_title();
           }
+
+          character.htime=60;
         }
 
-        character.htime=60;
         character.d=true;
       }
 
@@ -1171,7 +1175,7 @@ function showhealth()
   screen.innerHTML=domtext;
   gs.writer.write("health", healthdisplay);
 
-  setTimeout(function(){ document.getElementById("health").innerHTML=""; }, 3000);
+  setTimeout(function(){ var hdiv=document.getElementById("health"); if ((hdiv!=undefined) && (hdiv!=null)) hdiv.innerHTML=""; }, 3000);
 }
 
 // Launch game
