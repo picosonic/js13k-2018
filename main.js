@@ -728,6 +728,32 @@ function checkplayerenemy(character)
         {
           character.lf-=10;
           showhealth();
+
+          // Check for game over
+          if (character.lf<=0)
+          {
+            gs.state=1;
+
+            // Clear any existing tiles
+            clearobjects(gs.tiles);
+
+            // Clear any existing collectables
+            clearobjects(gs.things);
+
+            // Clear any existing characters
+            clearobjects(gs.enemies);
+
+            // Clear stars
+            var bg=document.getElementById("background");
+            bg.innerHTML="";
+            bg.style.width="0px";
+            bg.style.height="0px";
+
+            // Clear player
+            document.getElementById("player").innerHTML="";
+
+            show_title();
+          }
         }
 
         character.htime=60;
@@ -780,14 +806,21 @@ function rafcallback(timestamp)
       gs.acc-=gs.step;
     }
 
+    // If the update took us out of play state then stop now
+    if (gs.state!=2)
+      return;
+
+    // Check for level complete
     if (levelcomplete())
     {
       var level=gs.level+1;
 
+      // Check for all levels completed
       if (level>=levels.length)
-        level=0;
-
-      launchgame(level);
+      {
+      }
+      else
+        launchgame(level);
     }
 
     // Redraw the game world
@@ -1114,6 +1147,9 @@ function loadlevel()
 
   // Add the characters
   addcharacters(levels[level]);
+
+  // Restore health to 100%
+  gs.player.lf=100;
 }
 
 // Show health when it's lost
@@ -1126,7 +1162,7 @@ function showhealth()
 
   for (var i=0; i<10; i++)
   {
-    if (gs.player.lf>(i*10))
+    if (gs.player.lf>((i+1)*10))
       healthdisplay+="|";
     else
       healthdisplay+="-";
@@ -1134,7 +1170,8 @@ function showhealth()
 
   screen.innerHTML=domtext;
   gs.writer.write("health", healthdisplay);
-  setTimeout(function(){ document.getElementById("ui").innerHTML=""; }, 3000);
+
+  setTimeout(function(){ document.getElementById("health").innerHTML=""; }, 3000);
 }
 
 // Launch game
