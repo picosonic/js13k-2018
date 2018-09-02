@@ -88,9 +88,9 @@ function gamepadHandler(event, connecting)
 
   if (connecting)
   {
-    console.log("Gamepad connected at index %d: %s. %d buttons, %d axes.",
-      gamepad.index, gamepad.id,
-      gamepad.buttons.length, gamepad.axes.length);
+//    console.log("Gamepad connected at index %d: %s. %d buttons, %d axes.",
+//      gamepad.index, gamepad.id,
+//      gamepad.buttons.length, gamepad.axes.length);
 
     gs.gamepads[gamepad.index]=gamepad.id;
     if (gamepad.mapping==="standard")
@@ -101,13 +101,13 @@ function gamepadHandler(event, connecting)
       gs.gamepadbuttons[3]=13; // bottom (left) d-down
       gs.gamepadbuttons[4]=0;  // bottom button (right) x
     }
-    else
-      gs.gamepadassignbutton=0; // require manual mapping
+ //   else
+//      gs.gamepadassignbutton=0; // require manual mapping
   }
   else
   {
-    console.log("Gamepad disconnected from index %d: %s",
-      gamepad.index, gamepad.id);
+//    console.log("Gamepad disconnected from index %d: %s",
+//      gamepad.index, gamepad.id);
 
     delete gs.gamepads[gamepad.index];
   }
@@ -153,6 +153,7 @@ function pollGamepads()
         val=val.value;
       }
 
+/*
       // Check for assignment mode
       if (gs.gamepadassignbutton>-1)
       {
@@ -180,6 +181,7 @@ function pollGamepads()
         }
       }
       else
+*/
       {
         if (i==gs.gamepadbuttons[0]) // left
         {
@@ -702,10 +704,10 @@ function checkplayerenemy(character)
   for (var i=0; i<gs.enemies.length; i++)
   {
     var epos={
-      offsetLeft:gs.enemies[i].x,
-      offsetTop:gs.enemies[i].y,
-      clientWidth:gs.enemies[i].w,
-      clientHeight:gs.enemies[i].h
+      offsetLeft:gs.enemies[i].x+(gs.enemies[i].w/4),
+      offsetTop:gs.enemies[i].y+(gs.enemies[i].h/2),
+      clientWidth:(gs.enemies[i].w/2),
+      clientHeight:(gs.enemies[i].h/2)
     };
 
     // does this enemy overlap with character?
@@ -1228,7 +1230,7 @@ function show_title()
   gs.writer.write("title", "has gone");
   gs.writer.write("title", "OFFLINE!");
 
-  gs.writer.write("backstory", "Fred lives on planet Figadore in the Hercules cluster, he likes watching cat videos from planet Earth, but the network link has gone OFFLINE!  Help Fred by unlocking doors, solving puzzles and collecting cubes to pay for the entanglement repolarisation required to get his planet back online. Keys unlock nearest lock of same colour, you need to collect all the gold cubes and squash all the guards to progress through the levels."+String.fromCharCode(13)+" "+String.fromCharCode(13)+"WASD or cursors to move, ENTER or SPACE to jump. Press jump to start");
+  gs.writer.write("backstory", "Fred lives on planet Figadore in the Hercules cluster, he likes watching cat videos from planet Earth, but the network link has gone OFFLINE!  Help Fred by unlocking doors, solving puzzles and collecting cubes to pay for the entanglement repolarisation required to get his planet back online. Keys unlock nearest lock of same colour, you need to collect all the gold cubes and squash all the guards to progress through the levels."+String.fromCharCode(13)+" "+String.fromCharCode(13)+"WASD or cursors to move, ENTER or SPACE to jump, or browser supported gamepad. Press jump to start");
 }
 
 function show_screen(pixelsize)
