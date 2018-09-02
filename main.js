@@ -605,14 +605,14 @@ function calcHypotenuse(a, b)
 function removenearesttilebyid(x, y, id)
 {
   var nearest=-1;
-  var neardelta=999;
+  var neardelta=-1;
 
   for (var i=0; i<gs.tiles.length; i++)
   {
     if (gs.tiles[i].id==id)
     {
       var delta=calcHypotenuse(Math.abs(x-gs.tiles[i].offsetLeft), Math.abs(y-gs.tiles[i].offsetTop));
-      if (delta<neardelta)
+      if ((neardelta==-1) || (delta<neardelta))
       {
         nearest=i;
         neardelta=delta;
@@ -759,9 +759,8 @@ function checkplayerenemy(character)
           }
 
           character.htime=60;
+          character.d=true;
         }
-
-        character.d=true;
       }
 
       return;
@@ -964,7 +963,7 @@ function addtiles(level)
 
           switch (gs.level % 4)
           {
-            case 0:
+            case 1:
               svg=svg.replace("#2493ec", "#ff5960");
               svg=svg.replace("#2185d5", "#dd4e54");
               svg=svg.replace("#f3f3f3", "#ead94c");
@@ -972,7 +971,7 @@ function addtiles(level)
               svg=svg.replace("#303841", "#4a3632");
               break;
 
-            case 1:
+            case 2:
               svg=svg.replace("#2493ec", "#ffe580");
               svg=svg.replace("#2185d5", "#ffd944");
               svg=svg.replace("#f3f3f3", "#94dd4d");
@@ -980,7 +979,7 @@ function addtiles(level)
               svg=svg.replace("#303841", "#409f6e");
               break;
 
-            case 2:
+            case 3:
               svg=svg.replace("#2493ec", "#3a7080");
               svg=svg.replace("#2185d5", "#2c5460");
               svg=svg.replace("#f3f3f3", "#bbdc2f");

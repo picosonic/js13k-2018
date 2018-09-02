@@ -15,22 +15,22 @@
 
 [level='0'] .tile_1
 {
-  background-color:#4a3632;
+  background-color:#303841;
 }
 
 [level='1'] .tile_1
 {
-  background-color:#409f6e;
+  background-color:#4a3632;
 }
 
 [level='2'] .tile_1
 {
-  background-color:#59a331;
+  background-color:#409f6e;
 }
 
 [level='3'] .tile_1
 {
-  background-color:#303841;
+  background-color:#59a331;
 }
 
 .tile_2

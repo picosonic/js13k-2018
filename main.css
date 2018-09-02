@@ -43,6 +43,7 @@ body
   padding:5px;
   background-color:#000;
   overflow:hidden;
+  text-align:left;
 }
 
 @keyframes flash_cursor
@@ -99,12 +100,13 @@ body
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#2a5298',GradientType=0 );
 }
 
-#health
+#ui
 {
   position:fixed;
   top:0;
   left:0;
   right:0;
+  bottom:0;
   text-align:center;
 }
 
