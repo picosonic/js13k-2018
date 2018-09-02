@@ -4,6 +4,7 @@ function dtmf_dial()
   // Set default tone length
   this.tonelen=1/5;
 
+  // Initialise to not used
   this.audioCtx=null;
   this.gainNode=null;
 
@@ -13,10 +14,11 @@ function dtmf_dial()
     // Stop if we already set it up
     if (this.audioCtx!=null) return;
 
+    // Create audio context
     this.audioCtx=new (window.AudioContext || window.webkitAudioContext)();
-    this.gainNode=this.audioCtx.createGain();
 
     // Add volume control, connecting to audio context
+    this.gainNode=this.audioCtx.createGain();
     this.gainNode.connect(this.audioCtx.destination);
     this.gainNode.gain.setValueAtTime(0.05, this.audioCtx.currentTime);
   };
@@ -28,6 +30,7 @@ function dtmf_dial()
     var dtmf_low=[697,770,852,941]; // DTMF low frequencies
     var dtmf_high=[1209,1336,1477,1633]; // DTMF high frequencies
 
+    // Make sure the audio context has been set up
     this.setupaudio();
 
     // Process individual number
@@ -38,6 +41,7 @@ function dtmf_dial()
       // Only process keys we know about
       if (pos>=0)
       {
+        // Create low and high oscillators
         var e=this.audioCtx.currentTime+(i*this.tonelen);
         var oscl=this.audioCtx.createOscillator();
         var osch=this.audioCtx.createOscillator();
@@ -73,9 +77,11 @@ function dtmf_dial()
     carrier.stop(cstart+3);
   };
 
+  // Seed the random number generator with randomish seeds
   this.nowtime=new Date();
   this.randoms=new randomizer(this.nowtime.getHours()*10,this.nowtime.getMilliseconds()&0xff,this.nowtime.getMonth()*20,this.nowtime.getSeconds()*4);
 
+  // Dial a randomly selected number of given number of digits
   this.randomdial=function(numlen)
   {
     var number="";

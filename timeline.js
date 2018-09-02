@@ -1,15 +1,18 @@
+// Timeline object
 function timelineobj()
 {
-  this.timeline=[];
-  this.timelinepos=0;
-  this.timelineepoch=0;
+  this.timeline=[]; // Array of actions
+  this.timelinepos=0; // Point in time of last update
+  this.timelineepoch=0; // Epoch when timeline was started
 
+  // Add a new function to timeline with a given start time
   this.add=function(itemstart, newitem)
   {
     var newobj={start:itemstart, item:newitem, done:false};
 
     this.timeline.push(newobj);
 
+    // Keep timeline sorted by start time of items
     this.timeline.sort(function(a,b) {return ((b.start<a.start)?1:(b.start==a.start)?0:-1)});
   };
 
