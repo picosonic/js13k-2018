@@ -68,7 +68,7 @@ var gs={
   writer:new textwriter(),
   timeline:new timelineobj(),
 
-  state:0 // state machine, 0=intro, 1=menu, 2=playing, 3=status, 4=complete
+  state:0 // state machine, 0=intro, 1=menu, 2=playing, 3=complete
 };
 
 // Find a gamepad by its ID
@@ -823,6 +823,7 @@ function rafcallback(timestamp)
       // Check for all levels completed
       if (level>=levels.length)
       {
+        gs.state=3;
       }
       else
         launchgame(level);
@@ -1279,8 +1280,6 @@ function init()
   {
     gamepadHandler(e, false);
   });
-
-  // gs.state, 0=intro, 1=menu, 2=playing, 3=status, 4=complete
 
   /////////////////////////////////////////////////////
   // Intro
