@@ -903,6 +903,38 @@ function updatekeystate(e, dir)
       }
       break;
 
+    case 27: // escape
+      // If playing, go back to menu
+      if (gs.state==2)
+      {
+        gs.state=1;
+
+        // Clear any existing tiles
+        clearobjects(gs.tiles);
+
+        // Clear any existing collectables
+        clearobjects(gs.things);
+
+        // Clear any existing characters
+        clearobjects(gs.enemies);
+
+        // Clear stars
+        var bg=document.getElementById("background");
+        bg.innerHTML="";
+        bg.style.width="0px";
+        bg.style.height="0px";
+
+        // Clear player
+        document.getElementById("player").innerHTML="";
+
+        // Reset scroll
+        window.scrollTo(0,0);
+
+        show_title();
+      }
+      e.preventDefault();
+      break;
+
     default:
       break;
   }
@@ -1189,7 +1221,7 @@ function launchgame(level)
 
   screen.innerHTML=domtext;
   gs.writer.write("title", "Level "+(level+1));
-  setTimeout(function(){ document.getElementById("ui").innerHTML=""; }, 3000);
+  setTimeout(function(){ if (gs.state==2) document.getElementById("ui").innerHTML=""; }, 3000);
 
   /////////////////////////////////////////////////////
   // Start game
