@@ -2,7 +2,7 @@ function textwriter()
 {
   this.write=function(id, text, crlf)
   {
-    var domtext="";
+    var domtext="<span style=\"white-space:nowrap;\">";
 
     for (var i=0; i<text.length; i++)
     {
@@ -15,6 +15,10 @@ function textwriter()
       // Don't try to draw characters outside our font set
       if ((offs<0) || (offs>101))
         continue;
+
+      // Handle spaces
+      if (offs==0)
+        domtext+="</span>";
   
       // Add character wrapper
       domtext+="<div class=\"alphablock\">";
@@ -44,7 +48,13 @@ function textwriter()
   
       // Close wrapper
       domtext+="</div>";
+
+      // Handle spaces
+      if (offs==0)
+        domtext+="<span style=\"white-space:nowrap;\">";
     }
+
+    domtext+="</span>";
 
     if ((crlf==undefined) || (crlf!=false))
       domtext+="<br/>";
