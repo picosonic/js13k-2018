@@ -117,17 +117,20 @@ function gen_music()
     if (this.tune_pop.length==0)
       this.build_tune_pop();
 
-    // Create audio context
-    this.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    // Create audio context if not done already
+    if (this.audioCtx==null)
+    {
+      this.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
-    // Add volume control
-    this.gainNode=this.audioCtx.createGain();
-    this.gainNode.connect(this.audioCtx.destination);
-    this.gainNode.gain.setValueAtTime(0.05, this.audioCtx.currentTime);
+      // Add volume control
+      this.gainNode=this.audioCtx.createGain();
+      this.gainNode.connect(this.audioCtx.destination);
+      this.gainNode.gain.setValueAtTime(0.05, this.audioCtx.currentTime);
 
-    // Add audio panning, so notes appear in 2d space like being sat at a piano
-    this.panNode=this.audioCtx.createStereoPanner();
-    this.panNode.connect(this.gainNode);
+      // Add audio panning, so notes appear in 2d space like being sat at a piano
+      this.panNode=this.audioCtx.createStereoPanner();
+      this.panNode.connect(this.gainNode);
+    }
 
     ////////////////////////////////////
     for (var i=0; i<50; i++)

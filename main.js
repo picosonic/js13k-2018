@@ -1312,9 +1312,6 @@ function launchgame(level)
 
   // Start the game running
   window.requestAnimationFrame(rafcallback);
-
-  // Play some procedurally generated music
-  //gs.music.play_tune();
 }
 
 // Display the title screen
@@ -1348,6 +1345,15 @@ function hide_screen()
 {
   var screen=document.getElementById("ui");
   screen.innerHTML="";
+}
+
+function start_music()
+{
+  // Play some procedurally generated music
+  gs.music.play_tune();
+
+  // Set up automatic repeats
+  setInterval(function(){ gs.music.randoms.seeda=3; gs.music.randoms.seedb=6; gs.music.randoms.seedc=6; gs.music.randoms.seedd=4; gs.music.play_tune(); }, ((1*60)+42)*1000);
 }
 
 // Initial entry point
@@ -1397,7 +1403,7 @@ function init()
   gs.timeline.add(15000, function(){ gs.writer.write("console_5", "451 PARTICLE ACCELERATOR NOT CHARGED"); });
   gs.timeline.add(16000, function(){ gs.writer.typewrite("console_6", "execute order 66"); });
   gs.timeline.add(19000, function(){ gs.writer.write("console_7", "429 FILE NOT FOUND"); });
-  gs.timeline.add(20000, function(){ hide_screen(); gs.state=1; show_title(); });
+  gs.timeline.add(20000, function(){ hide_screen(); gs.state=1; show_title(); start_music(); });
 
   gs.timeline.addcallback(function(){ gs.writer.typechar(); } );
 
