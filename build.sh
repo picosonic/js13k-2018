@@ -28,9 +28,7 @@ do
   yui-compressor "${file}" >> "${jscat}"
 done
 
-#php packer/example-cli.php "${jscat}" build/min2.js
-#mv build/min2.js "${jscat}"
-
+# Remove some fluff from the levels
 sed -i "s/,height:0,properties:{},width:0,/,/g" "${jscat}"
 sed -i "s/,height:64,properties:{},width:64,/,/g" "${jscat}"
 
@@ -50,3 +48,6 @@ zip -j ${zipfile} "${buildpath}"/*
 # Determine file sizes and compression
 unzip -lv "${zipfile}"
 stat "${zipfile}"
+
+echo "Manual step now required to comply with 13k limit"
+echo "Use Google Closure compiler in advanced mode on min.js"
