@@ -110,11 +110,14 @@ function gen_music()
     osc.stop(e+len);
   };
 
+  // Start playing the tune
   this.play_tune=function()
   {
+    // Build digraph table if not already done
     if (this.tune_pop.length==0)
       this.build_tune_pop();
 
+    // Create audio context
     this.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
     // Add volume control
@@ -122,7 +125,7 @@ function gen_music()
     this.gainNode.connect(this.audioCtx.destination);
     this.gainNode.gain.setValueAtTime(0.05, this.audioCtx.currentTime);
 
-    // Add audio panning
+    // Add audio panning, so notes appear in 2d space like being sat at a piano
     this.panNode=this.audioCtx.createStereoPanner();
     this.panNode.connect(this.gainNode);
 
@@ -148,6 +151,7 @@ function gen_music()
 
       var phrase=phrasestr.split(',');
 
+      // Repeat each phrase twice
       for (var rep=0; rep<2; rep++)
       {
         for (var k=0; k<phrase.length; k++)
