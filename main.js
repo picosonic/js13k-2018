@@ -231,6 +231,7 @@ function pollGamepads()
 // Has this level been completed?
 function levelcomplete()
 {
+  // Defined as - all enemies defeated and all things collected
   if ((gs.enemies.length==0) && (gs.things.length==0))
     return true;
 
@@ -260,6 +261,7 @@ function redraw()
     }
     catch (e)
     {
+      // Fallback to 2 parameters for older browsers
       window.scrollTo(gs.player.x-(document.documentElement.clientWidth/2), gs.player.y-(document.documentElement.clientHeight/2));
     }
   }
@@ -328,7 +330,7 @@ function collisioncheck(character)
   character.x+=character.hs;
 
 /*
-  // Climb stairs
+  // Climb stairs, TODO - revisit this if time allowing
   if ((character==gs.player) // it's the player
     && (character.keystate!=0) // key still pressed
     && (character.dir!=0) // was moving
@@ -340,6 +342,7 @@ function collisioncheck(character)
     character.vs=-(character.jumpspeed/4);
   }
 */
+
   // check for vertical collisions
   if (collide(character, character.x, character.y+character.vs))
   {
@@ -354,6 +357,7 @@ function collisioncheck(character)
 }
 
 // If the player has moved "off" the map, then put them back at a start position
+//   this "shouldn't" happen with the border surrounding the level
 function offmapcheck(character)
 {
   if ((character.x<0) || (character.y>levels[gs.level].height*levels[gs.level].tileheight))
@@ -382,9 +386,11 @@ function groundcheck(character)
   }
   else
   {
+    // We're in the air, increase falling speed until we're at terminal velocity
     if (character.vs<gs.terminalvelocity)
       character.vs+=gs.gravity;
 
+    // Set falling flag when vertical speed is positive
     if (character.vs>0)
       character.f=true;
   }
@@ -408,7 +414,7 @@ function jumpcheck(character)
 // Handle ducking and slowing player down by friction
 function standcheck(character)
 {
-  // Check for ducking
+  // Check for ducking, or injured
   if (((character.keystate&8)!=0) || (character.htime>0))
     character.d=true;
   else
@@ -418,6 +424,7 @@ function standcheck(character)
   if ((((character.keystate&1)==0) && ((character.keystate&4)==0)) ||
       (((character.keystate&1)!=0) && ((character.keystate&4)!=0)))
   {
+    // Going left
     if (character.dir==-1)
     {
       if (character.hs<0)
@@ -431,6 +438,7 @@ function standcheck(character)
       }
     }
 
+    // Going right
     if (character.dir==1)
     {
       if (character.hs>0)
@@ -446,6 +454,7 @@ function standcheck(character)
   }
 }
 
+// Process all enemies and simulate keypresses for basic AI when they can move
 function updateenemyai(character)
 {
   // Check we are on the ground
@@ -487,21 +496,22 @@ function updateenemyai(character)
 }
 
 // Update the animation state of players/enemies
+//   this is so that the CSS animations or poses are actioned
 function updateanimation(character)
 {
   switch (character.dir)
   {
-    case -1:
+    case -1: // Left
       character.e.classList.add("left");
       character.e.classList.remove("right");
       break;
 
-    case 0:
+    case 0: // Not moving
       character.e.classList.remove("left");
       character.e.classList.remove("right");
       break;
 
-    case 1:
+    case 1: // Right
       character.e.classList.remove("left");
       character.e.classList.add("right");
       break;
@@ -510,26 +520,31 @@ function updateanimation(character)
       break;
   }
 
+  // Jumping
   if (character.j)
     character.e.classList.add("jump");
   else
     character.e.classList.remove("jump");
 
+  // Falling
   if (character.f)
     character.e.classList.add("fall");
   else
     character.e.classList.remove("fall");
 
+  // Ducking
   if ((character.d) || (character.htime>0))
     character.e.classList.add("duck");
   else
     character.e.classList.remove("duck");
 
+  // Not moving
   if ((character.dir==0) && (character.hs==0) && (character.vs==0))
     character.e.classList.add("idle");
   else
     character.e.classList.remove("idle");
 
+  // Walking
   if ((character.dir!=0) && (!character.j) && (!character.f))
     character.e.classList.add("walk");
   else
@@ -575,9 +590,11 @@ function updatemovements(character)
   // Decrease hurt timer
   if (character.htime>0) character.htime--;
 
+  // Apply CSS rules to match character state
   updateanimation(character);
 }
 
+// Remove all tiles which match given id
 function removetilebyid(id)
 {
   var removed;
@@ -599,11 +616,13 @@ function removetilebyid(id)
   } while (removed>0);
 }
 
+// Determine distance (Hypotenuse) between two lengths in 2d space (using Pythagoras)
 function calcHypotenuse(a, b)
 {
   return(Math.sqrt((a * a) + (b * b)));
 }
 
+// Remove the neareset tile matching a given id to an x,y position
 function removenearesttilebyid(x, y, id)
 {
   var nearest=-1;
@@ -622,6 +641,7 @@ function removenearesttilebyid(x, y, id)
     }
   }
 
+  // If a tile was found, then remove it
   if (nearest!=-1)
   {
     gs.tiles[nearest].e.remove(); // remove from DOM
@@ -629,6 +649,7 @@ function removenearesttilebyid(x, y, id)
   }
 }
 
+// Clear set of items from DOM and array
 function clearobjects(items)
 {
   for (var i=0; i<items.length; i++)
@@ -637,6 +658,7 @@ function clearobjects(items)
   items.splice(0, items.length); // clear array
 }
 
+// Check if player collides with a collectable item
 function checkplayercollectable(character)
 {
   // Make a collision box for the character in the centre/bottom of their sprite
@@ -666,14 +688,17 @@ function checkplayercollectable(character)
         case 21: // cube
           gs.score+=5;
 //          gs.dialler.randomdial(1);
+//        TODO make a sound
           break;
 
         case 22: // red key
           removenearesttilebyid(gs.things[i].x, gs.things[i].y, 6);
+//        TODO make a sound
           break;
 
         case 23: // green key
           removenearesttilebyid(gs.things[i].x, gs.things[i].y, 7);
+//        TODO make a sound
           break;
 
         default:
@@ -689,6 +714,7 @@ function checkplayercollectable(character)
   }
 }
 
+// Check for collision between player and an enemy
 function checkplayerenemy(character)
 {
   // Make a collision box for the character in the centre/bottom of their sprite
@@ -728,7 +754,7 @@ function checkplayerenemy(character)
         // Loose health (if not already hurt)
         if (character.htime==0)
         {
-          character.lf-=10;
+          character.lf-=(character.d==true?5:10);
           showhealth();
 
           // Check for game over
@@ -736,26 +762,11 @@ function checkplayerenemy(character)
           {
             gs.state=1;
 
-            // Clear any existing tiles
-            clearobjects(gs.tiles);
-
-            // Clear any existing collectables
-            clearobjects(gs.things);
-
-            // Clear any existing characters
-            clearobjects(gs.enemies);
-
-            // Clear stars
-            var bg=document.getElementById("background");
-            bg.innerHTML="";
-            bg.style.width="0px";
-            bg.style.height="0px";
+            // Clear the playfield
+            clearplayfield();
 
             // Clear player
             document.getElementById("player").innerHTML="";
-
-            // Reset scroll
-            window.scrollTo(0,0);
 
             show_title();
           }
@@ -770,6 +781,7 @@ function checkplayerenemy(character)
   }
 }
 
+// Update the game state prior to rendering
 function update()
 {
   // Check for gamepad input
@@ -795,6 +807,7 @@ function update()
 // Request animation frame callback
 function rafcallback(timestamp)
 {
+  // First time round, just save epoch
   if (gs.lasttime>0)
   {
     // Determine accumulated time since last call
@@ -824,6 +837,7 @@ function rafcallback(timestamp)
       if (level>=levels.length)
       {
         gs.state=3;
+        // TODO Show game completed screen
       }
       else
         launchgame(level);
@@ -836,7 +850,7 @@ function rafcallback(timestamp)
   // Remember when we were last called
   gs.lasttime=timestamp;
 
-  // Request we are called on the next frame
+  // Request we are called on the next frame, but only if still playing
   if (gs.state==2)
     window.requestAnimationFrame(rafcallback);
 }
@@ -909,26 +923,11 @@ function updatekeystate(e, dir)
       {
         gs.state=1;
 
-        // Clear any existing tiles
-        clearobjects(gs.tiles);
-
-        // Clear any existing collectables
-        clearobjects(gs.things);
-
-        // Clear any existing characters
-        clearobjects(gs.enemies);
-
-        // Clear stars
-        var bg=document.getElementById("background");
-        bg.innerHTML="";
-        bg.style.width="0px";
-        bg.style.height="0px";
+        // Clear the playfield
+        clearplayfield();
 
         // Clear player
         document.getElementById("player").innerHTML="";
-
-        // Reset scroll
-        window.scrollTo(0,0);
 
         show_title();
       }
@@ -940,11 +939,13 @@ function updatekeystate(e, dir)
   }
 }
 
+// Add a single tile as a DIV to the DOM and tiles array
 function addtile(x, y, tileid, content)
 {
   var tile=document.createElement("div");
   var tileobj={};
 
+  // Set properties for DOM object
   tile.innerHTML=content;
   tile.style.position="absolute";
   tile.style.left=x+"px";
@@ -954,6 +955,7 @@ function addtile(x, y, tileid, content)
   tile.classList.add("tile");
   tile.classList.add("tile_"+tileid);
 
+  // Set properties for tiles array entry
   tileobj.e=tile;
   tileobj.id=tileid;
   tileobj.offsetLeft=x;
@@ -961,11 +963,13 @@ function addtile(x, y, tileid, content)
   tileobj.clientWidth=gs.tilewidth;
   tileobj.clientHeight=gs.tileheight;
 
+  // Add to tiles array
   gs.tiles.push(tileobj);
 
   document.getElementById("playfield").appendChild(tile);
 }
 
+// Add all the tiles to the playfield for a given level
 function addtiles(level)
 {
   var x, y, tile, content;
@@ -982,6 +986,7 @@ function addtiles(level)
     addtile(x*level.tilewidth, (level.height+1)*level.tileheight, 1, "");
   }
 
+  // Add all the tiles from level
   for (y=0; y<level.height; y++)
   {
     for (x=0; x<level.width; x++)
@@ -996,6 +1001,7 @@ function addtiles(level)
         case 5:
           var svg='<svg version="1.1" width="64" height="64" viewBox="0 0 64 64" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg"><g transform="translate(122.86 -368.93)"><path d="m-85.557 387.84 10.655 5.85 10.746-5.85 5.3038 2.9012v-17.804h-64.005v17.804l5.3525 2.9488 10.649-5.85 10.65 5.85 10.649-5.85" fill="#2185d5"/><path d="m-58.852 372.93v-3.9988h-64.005v3.9988h64.005" fill="#2493ec"/><path d="m-96.206 418.09-5.2987-2.95h-0.0487v-0.0488l-5.3025-2.9-10.649 5.8988-5.3525-2.95v17.798h64.005v-17.798l-5.3038-2.9488-10.746 5.8988-10.655-5.8988-10.649 5.8988" fill="#303841"/><path d="m-96.206 399.74-5.2987-3.5012-0.0487-0.0488-5.3025-3.55-10.649 7.1-5.3525-3.55v18.95l5.3525 2.95 10.649-5.8988 5.3025 2.9v0.0488h0.0487l5.2987 2.95 10.649-5.8988 10.655 5.8988 10.746-5.8988 5.3038 2.9488v-18.95l-5.3038-3.55-10.746 7.1-10.655-7.1-10.649 7.1" fill="#3a4750"/><path d="m-74.902 393.69-10.655-5.85-10.649 5.85-10.65-5.85-10.649 5.85-5.3525-2.9488v5.4488l5.3525 3.55 10.649-7.1 5.3025 3.55 0.0487 0.0488 5.2987 3.5012 10.649-7.1 10.655 7.1 10.746-7.1 5.3038 3.55v-5.4488l-5.3038-2.9012-10.746 5.85" fill="#f3f3f3"/></g></svg>';
 
+          // Change SVG colours per level
           switch (gs.level % 4)
           {
             case 1:
@@ -1039,17 +1045,20 @@ function addtiles(level)
           break;
       }
 
+      // If it's not blank space, then add the tile
       if (tile!=0)
         addtile((x+1)*level.tilewidth, (y+1)*level.tileheight, tile, content);
     }
   }
 }
 
+// Add a single enemy to the DOM and enemies array
 function addenemy(x, y, w, h, enemyclass)
 {
   var enemy=document.createElement("div");
   var enemyobj=new st(enemy);
 
+  // Set DOM properties
   enemy.innerHTML="<div class=\"body\"><div class=\"eye\"><div class=\"iris\"></div></div></div><div class=\"eyelid\"></div><div class=\"leg rightleg\"></div><div class=\"leg leftleg\"></div>";
   enemy.style.position="absolute";
   enemy.style.left=x+"px";
@@ -1058,17 +1067,20 @@ function addenemy(x, y, w, h, enemyclass)
   enemy.style.height=h+"px";
   enemy.classList.add(enemyclass);
 
+  // Set properties for entry in enemies array
   enemyobj.sx=enemyobj.x=x;
   enemyobj.sy=enemyobj.y=y;
   enemyobj.w=w;
   enemyobj.h=h;
   enemyobj.speed=3;
 
+  // Add to enemies array
   gs.enemies.push(enemyobj);
 
   document.getElementById("playfield").appendChild(enemy);
 }
 
+// Add all enemies and player to the playfield for a given level
 function addcharacters(level)
 {
   var obj, index;
@@ -1096,17 +1108,20 @@ function addcharacters(level)
   }
 }
 
+// Add a single collectable item to the DOM and things array
 function addcollectable(x, y, id)
 {
   var thing=document.createElement("div");
   var thingobj={};
 
+  // Set properties for DOM object
   thing.innerHTML="";
   thing.style.position="absolute";
   thing.style.left=x+"px";
   thing.style.top=y+"px";
   thing.classList.add("thing_"+id);
 
+  // Change SVG colours of keys as appropriate
   switch (id)
   {
     case 22:
@@ -1122,18 +1137,21 @@ function addcollectable(x, y, id)
       break;
   }
 
+  // Set properties for new things array item
   thingobj.e=thing;
   thingobj.id=id;
   thingobj.x=x;
   thingobj.y=y;
-  thingobj.w=64;
-  thingobj.h=64;
+  thingobj.w=levels[gs.level].tilewidth;
+  thingobj.h=levels[gs.level].tileheight;
 
+  // Add to things array
   gs.things.push(thingobj);
 
   document.getElementById("playfield").appendChild(thing);
 }
 
+// Add all the collectables for a given level
 function addcollectables(level)
 {
   var obj, index;
@@ -1146,6 +1164,7 @@ function addcollectables(level)
   }
 }
 
+// Add a single "star" to the background
 function addstar(x, y)
 {
   var star=document.createElement("div");
@@ -1157,6 +1176,29 @@ function addstar(x, y)
   document.getElementById("background").appendChild(star);
 }
 
+// Clear the playfield
+function clearplayfield()
+{
+  // Clear any existing tiles
+  clearobjects(gs.tiles);
+
+  // Clear any existing collectables
+  clearobjects(gs.things);
+
+  // Clear any existing characters
+  clearobjects(gs.enemies);
+
+  // Clear stars
+  var bg=document.getElementById("background");
+  bg.innerHTML="";
+  bg.style.width="0px";
+  bg.style.height="0px";
+
+  // Reset scroll
+  window.scrollTo(0,0);
+}
+
+// All the processing required to load the current level into the playfield
 function loadlevel()
 {
   // Set which level we are on
@@ -1168,20 +1210,14 @@ function loadlevel()
   // Reset collectable
   gs.score=0;
 
-  // Clear any existing tiles
-  clearobjects(gs.tiles);
+  // Clear the playfield of tiles, things and enemies
+  clearplayfield();
 
   // Add the tiles for the level
   addtiles(levels[level]);
 
-  // Clear any existing collectables
-  clearobjects(gs.things);
-
   // Add the collectables
   addcollectables(levels[level]);
-
-  // Clear any existing characters
-  clearobjects(gs.enemies);
 
   // Add the characters
   addcharacters(levels[level]);
@@ -1200,7 +1236,7 @@ function showhealth()
 
   for (var i=0; i<10; i++)
   {
-    if (gs.player.lf>((i+1)*10))
+    if (gs.player.lf>=((i+1)*10))
       healthdisplay+="|";
     else
       healthdisplay+="-";
@@ -1219,6 +1255,7 @@ function launchgame(level)
   var pixelsize=12;
   var domtext="<style>.alphablock { font-size:0px; display:inline-block; margin-bottom: "+(pixelsize/3)+"px; } .block { display:inline-block; width:"+pixelsize+"px; height:"+pixelsize+"px; border-top-left-radius:"+(pixelsize/2)+"px; border-bottom-right-radius:"+(pixelsize/2)+"px; } .filled { background-color:#00ff00; background: linear-gradient(to bottom, rgba(0,255,0,0) 0%,rgba(0,255,0,1) 33%,rgba(0,255,0,1) 66%,rgba(0,255,0,0) 100%); }</style><div id=\"title\" style=\"background:none;\"></div>";
 
+  // Show which level we are on using a UI overlay
   screen.innerHTML=domtext;
   gs.writer.write("title", "Level "+(level+1));
   setTimeout(function(){ if (gs.state==2) document.getElementById("ui").innerHTML=""; }, 3000);
@@ -1246,9 +1283,11 @@ function launchgame(level)
   // Start the game running
   window.requestAnimationFrame(rafcallback);
 
+  // Play some procedurally generated music
   //gs.music.play_tune();
 }
 
+// Display the title screen
 function show_title()
 {
   /////////////////////////////////////////////////////
@@ -1266,6 +1305,7 @@ function show_title()
   gs.writer.write("backstory", "Fred lives on planet Figadore in the Hercules cluster, he likes watching cat videos from planet Earth, but the network link has gone OFFLINE!  Help Fred by unlocking doors, solving puzzles and collecting cubes to pay for the entanglement repolarisation required to get his planet back online. Keys unlock nearest lock of same colour, you need to collect all the gold cubes and squash all the guards to progress through the levels."+String.fromCharCode(13)+" "+String.fromCharCode(13)+"WASD or cursors to move, ENTER or SPACE to jump, or browser supported gamepad. Press jump to start");
 }
 
+// Show the intro console
 function show_screen(pixelsize)
 {
   var screen=document.getElementById("ui");
@@ -1274,6 +1314,7 @@ function show_screen(pixelsize)
   screen.innerHTML=domtext;
 }
 
+// Hide the intro console
 function hide_screen()
 {
   var screen=document.getElementById("ui");
