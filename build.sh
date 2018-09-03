@@ -50,4 +50,5 @@ unzip -lv "${zipfile}"
 stat "${zipfile}"
 
 echo "Manual step now required to comply with 13k limit"
-echo "Use Google Closure compiler in advanced mode on min.js"
+echo "Use Google Closure compiler in advanced mode on build/min.js"
+echo "https://closure-compiler.appspot.com/home"
