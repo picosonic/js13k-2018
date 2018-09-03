@@ -781,6 +781,12 @@ function checkplayerenemy(character)
   }
 }
 
+// Create a <style> element for text
+function buildalphablockstyle(pixelsize)
+{
+ return "<style>.alphablock { font-size:0px; display:inline-block; margin-bottom: "+(pixelsize/3)+"px; } .block { display:inline-block; width:"+pixelsize+"px; height:"+pixelsize+"px; border-top-left-radius:"+(pixelsize/2)+"px; border-bottom-right-radius:"+(pixelsize/2)+"px; } .filled { background-color:#00ff00; background: linear-gradient(to bottom, rgba(0,255,0,0) 0%,rgba(0,255,0,1) 33%,rgba(0,255,0,1) 66%,rgba(0,255,0,0) 100%); }</style>";
+}
+
 // Update the game state prior to rendering
 function update()
 {
@@ -855,8 +861,7 @@ function rafcallback(timestamp)
         gs.player.e.classList.remove("walk");
 
         var screen=document.getElementById("ui");
-        var pixelsize=12;
-        var domtext="<style>.alphablock { font-size:0px; display:inline-block; margin-bottom: "+(pixelsize/3)+"px; } .block { display:inline-block; width:"+pixelsize+"px; height:"+pixelsize+"px; border-top-left-radius:"+(pixelsize/2)+"px; border-bottom-right-radius:"+(pixelsize/2)+"px; } .filled { background-color:#00ff00; background: linear-gradient(to bottom, rgba(0,255,0,0) 0%,rgba(0,255,0,1) 33%,rgba(0,255,0,1) 66%,rgba(0,255,0,0) 100%); }</style><div id=\"title\" style=\"background:none;\"></div>";
+        var domtext=buildalphablockstyle(12)+"<div id=\"title\" style=\"background:none;\"></div>";
 
         // Show which level we are on using a UI overlay
         screen.innerHTML=domtext;
@@ -1257,8 +1262,7 @@ function loadlevel()
 function showhealth()
 {
   var screen=document.getElementById("ui");
-  var pixelsize=12;
-  var domtext="<style>.alphablock { font-size:0px; display:inline-block; margin-bottom: "+(pixelsize/3)+"px; } .block { display:inline-block; width:"+pixelsize+"px; height:"+pixelsize+"px; border-top-left-radius:"+(pixelsize/2)+"px; border-bottom-right-radius:"+(pixelsize/2)+"px; } .filled { background-color:#00ff00; background: linear-gradient(to bottom, rgba(0,255,0,0) 0%,rgba(0,255,0,1) 33%,rgba(0,255,0,1) 66%,rgba(0,255,0,0) 100%); }</style><div id=\"health\"></div>";
+  var domtext=buildalphablockstyle(12)+"<div id=\"health\"></div>";
   var healthdisplay="";
 
   for (var i=0; i<10; i++)
@@ -1279,8 +1283,7 @@ function showhealth()
 function launchgame(level)
 {
   var screen=document.getElementById("ui");
-  var pixelsize=12;
-  var domtext="<style>.alphablock { font-size:0px; display:inline-block; margin-bottom: "+(pixelsize/3)+"px; } .block { display:inline-block; width:"+pixelsize+"px; height:"+pixelsize+"px; border-top-left-radius:"+(pixelsize/2)+"px; border-bottom-right-radius:"+(pixelsize/2)+"px; } .filled { background-color:#00ff00; background: linear-gradient(to bottom, rgba(0,255,0,0) 0%,rgba(0,255,0,1) 33%,rgba(0,255,0,1) 66%,rgba(0,255,0,0) 100%); }</style><div id=\"title\" style=\"background:none;\"></div>";
+  var domtext=buildalphablockstyle(12)+"<div id=\"title\" style=\"background:none;\"></div>";
 
   // Show which level we are on using a UI overlay
   screen.innerHTML=domtext;
@@ -1320,8 +1323,7 @@ function show_title()
   /////////////////////////////////////////////////////
   // Main menu
   var screen=document.getElementById("ui");
-  var pixelsize=12;
-  var domtext="<style>.alphablock { font-size:0px; display:inline-block; margin-bottom: "+(pixelsize/3)+"px; } .block { display:inline-block; width:"+pixelsize+"px; height:"+pixelsize+"px; border-top-left-radius:"+(pixelsize/2)+"px; border-bottom-right-radius:"+(pixelsize/2)+"px; } .filled { background-color:#00ff00; background: linear-gradient(to bottom, rgba(0,255,0,0) 0%,rgba(0,255,0,1) 33%,rgba(0,255,0,1) 66%,rgba(0,255,0,0) 100%); } #backstory .block { width:3px; height:3px; } #controls .block { width:3px; height:3px; }</style><div id=\"title\"></div><div id=\"backstory\"></div>";
+  var domtext=buildalphablockstyle(12)+"<div id=\"title\"></div><div id=\"backstory\"></div>";
 
   screen.innerHTML=domtext;
   gs.writer.write("title", "Planet");
@@ -1336,7 +1338,7 @@ function show_title()
 function show_screen(pixelsize)
 {
   var screen=document.getElementById("ui");
-  var domtext="<style>.alphablock { font-size:0px; display:inline-block; margin-bottom: "+(pixelsize/3)+"px; } .block { display:inline-block; width:"+pixelsize+"px; height:"+pixelsize+"px; border-top-left-radius:"+(pixelsize/2)+"px; border-bottom-right-radius:"+(pixelsize/2)+"px; } .filled { background-color:#00ff00; background: linear-gradient(to bottom, rgba(0,255,0,0) 0%,rgba(0,255,0,1) 33%,rgba(0,255,0,1) 66%,rgba(0,255,0,0) 100%); }</style><div id=\"console\"><span id=\"console_1\"></span><span id=\"console_2\"></span><span id=\"console_3\"></span><span id=\"console_4\"></span><span id=\"console_5\"></span><span id=\"console_6\"></span><span id=\"console_7\"></span><span id=\"cursor\"></span></div>";
+  var domtext=buildalphablockstyle(pixelsize)+"<div id=\"console\"><span id=\"console_1\"></span><span id=\"console_2\"></span><span id=\"console_3\"></span><span id=\"console_4\"></span><span id=\"console_5\"></span><span id=\"console_6\"></span><span id=\"console_7\"></span><span id=\"cursor\"></span></div>";
 
   screen.innerHTML=domtext;
 }
