@@ -1395,7 +1395,9 @@ function init()
   gs.timeline.add(15000, function(){ gs.writer.write("console_5", "451 PARTICLE ACCELERATOR NOT CHARGED"); });
   gs.timeline.add(16000, function(){ gs.writer.typewrite("console_6", "execute order 66"); });
   gs.timeline.add(19000, function(){ gs.writer.write("console_7", "429 FILE NOT FOUND"); });
-  gs.timeline.add(20000, function(){ hide_screen(); gs.state=1; show_title();});
+  gs.timeline.add(20000, function(){ hide_screen(); gs.state=1; show_title(); });
+
+  gs.timeline.addcallback(function(){ gs.writer.typechar(); } );
 
   gs.timeline.begin();
 }

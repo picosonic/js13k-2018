@@ -4,6 +4,7 @@ function timelineobj()
   this.timeline=[]; // Array of actions
   this.timelinepos=0; // Point in time of last update
   this.timelineepoch=0; // Epoch when timeline was started
+  this.callback=null; // Optional callback on each timeline "tick"
 
   // Add a new function to timeline with a given start time
   this.add=function(itemstart, newitem)
@@ -14,6 +15,12 @@ function timelineobj()
 
     // Keep timeline sorted by start time of items
     this.timeline.sort(function(a,b) {return ((b.start<a.start)?1:(b.start==a.start)?0:-1)});
+  };
+
+  // Add a timeline callback
+  this.addcallback=function(item)
+  {
+    this.callback=item;
   };
 
   // Animation frame callback
@@ -45,8 +52,9 @@ function timelineobj()
           remain++;
       }
 
-      // TODO - This should be a callback
-      gs.writer.typechar();
+      // If a callback was requested, then call it
+      if (this.callback!=null)
+        this.callback();
     }
 
     // Record new timeline position
