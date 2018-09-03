@@ -2046,7 +2046,6 @@ var levels=[
          "x":0,
          "y":0
         }],
- "orientation":"orthogonal",
  "properties":
     {
 
@@ -2055,48 +2054,32 @@ var levels=[
  "tilesets":[
         {
          "firstgid":1,
-         "image":"tilesheet.png",
-         "imageheight":64,
-         "imagewidth":640,
-         "margin":0,
          "properties":
             {
 
             },
-         "spacing":0,
          "tileheight":64,
          "tilewidth":64
         }, 
         {
          "firstgid":11,
-         "image":"charsheet.png",
-         "imageheight":64,
-         "imagewidth":640,
-         "margin":0,
          "properties":
             {
 
             },
-         "spacing":0,
          "tileheight":64,
          "tilewidth":64
         }, 
         {
          "firstgid":21,
-         "image":"collectsheet.png",
-         "imageheight":64,
-         "imagewidth":640,
-         "margin":0,
          "properties":
             {
 
             },
-         "spacing":0,
          "tileheight":64,
          "tilewidth":64
         }],
  "tilewidth":64,
- "version":1,
  "width":25
 }
 ,
@@ -3619,7 +3602,6 @@ var levels=[
          "x":0,
          "y":0
         }],
- "orientation":"orthogonal",
  "properties":
     {
 
@@ -3628,48 +3610,32 @@ var levels=[
  "tilesets":[
         {
          "firstgid":1,
-         "image":"tilesheet.png",
-         "imageheight":64,
-         "imagewidth":640,
-         "margin":0,
          "properties":
             {
 
             },
-         "spacing":0,
          "tileheight":64,
          "tilewidth":64
         }, 
         {
          "firstgid":11,
-         "image":"charsheet.png",
-         "imageheight":64,
-         "imagewidth":640,
-         "margin":0,
          "properties":
             {
 
             },
-         "spacing":0,
          "tileheight":64,
          "tilewidth":64
         }, 
         {
          "firstgid":21,
-         "image":"collectsheet.png",
-         "imageheight":64,
-         "imagewidth":640,
-         "margin":0,
          "properties":
             {
 
             },
-         "spacing":0,
          "tileheight":64,
          "tilewidth":64
         }],
  "tilewidth":64,
- "version":1,
  "width":25
 }
 ,
@@ -4477,7 +4443,6 @@ var levels=[
          "x":0,
          "y":0
         }],
- "orientation":"orthogonal",
  "properties":
     {
 
@@ -4486,48 +4451,32 @@ var levels=[
  "tilesets":[
         {
          "firstgid":1,
-         "image":"tilesheet.png",
-         "imageheight":64,
-         "imagewidth":640,
-         "margin":0,
          "properties":
             {
 
             },
-         "spacing":0,
          "tileheight":64,
          "tilewidth":64
         }, 
         {
          "firstgid":11,
-         "image":"charsheet.png",
-         "imageheight":64,
-         "imagewidth":640,
-         "margin":0,
          "properties":
             {
 
             },
-         "spacing":0,
          "tileheight":64,
          "tilewidth":64
         }, 
         {
          "firstgid":21,
-         "image":"collectsheet.png",
-         "imageheight":64,
-         "imagewidth":640,
-         "margin":0,
          "properties":
             {
 
             },
-         "spacing":0,
          "tileheight":64,
          "tilewidth":64
         }],
  "tilewidth":64,
- "version":1,
  "width":25
 }
 ,
@@ -5258,7 +5207,6 @@ var levels=[
          "x":0,
          "y":0
         }],
- "orientation":"orthogonal",
  "properties":
     {
 
@@ -5267,48 +5215,32 @@ var levels=[
  "tilesets":[
         {
          "firstgid":1,
-         "image":"tilesheet.png",
-         "imageheight":64,
-         "imagewidth":640,
-         "margin":0,
          "properties":
             {
 
             },
-         "spacing":0,
          "tileheight":64,
          "tilewidth":64
         }, 
         {
          "firstgid":11,
-         "image":"charsheet.png",
-         "imageheight":64,
-         "imagewidth":640,
-         "margin":0,
          "properties":
             {
 
             },
-         "spacing":0,
          "tileheight":64,
          "tilewidth":64
         }, 
         {
          "firstgid":21,
-         "image":"collectsheet.png",
-         "imageheight":64,
-         "imagewidth":640,
-         "margin":0,
          "properties":
             {
 
             },
-         "spacing":0,
          "tileheight":64,
          "tilewidth":64
         }],
  "tilewidth":64,
- "version":1,
  "width":25
 }
 ,
@@ -6578,7 +6510,6 @@ var levels=[
          "x":0,
          "y":0
         }],
- "orientation":"orthogonal",
  "properties":
     {
 
@@ -6587,48 +6518,32 @@ var levels=[
  "tilesets":[
         {
          "firstgid":1,
-         "image":"tilesheet.png",
-         "imageheight":64,
-         "imagewidth":640,
-         "margin":0,
          "properties":
             {
 
             },
-         "spacing":0,
          "tileheight":64,
          "tilewidth":64
         }, 
         {
          "firstgid":11,
-         "image":"charsheet.png",
-         "imageheight":64,
-         "imagewidth":640,
-         "margin":0,
          "properties":
             {
 
             },
-         "spacing":0,
          "tileheight":64,
          "tilewidth":64
         }, 
         {
          "firstgid":21,
-         "image":"collectsheet.png",
-         "imageheight":64,
-         "imagewidth":640,
-         "margin":0,
          "properties":
             {
 
             },
-         "spacing":0,
          "tileheight":64,
          "tilewidth":64
         }],
  "tilewidth":64,
- "version":1,
  "width":100
 }
 ,
