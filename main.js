@@ -836,8 +836,33 @@ function rafcallback(timestamp)
       // Check for all levels completed
       if (level>=levels.length)
       {
+        // Show game completed screen
         gs.state=3;
-        // TODO Show game completed screen
+
+        // Clear the playfield
+        clearplayfield();
+
+        // Position player on screen and large
+        gs.player.e.style.left="33%";
+        gs.player.e.style.top="33%";
+        gs.player.e.style.width="256px";
+        gs.player.e.style.height="256px";
+        gs.player.e.classList.remove("left");
+        gs.player.e.classList.remove("right");
+        gs.player.e.classList.remove("jump");
+        gs.player.e.classList.remove("fall");
+        gs.player.e.classList.remove("duck");
+        gs.player.e.classList.remove("walk");
+
+        var screen=document.getElementById("ui");
+        var pixelsize=12;
+        var domtext="<style>.alphablock { font-size:0px; display:inline-block; margin-bottom: "+(pixelsize/3)+"px; } .block { display:inline-block; width:"+pixelsize+"px; height:"+pixelsize+"px; border-top-left-radius:"+(pixelsize/2)+"px; border-bottom-right-radius:"+(pixelsize/2)+"px; } .filled { background-color:#00ff00; background: linear-gradient(to bottom, rgba(0,255,0,0) 0%,rgba(0,255,0,1) 33%,rgba(0,255,0,1) 66%,rgba(0,255,0,0) 100%); }</style><div id=\"title\" style=\"background:none;\"></div>";
+
+        // Show which level we are on using a UI overlay
+        screen.innerHTML=domtext;
+        gs.writer.write("title", "YAY! WE'RE BACK ONLINE!!");
+
+        setTimeout(function(){ document.getElementById("player").innerHTML=""; show_title(); gs.state=1; }, 15000);
       }
       else
         launchgame(level);
@@ -1094,6 +1119,8 @@ function addcharacters(level)
       case 11: // Player
         gs.player.sx=gs.player.x=(obj.x+level.tilewidth);
         gs.player.sy=gs.player.y=obj.y;
+        gs.player.e.style.width=level.tilewidth;
+        gs.player.e.style.height=level.tileheight;
         gs.player.e.style.left=gs.player.x+"px";
         gs.player.e.style.top=gs.player.y+"px";
         break;
