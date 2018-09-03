@@ -1,10 +1,10 @@
 .tile
 {
   position:absolute;
-  width:64px;
-  height:64px;
   overflow:hidden;
   display:block;
+  width:64px;
+  height:64px;
   background-size:100% 100%;
 }
 
@@ -52,8 +52,8 @@
 {
   position:absolute;
   display:inline-block;
-  left:12%;
   top:12%;
+  left:12%;
   width:12%;
   height:12%;
   border-radius:100% 100%;
@@ -63,8 +63,8 @@
 {
   position:absolute;
   display:inline-block;
-  left:76%;
   top:12%;
+  left:76%;
   width:12%;
   height:12%;
   border-radius:100% 100%;
@@ -74,8 +74,8 @@
 {
   position:absolute;
   display:inline-block;
-  left:12%;
   top:76%;
+  left:12%;
   width:12%;
   height:12%;
   border-radius:100% 100%;
@@ -85,8 +85,8 @@
 {
   position:absolute;
   display:inline-block;
-  left:76%;
   top:76%;
+  left:76%;
   width:12%;
   height:12%;
   border-radius:100% 100%;
@@ -96,8 +96,8 @@
 {
   position:absolute;
   display:inline-block;
-  left:38%;
   top:30%;
+  left:38%;
   width:24%;
   height:24%;
   border-radius:100% 100%;
@@ -107,8 +107,8 @@
 {
   position:absolute;
   display:inline-block;
-  left:45%;
   top:46%;
+  left:45%;
   width:10%;
   height:24%;
   background-color:#513a36;

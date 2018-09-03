@@ -1,11 +1,11 @@
 #player
 {
   position:absolute;
-  width:64px;
-  height:64px;
+  display:block;
   top:0px;
   left:0px;
-  display:block;
+  width:64px;
+  height:64px;
   margin:0px;
   font-size:0px;
   z-index:1000;
@@ -13,13 +13,13 @@
 #player .body
 {
   position:relative;
+  overflow:hidden;
+  display:inline-block;
+  top:27%;
+  left:15%;
   width:59%;
   height:59%;
-  left:15%;
-  top:27%;
   background-color:#dd4e54;
-  display:inline-block;
-  overflow:hidden;
   border-radius:15% 15%;
 }
 #player.walk.right .body
@@ -33,25 +33,25 @@
 #player .eye
 {
   position:relative;
+  overflow:hidden;
+  display:inline-block;
+  top:34%;
+  left:23%;
   width:52%;
   height:52%;
-  left:23%;
-  top:34%;
   background-color:#fff;
-  display:inline-block;
-  overflow:hidden;
   border-radius:50% 50%;
 }
 #player .iris
 {
   position:relative;
+  overflow:hidden;
+  display:inline-block;
+  top:40%;
+  left:40%;
   width:20%;
   height:20%;
-  left:40%;
-  top:40%;
   background-color:#4b3733;
-  display:inline-block;
-  overflow:hidden;
   border-radius:50% 50%;
 }
 #player.right .iris
@@ -95,13 +95,13 @@
 #player .eyelid
 {
   position:absolute;
+  overflow:hidden;
+  display:inline-block;
   top:33%;
   left:23%;
   width:53%;
   height:0%;
   background-color:#dd4e54;
-  display:inline-block;
-  overflow:hidden;
   border-radius:50% 50%;
 
   animation-name:player_blink;
@@ -115,12 +115,12 @@
 #player .leg
 {
   position:absolute;
+  overflow:hidden;
+  display:inline-block;
   top:60%;
   width:10%;
   height:42%;
   background-color:#dd4e54;
-  display:inline-block;
-  overflow:hidden;
   border-radius:0% 0% 25% 25%;
   z-index:-1;
   transform-origin:50% 1%;
