@@ -1,5 +1,9 @@
 # Build folder
 build
 
+# Other folders
+abstract
+packer
+
 # Zip files
 *.zip
