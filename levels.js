@@ -4632,17 +4632,6 @@ var levels=[
 
                     },
                  "width":0,
-                 "x":320,
-                 "y":384
-                }, 
-                {
-                 "gid":12,
-                 "height":0,
-                 "properties":
-                    {
-
-                    },
-                 "width":0,
                  "x":192,
                  "y":640
                 }],
