@@ -36,10 +36,12 @@ var gs={
   lasttime:0, // time of last frame
 
   // control state
+/*
   gamepads:{},
   gamepadbuttons:[],
   gamepadassignbutton:-1,
   gamepadlastbutton:-1,
+*/
 
   // physics in pixels per frame @ 60fps
   gravity:1,
@@ -71,6 +73,7 @@ var gs={
   state:0 // state machine, 0=intro, 1=menu, 2=playing, 3=complete
 };
 
+/*
 // Find a gamepad by its ID
 function getgamepadbyid(padid)
 {
@@ -88,9 +91,9 @@ function gamepadHandler(event, connecting)
 
   if (connecting)
   {
-//    console.log("Gamepad connected at index %d: %s. %d buttons, %d axes.",
-//      gamepad.index, gamepad.id,
-//      gamepad.buttons.length, gamepad.axes.length);
+    console.log("Gamepad connected at index %d: %s. %d buttons, %d axes.",
+      gamepad.index, gamepad.id,
+      gamepad.buttons.length, gamepad.axes.length);
 
     gs.gamepads[gamepad.index]=gamepad.id;
     if (gamepad.mapping==="standard")
@@ -101,13 +104,13 @@ function gamepadHandler(event, connecting)
       gs.gamepadbuttons[3]=13; // bottom (left) d-down
       gs.gamepadbuttons[4]=0;  // bottom button (right) x
     }
- //   else
-//      gs.gamepadassignbutton=0; // require manual mapping
+    else
+      gs.gamepadassignbutton=0; // require manual mapping
   }
   else
   {
-//    console.log("Gamepad disconnected from index %d: %s",
-//      gamepad.index, gamepad.id);
+    console.log("Gamepad disconnected from index %d: %s",
+      gamepad.index, gamepad.id);
 
     delete gs.gamepads[gamepad.index];
   }
@@ -153,7 +156,6 @@ function pollGamepads()
         val=val.value;
       }
 
-/*
       // Check for assignment mode
       if (gs.gamepadassignbutton>-1)
       {
@@ -181,7 +183,6 @@ function pollGamepads()
         }
       }
       else
-*/
       {
         if (i==gs.gamepadbuttons[0]) // left
         {
@@ -227,6 +228,7 @@ function pollGamepads()
     }
   }
 }
+*/
 
 // Has this level been completed?
 function levelcomplete()
@@ -790,7 +792,7 @@ function buildalphablockstyle(pixelsize)
 function update()
 {
   // Check for gamepad input
-  pollGamepads();
+/*  pollGamepads(); */
 
   // Apply keystate/physics to player
   updatemovements(gs.player);
@@ -1328,7 +1330,7 @@ function show_title()
   gs.writer.write("title", "has gone");
   gs.writer.write("title", "OFFLINE!");
 
-  gs.writer.write("backstory", "Fred lives on planet Figadore in the Hercules cluster, he likes watching cat videos from planet Earth, but the network link has gone OFFLINE!  Help Fred by unlocking doors, solving puzzles and collecting cubes to pay for the entanglement repolarisation required to get his planet back online. Keys unlock nearest lock of same colour, you need to collect all the gold cubes and squash all the guards to progress through the levels."+String.fromCharCode(13)+" "+String.fromCharCode(13)+"WASD or cursors to move, ENTER or SPACE to jump, or browser supported gamepad. Press jump to start");
+  gs.writer.write("backstory", "Fred lives on planet Figadore in the Hercules cluster, he likes watching cat videos from planet Earth, but the network link has gone OFFLINE!  Help Fred by unlocking doors, solving puzzles and collecting cubes to pay for the entanglement repolarisation required to get his planet back online. Keys unlock nearest lock of same colour, you need to collect all the gold cubes and squash all the guards to progress through the levels."+String.fromCharCode(13)+" "+String.fromCharCode(13)+"WASD or cursors to move, ENTER or SPACE to jump. Press jump to start");
 }
 
 // Show the intro console
@@ -1380,6 +1382,7 @@ function init()
   // Stop things from being dragged around
   window.ondragstart=function(event) { event.preventDefault(); };
 
+/*
   // Gamepad support
   gamepadscan();
 
@@ -1392,6 +1395,7 @@ function init()
   {
     gamepadHandler(e, false);
   });
+*/
 
   /////////////////////////////////////////////////////
   // Intro
