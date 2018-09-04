@@ -687,17 +687,17 @@ function checkplayercollectable(character)
       {
         case 21: // cube
           gs.score+=5;
-          gs.music.play_cube();
+          gs.music.play_collect(0);
           break;
 
         case 22: // red key
           removenearesttilebyid(gs.things[i].x, gs.things[i].y, 6);
-          gs.music.play_key();
+          gs.music.play_collect(1);
           break;
 
         case 23: // green key
           removenearesttilebyid(gs.things[i].x, gs.things[i].y, 7);
-          gs.music.play_key();
+          gs.music.play_collect(1);
           break;
 
         default:
@@ -1028,7 +1028,7 @@ function addtiles(level)
         case 3:
         case 4:
         case 5:
-          var svg='<svg version="1.1" width="64" height="64" viewBox="0 0 64 64" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg"><g transform="translate(122.86 -368.93)"><path d="m-85.557 387.84 10.655 5.85 10.746-5.85 5.3038 2.9012v-17.804h-64.005v17.804l5.3525 2.9488 10.649-5.85 10.65 5.85 10.649-5.85" fill="#2185d5"/><path d="m-58.852 372.93v-3.9988h-64.005v3.9988h64.005" fill="#2493ec"/><path d="m-96.206 418.09-5.2987-2.95h-0.0487v-0.0488l-5.3025-2.9-10.649 5.8988-5.3525-2.95v17.798h64.005v-17.798l-5.3038-2.9488-10.746 5.8988-10.655-5.8988-10.649 5.8988" fill="#303841"/><path d="m-96.206 399.74-5.2987-3.5012-0.0487-0.0488-5.3025-3.55-10.649 7.1-5.3525-3.55v18.95l5.3525 2.95 10.649-5.8988 5.3025 2.9v0.0488h0.0487l5.2987 2.95 10.649-5.8988 10.655 5.8988 10.746-5.8988 5.3038 2.9488v-18.95l-5.3038-3.55-10.746 7.1-10.655-7.1-10.649 7.1" fill="#3a4750"/><path d="m-74.902 393.69-10.655-5.85-10.649 5.85-10.65-5.85-10.649 5.85-5.3525-2.9488v5.4488l5.3525 3.55 10.649-7.1 5.3025 3.55 0.0487 0.0488 5.2987 3.5012 10.649-7.1 10.655 7.1 10.746-7.1 5.3038 3.55v-5.4488l-5.3038-2.9012-10.746 5.85" fill="#f3f3f3"/></g></svg>';
+          var svg='<svg version="1.1" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64"><g transform="translate(122.86 -368.93)"><path d="m-85.557 387.84 10.655 5.85 10.746-5.85 5.3038 2.9012v-17.804h-64.005v17.804l5.3525 2.9488 10.649-5.85 10.65 5.85 10.649-5.85" fill="#2185d5"/><path d="m-58.852 372.93v-3.9988h-64.005v3.9988h64.005" fill="#2493ec"/><path d="m-96.206 418.09-5.2987-2.95h-0.0487v-0.0488l-5.3025-2.9-10.649 5.8988-5.3525-2.95v17.798h64.005v-17.798l-5.3038-2.9488-10.746 5.8988-10.655-5.8988-10.649 5.8988" fill="#303841"/><path d="m-96.206 399.74-5.2987-3.5012-0.0487-0.0488-5.3025-3.55-10.649 7.1-5.3525-3.55v18.95l5.3525 2.95 10.649-5.8988 5.3025 2.9v0.0488h0.0487l5.2987 2.95 10.649-5.8988 10.655 5.8988 10.746-5.8988 5.3038 2.9488v-18.95l-5.3038-3.55-10.746 7.1-10.655-7.1-10.649 7.1" fill="#3a4750"/><path d="m-74.902 393.69-10.655-5.85-10.649 5.85-10.65-5.85-10.649 5.85-5.3525-2.9488v5.4488l5.3525 3.55 10.649-7.1 5.3025 3.55 0.0487 0.0488 5.2987 3.5012 10.649-7.1 10.655 7.1 10.746-7.1 5.3038 3.55v-5.4488l-5.3038-2.9012-10.746 5.85" fill="#f3f3f3"/></g></svg>';
 
           // Change SVG colours per level
           switch (gs.level % 4)
@@ -1150,6 +1150,7 @@ function addcollectable(x, y, id)
   thing.style.position="absolute";
   thing.style.left=x+"px";
   thing.style.top=y+"px";
+  thing.classList.add("thing");
   thing.classList.add("thing_"+id);
 
   // Change SVG colours of keys as appropriate
@@ -1157,7 +1158,7 @@ function addcollectable(x, y, id)
   {
     case 22:
     case 23:
-      var svg='<svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" version="1.1" width="64" height="64" viewBox="0 0 64 64"><g transform="translate(0,-988.36218)"><path d="m 43.398026,1008.4725 c -2.03625,-2.065 -4.5025,-3.1 -7.4025,-3.1 -2.9,0 -5.36625,1.035 -7.4025,3.1 -1.1325,1.1675 -1.9475,2.4513 -2.44625,3.8488 -0.4,1.1325 -0.6,2.3525 -0.6,3.6512 0,1.3 0.2,2.535 0.6,3.7013 0.0975,0.2637 0.215,0.5475 0.34625,0.85 l -8.295,8.3987 c -1.10375,1.635 -0.88375,3.335 0.64875,5.1025 0.99625,1.0988 2.86625,1.5138 5.60125,1.25 l 1.89875,0 0,-4.405 4.24875,0 -0.40125,-4.345 6.00125,0.049 c 2.7975,-0.069 5.2,-1.1037 7.2025,-3.1012 2.065,-2.0988 3.095,-4.5988 3.095,-7.5 0,-2.9338 -1.03,-5.4338 -3.095,-7.5 m -11.60125,7.5 c 0,-1.1663 0.415,-2.1675 1.25,-3.0025 0.8,-0.83 1.78125,-1.25 2.94875,-1.25 1.1675,0 2.14875,0.42 2.94875,1.25 0.835,0.835 1.25,1.8362 1.25,3.0025 0,1.1675 -0.415,2.1687 -1.25,2.9987 -0.8,0.8013 -1.78125,1.2013 -2.94875,1.2013 -1.1675,0 -2.14875,-0.4 -2.94875,-1.2013 -0.835,-0.83 -1.25,-1.8312 -1.25,-2.9987" style="fill:#dd4e54;fill-opacity:1;fill-rule:nonzero;stroke:none" /></g></svg>';
+      var svg='<svg version="1.1" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64"><g transform="translate(0,-988.36218)"><path d="m 43.398026,1008.4725 c -2.03625,-2.065 -4.5025,-3.1 -7.4025,-3.1 -2.9,0 -5.36625,1.035 -7.4025,3.1 -1.1325,1.1675 -1.9475,2.4513 -2.44625,3.8488 -0.4,1.1325 -0.6,2.3525 -0.6,3.6512 0,1.3 0.2,2.535 0.6,3.7013 0.0975,0.2637 0.215,0.5475 0.34625,0.85 l -8.295,8.3987 c -1.10375,1.635 -0.88375,3.335 0.64875,5.1025 0.99625,1.0988 2.86625,1.5138 5.60125,1.25 l 1.89875,0 0,-4.405 4.24875,0 -0.40125,-4.345 6.00125,0.049 c 2.7975,-0.069 5.2,-1.1037 7.2025,-3.1012 2.065,-2.0988 3.095,-4.5988 3.095,-7.5 0,-2.9338 -1.03,-5.4338 -3.095,-7.5 m -11.60125,7.5 c 0,-1.1663 0.415,-2.1675 1.25,-3.0025 0.8,-0.83 1.78125,-1.25 2.94875,-1.25 1.1675,0 2.14875,0.42 2.94875,1.25 0.835,0.835 1.25,1.8362 1.25,3.0025 0,1.1675 -0.415,2.1687 -1.25,2.9987 -0.8,0.8013 -1.78125,1.2013 -2.94875,1.2013 -1.1675,0 -2.14875,-0.4 -2.94875,-1.2013 -0.835,-0.83 -1.25,-1.8312 -1.25,-2.9987" style="fill:#dd4e54;fill-opacity:1;fill-rule:nonzero;stroke:none" /></g></svg>';
       if (id==22) // make green key green
         svg=svg.replace("#dd4e54", "#49b47e");
 
@@ -1334,7 +1335,11 @@ function show_title()
 function show_screen(pixelsize)
 {
   var screen=document.getElementById("ui");
-  var domtext=buildalphablockstyle(pixelsize)+"<div id=\"console\"><span id=\"console_1\"></span><span id=\"console_2\"></span><span id=\"console_3\"></span><span id=\"console_4\"></span><span id=\"console_5\"></span><span id=\"console_6\"></span><span id=\"console_7\"></span><span id=\"cursor\"></span></div>";
+  var domtext=buildalphablockstyle(pixelsize)+"<div id=\"console\">";
+  for (var i=1; i<8; i++)
+    domtext+="<span id=\"console_"+i+"\"></span>";
+
+  domtext+="<span id=\"cursor\"></span></div>";
 
   screen.innerHTML=domtext;
 }

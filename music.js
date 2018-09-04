@@ -89,7 +89,7 @@ function gen_music()
   this.notenum=0;
   this.randoms=new randomizer();
 
-  this.play_cube=function()
+  this.play_collect=function(f)
   {
     if (this.audioCtx==null) return;
 
@@ -98,26 +98,7 @@ function gen_music()
     var osc2=this.audioCtx.createOscillator();
 
     osc1.connect(this.gainNodeCollect);
-    osc1.frequency.value=65.41*Math.pow(2, 37/12);
-    osc1.start(e);
-    osc1.stop(e+(1/8));
-
-    osc2.connect(this.gainNodeCollect);
-    osc2.frequency.value=65.41*Math.pow(2, 42/12);
-    osc2.start(e+(1/8));
-    osc2.stop(e+(2/8));
-  };
-
-  this.play_key=function()
-  {
-    if (this.audioCtx==null) return;
-
-    var e=this.audioCtx.currentTime;
-    var osc1=this.audioCtx.createOscillator();
-    var osc2=this.audioCtx.createOscillator();
-
-    osc1.connect(this.gainNodeCollect);
-    osc1.frequency.value=65.41*Math.pow(2, 45/12);
+    osc1.frequency.value=65.41*Math.pow(2, (f==0?37:45)/12);
     osc1.start(e);
     osc1.stop(e+(1/8));
 
