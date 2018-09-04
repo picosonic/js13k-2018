@@ -18,7 +18,6 @@
   <object gid="11" x="448" y="640"/>
   <object gid="12" x="512" y="256"/>
   <object gid="12" x="64" y="640"/>
-  <object gid="12" x="320" y="384"/>
   <object gid="12" x="192" y="640"/>
  </objectgroup>
  <objectgroup name="Collectables" width="10" height="10">
