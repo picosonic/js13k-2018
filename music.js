@@ -166,5 +166,8 @@ function gen_music()
         }
       }
     }
+
+    // Reset note count so next call doesn't have a delay
+    this.notenum=0;
   };
 }
