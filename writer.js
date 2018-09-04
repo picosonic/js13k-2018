@@ -13,7 +13,7 @@ function textwriter()
         domtext+="<br/>";
   
       // Don't try to draw characters outside our font set
-      if ((offs<0) || (offs>101))
+      if ((offs<0) || (offs>94))
         continue;
 
       // Handle spaces
@@ -27,7 +27,7 @@ function textwriter()
       var p=0;
       for (var j=0; j<4; j++)
       {
-        var dual=font_8bit[(offs*4)+j];
+        var dual=font_8bit[(offs*4)+j]||0;
   
         for (var k=0; k<8; k++)
         {
