@@ -184,8 +184,7 @@ function gen_music()
       {
         for (var k=0; k<phrase.length; k++)
         {
-          var note=phrase[k];
-          this.play_note('square', note||0, this.notenum*this.notelen, this.notelen/1.5); // Melody
+          this.play_note('square', phrase[k]||0, this.notenum*this.notelen, this.notelen/1.5); // Melody
           this.play_note('sawtooth', phrase[1]/4, this.notenum*this.notelen, this.notelen/1.8); // Baseline
           this.notenum++;
         }
