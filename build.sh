@@ -43,7 +43,10 @@ done
 cp indexmin.html "${indexcat}"
 
 # Zip everything up
-zip -j ${zipfile} "${buildpath}"/*
+zip -j "${zipfile}" "${buildpath}"/*
+
+# Save about 1k more with advzip
+advzip -z -4 "${zipfile}"
 
 # Determine file sizes and compression
 unzip -lv "${zipfile}"
