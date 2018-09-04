@@ -83,15 +83,6 @@
   100% { height:0%; }
 }
 
-@-webkit-keyframes player_blink
-{
-  0% { height:0%; }
-  46% { height:0%; }
-  50% { height:53%; }
-  54% { height:0%; }
-  100% { height:0%; }
-}
-
 #player .eyelid
 {
   position:absolute;
@@ -107,10 +98,6 @@
   animation-name:player_blink;
   animation-duration:5s;
   animation-iteration-count:infinite;
-
-  -webkit-animation-name:player_blink;
-  -webkit-animation-duration:5s;
-  -webkit-animation-iteration-count:infinite;
 }
 #player .leg
 {
@@ -133,21 +120,7 @@
   100% { transform:rotate(0deg); }
 }
 
-@-webkit-keyframes player_right_walk
-{
-  0% { transform:rotate(0deg); }
-  50% { transform:rotate(90deg); }
-  100% { transform:rotate(0deg); }
-}
-
 @keyframes player_left_walk
-{
-  0% { transform:rotate(0deg); }
-  50% { transform:rotate(-90deg); }
-  100% { transform:rotate(0deg); }
-}
-
-@-webkit-keyframes player_left_walk
 {
   0% { transform:rotate(0deg); }
   50% { transform:rotate(-90deg); }
@@ -170,10 +143,6 @@
   animation-name:player_left_walk;
   animation-duration:0.5s;
   animation-iteration-count:infinite;
-
-  -webkit-animation-name:player_left_walk;
-  -webkit-animation-duration:0.5s;
-  -webkit-animation-iteration-count:infinite;
 }
 
 #player.walk .rightleg
@@ -181,10 +150,6 @@
   animation-name:player_right_walk;
   animation-duration:0.5s;
   animation-iteration-count:infinite;
-
-  -webkit-animation-name:player_right_walk;
-  -webkit-animation-duration:0.5s;
-  -webkit-animation-iteration-count:infinite;
 }
 
 #player.duck .body

@@ -15,9 +15,6 @@ body
 
 #wrapper
 {
-  -webkit-transform:translate3d(0, 0, 0);
-  -moz-transform:translate3d(0, 0, 0);
-  -ms-transform:translate3d(0, 0, 0);
   transform:translate3d(0, 0, 0);
   position:absolute;
   overflow-hidden;
@@ -53,22 +50,11 @@ body
   100% { opactiy:0; visibility:hidden; }
 }
 
-@-webkit-keyframes flash_cursor
-{
-  0% { opacity:0; visibility:hidden; }
-  50% { opacity:1; visibility:visible; }
-  100% { opactiy:0; visibility:hidden; }
-}
-
 #cursor
 {
   animation-name:flash_cursor;
   animation-duration:1.2s;
   animation-iteration-count:infinite;
-
-  -webkit-animation-name:flash_cursor;
-  -webkit-animation-duration:1.2s;
-  -webkit-animation-iteration-count:infinite;
 }
 
 #title
@@ -100,10 +86,7 @@ body
 
 #background
 {
-  background: -moz-linear-gradient(top, #000000 0%, #2a5298 100%);
-  background: -webkit-linear-gradient(top, #000000 0%,#2a5298 100%);
-  background: linear-gradient(to bottom, #000000 0%,#2a5298 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#2a5298',GradientType=0 );
+  background:linear-gradient(to bottom, #000000 0%,#2a5298 100%);
 }
 
 #ui
