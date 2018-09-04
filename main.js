@@ -687,18 +687,17 @@ function checkplayercollectable(character)
       {
         case 21: // cube
           gs.score+=5;
-//          gs.dialler.randomdial(1);
-//        TODO make a sound
+          gs.music.play_cube();
           break;
 
         case 22: // red key
           removenearesttilebyid(gs.things[i].x, gs.things[i].y, 6);
-//        TODO make a sound
+          gs.music.play_key();
           break;
 
         case 23: // green key
           removenearesttilebyid(gs.things[i].x, gs.things[i].y, 7);
-//        TODO make a sound
+          gs.music.play_key();
           break;
 
         default:
@@ -867,7 +866,7 @@ function rafcallback(timestamp)
         screen.innerHTML=domtext;
         gs.writer.write("title", "YAY! WE'RE BACK ONLINE!!");
 
-        setTimeout(function(){ document.getElementById("player").innerHTML=""; show_title(); gs.state=1; }, 15000);
+        setTimeout(function(){ document.getElementById("player").innerHTML=""; show_title(); gs.state=1; }, 20000);
       }
       else
         launchgame(level);

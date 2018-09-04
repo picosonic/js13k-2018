@@ -82,11 +82,50 @@ function gen_music()
   };
 
   this.audioCtx=null;
-  this.gainNode=null;
+  this.gainNodeMusic=null;
+  this.gainNodeCollect=null;
   this.panNode=null;
   this.notelen=1/5;
   this.notenum=0;
   this.randoms=new randomizer();
+
+  this.play_cube=function()
+  {
+    if (this.audioCtx==null) return;
+
+    var e=this.audioCtx.currentTime;
+    var osc1=this.audioCtx.createOscillator();
+    var osc2=this.audioCtx.createOscillator();
+
+    osc1.connect(this.gainNodeCollect);
+    osc1.frequency.value=65.41*Math.pow(2, 37/12);
+    osc1.start(e);
+    osc1.stop(e+(1/8));
+
+    osc2.connect(this.gainNodeCollect);
+    osc2.frequency.value=65.41*Math.pow(2, 42/12);
+    osc2.start(e+(1/8));
+    osc2.stop(e+(2/8));
+  };
+
+  this.play_key=function()
+  {
+    if (this.audioCtx==null) return;
+
+    var e=this.audioCtx.currentTime;
+    var osc1=this.audioCtx.createOscillator();
+    var osc2=this.audioCtx.createOscillator();
+
+    osc1.connect(this.gainNodeCollect);
+    osc1.frequency.value=65.41*Math.pow(2, 45/12);
+    osc1.start(e);
+    osc1.stop(e+(1/8));
+
+    osc2.connect(this.gainNodeCollect);
+    osc2.frequency.value=65.41*Math.pow(2, 42/12);
+    osc2.start(e+(1/8));
+    osc2.stop(e+(2/8));
+  };
 
   this.play_note=function(type, note, start, len)
   {
@@ -122,14 +161,19 @@ function gen_music()
     {
       this.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
-      // Add volume control
-      this.gainNode=this.audioCtx.createGain();
-      this.gainNode.connect(this.audioCtx.destination);
-      this.gainNode.gain.setValueAtTime(0.05, this.audioCtx.currentTime);
+      // Add volume control for music
+      this.gainNodeMusic=this.audioCtx.createGain();
+      this.gainNodeMusic.connect(this.audioCtx.destination);
+      this.gainNodeMusic.gain.setValueAtTime(0.01, this.audioCtx.currentTime);
+
+      // Add volume control for collectables
+      this.gainNodeCollect=this.audioCtx.createGain();
+      this.gainNodeCollect.connect(this.audioCtx.destination);
+      this.gainNodeCollect.gain.setValueAtTime(0.05, this.audioCtx.currentTime);
 
       // Add audio panning, so notes appear in 2d space like being sat at a piano
       this.panNode=this.audioCtx.createStereoPanner();
-      this.panNode.connect(this.gainNode);
+      this.panNode.connect(this.gainNodeMusic);
     }
 
     ////////////////////////////////////
