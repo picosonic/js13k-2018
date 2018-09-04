@@ -11,7 +11,7 @@
  </tileset>
  <layer name="Tiles" width="25" height="25">
   <data encoding="base64" compression="zlib">
-   eJzFVNEKgEAIuwjq//+4lw5kOJ0pNJCOdrdpp63FcQScikzjT48TgnH3q8H2LuA9bkf03tuj1IFaNk/Vw+6PuCy6dajAWj2ecVWPiI9wkude22/qnWX38QWqTtTjikd2zuvJqkfk4/Up8lmNOEuZfqeObGYrHliTMq/Mozs7FteQToTJfJl+1nuYi5KP/TewnpiCcu9VYH6qR/c/w0K9G1xXPKYw5fEA5fIBYQ==
+   eJy1VNEKgDAIXA3q//+4HhaMw9MT7UAa3XanTRuD43A4FZbG+cZc8ZeHwk8Ixt1Lg+0dwFvcF957a49SB2rteaoe3n1YWiyqdajAWi2ecVkPj/cwyfNb79/UOts1HyOh4/W44hGds3oy6+H5WH2KfFQjzlKkX6kjmtmMB9akzCvzqM7OjqtJx0Nnvkw/6j3MRcln/zewnuiCcu9ZYH6qR/U/w0K9G1xnPLrQ5fEAMF0BaQ==
   </data>
  </layer>
  <objectgroup name="Characters" width="0" height="0">
@@ -20,6 +20,12 @@
   <object gid="12" x="384" y="896" width="64" height="64"/>
   <object gid="12" x="1152" y="768" width="64" height="64"/>
   <object gid="12" x="1088" y="1344" width="64" height="64"/>
+  <object gid="12" x="256" y="1600"/>
+  <object gid="12" x="384" y="1600"/>
+  <object gid="12" x="128" y="1600"/>
+  <object gid="12" x="0" y="1600"/>
+  <object gid="12" x="1024" y="1600"/>
+  <object gid="12" x="1472" y="1600"/>
  </objectgroup>
  <objectgroup name="Collectables" width="0" height="0">
   <object gid="21" x="576" y="192"/>
