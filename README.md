@@ -17,7 +17,7 @@ Help Fred by unlocking doors, solving puzzles and collecting cubes to pay for th
 * All vector graphics (font bitmap rendered as vector)
 * 8-bit tiny font (Repton inspired)
 * Different coloured tiles per level
-* Only <div> and <span> used for playfield
+* Only div and span used for playfield
 * CSS animations, some triggered by swapping element classes
 * Simple timelines
 * Retro terminal with typewriter effect
