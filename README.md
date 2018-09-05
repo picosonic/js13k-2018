@@ -9,7 +9,7 @@ Fred lives on planet Figadore in the Hercules cluster, he likes watching cat vid
 
 Help Fred by unlocking doors, solving puzzles and collecting cubes to pay for the entanglement repolarisation required to get his planet back online.
 
-# Stuff I managed to get add
+# Stuff I managed to add
 * 2D platformer
 * Full screen
 * Works in various resolutions down to about 1366x768
