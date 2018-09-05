@@ -1123,8 +1123,8 @@ function addcharacters(level)
       case 11: // Player
         gs.player.sx=gs.player.x=(obj.x+level.tilewidth);
         gs.player.sy=gs.player.y=obj.y;
-        gs.player.e.style.width=level.tilewidth;
-        gs.player.e.style.height=level.tileheight;
+        gs.player.e.style.width=level.tilewidth+"px";
+        gs.player.e.style.height=level.tileheight+"px";
         gs.player.e.style.left=gs.player.x+"px";
         gs.player.e.style.top=gs.player.y+"px";
         break;
