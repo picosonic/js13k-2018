@@ -44,15 +44,15 @@ Help Fred by unlocking doors, solving puzzles and collecting cubes to pay for th
 
 # Tools used
 * [Ubuntu OS](https://www.ubuntu.com/)
-* [vim](https://github.com/vim) text editor (also gedit a bit)
+* [vim](https://github.com/vim) text editor (also [gedit](https://github.com/GNOME/gedit) a bit)
 * [meld](https://github.com/GNOME/meld) visual diff/merge
 * [Tiled](https://github.com/bjorn/tiled) map editor
 * [Inkscape](https://github.com/inkscape/inkscape) SVG editor
 * [GIMP](https://github.com/GNOME/gimp) image editor
 * [Google closure compiler](https://closure-compiler.appspot.com/home)
-* [advzip](https://github.com/amadvance/advancecomp) (uses 7-Zip deflate to compress further)
+* [advzip](https://github.com/amadvance/advancecomp) (uses [7-Zip](https://sourceforge.net/projects/sevenzip/files/7-Zip/) deflate to compress further)
 
 I had help choosing the main character name and planet name from my 3yr old son.
 Also I had help designing some levels and play testing from Jessica Vines.
 
-_Using some assets from Kenney.nl "Abstract Platformer" (Creative Commons Zero, CC0 license)_
+_Using some assets from [Kenney.nl "Abstract Platformer"](https://kenney.nl/assets/abstract-platformer) (Creative Commons Zero, CC0 license)_
