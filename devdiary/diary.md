@@ -261,7 +261,7 @@ Unfortunatly I was still way over budget in the 13kb limit so removed the gamepa
 
 Other space savings I did were to remove level 4, reduce the SVG for the key quite severely.
 
-Then late on I discovered advzip being discussed on one of the links from previous years postmortems. Anyway it saved me enough space to be able to re-add gamepad support - yay.
+Then late on I discovered [advzip](https://github.com/amadvance/advancecomp) being discussed on one of the links from previous years postmortems. Anyway it saved me enough space to be able to re-add gamepad support - yay.
 
 5th September
 -------------
@@ -271,4 +271,37 @@ Play testing revealed a hard to squash enemy on level 4, so removed him.
 
 I was happy with the game as a whole so decided to submit, there was only 94 bytes to spare after all and I wouldn't have been able to fit much more in.
 
-Feeling like a great weight had been lifted I went about documenting the stuff I'd managed to add, the tools I'd used and the stuff I'd have done if I'd have more KBs to play with.
+Feeling a great sense of relief that the pressure was off to shrink the game more, I went about documenting the stuff I'd managed to add, the tools I'd used and the stuff I'd have done if I'd have more KBs to play with.
+
+
+Summary
+-------
+If I had more KBs remaining, I'd have continued by adding the following :
+
+* More types of enemy
+* Parallax scrolling backgrounds
+* Better music (had to lower volume to make it more acceptable)
+* Foliage or other scenery
+* Support for going up stairs (this was almost working)
+* Better enemy AI (more then just patrolling, perhaps jumping, line-of-sight wake up, e.t.c)
+* More sound effects perhaps enhanced with envelopes
+* Mobile/Tablet support
+* Better game completed screen
+* Animate the stars to twinkle
+* Enemy squash and puzzle animations
+
+The list of tools I used during development is :
+
+* [Ubuntu OS](https://www.ubuntu.com/)
+* [vim](https://github.com/vim) text editor (also [gedit](https://github.com/GNOME/gedit) a bit)
+* [meld](https://github.com/GNOME/meld) visual diff/merge
+* [Tiled](https://github.com/bjorn/tiled) map editor
+* [Inkscape](https://github.com/inkscape/inkscape) SVG editor
+* [GIMP](https://github.com/GNOME/gimp) image editor
+* [Google closure compiler](https://closure-compiler.appspot.com/home)
+* [advzip](https://github.com/amadvance/advancecomp) (uses [7-Zip](https://sourceforge.net/projects/sevenzip/files/7-Zip/) deflate to compress further)
+
+I had help choosing the main character name and planet name from my 3yr old son.
+Also I had help designing some levels from Jessica Vines and play testing from Adrian Purser.
+
+I look forward to entering again next year.
