@@ -183,6 +183,8 @@ Added a test for level completion - once there are no more collectables and no m
 
 28th August
 -----------
+![Different tile colour scheme](aug28.png?raw=true "Different tile colour scheme")
+
 Realised the obvious, that SVG in text form takes up less space than in base64 form.
 
 To make levels feel different, added code to change tile colours by swapping out fill colour in SVG.
