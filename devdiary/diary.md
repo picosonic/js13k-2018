@@ -64,7 +64,7 @@ When the player stops moving they get updated to directionless state, this was f
 
 Added some test tiles and tile collision routines. Also added a test enemy.
 
-I decided that enemy movement would be controlled by them also having a key state bifield that they would "press" when they had determined they could move in that direction. This made the physics and movement processing easier and more concise.
+I decided that enemy movement would be controlled by them also having a key state bitfield that they would "press" when they had determined they could move in that direction. This made the physics and movement processing easier and more concise.
 
 18th August
 -----------
