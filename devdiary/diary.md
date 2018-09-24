@@ -42,6 +42,8 @@ There was a few quirks of gamepad support which I discovered. Firstly that not m
 
 15th August
 -----------
+![Player avatar](aug15.png?raw=true "Player avatar")
+
 Added the player avatar as a single red square and applied physics to him to test the control methods. I simply clamped the ground at 500 pixels to test jumping and gravity.
 
 The player movement felt a little stuttery at times so I added a [CSS 3d transform](https://blog.teamtreehouse.com/increase-your-sites-performance-with-hardware-accelerated-css) to try to force 3d acceleration.
