@@ -90,6 +90,8 @@ I decided to change the tile size to 64 pixels as this can be divided better and
 
 21st August
 -----------
+![Player ducking](aug21.png?raw=true "Player ducking")
+
 To simplify the various CSS animation transitions, I decided to remove the little changes of class to the characters and instead put it all into a single function which could be applied to all characters.
 
 Reduced the size of the SVG tile as it contained lots of data which was needed to render.
