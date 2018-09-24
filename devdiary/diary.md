@@ -205,6 +205,8 @@ Added a title screen with some character back story. I found that when adding lo
 
 1st September
 -------------
+![Health bar](sep1.png?raw=true "Health bar")
+
 I thought the player could do with a notion of remaining health each time an enemy collision happens, so add an OSD for a health bar. This is shown every time health is lost and the bars represent 10% each. Each level is started with 100% health.
 
 Added a check for game over when the player runs out of health. This clears the play field of collectables, tiles and enemies and returns to the title screen.
