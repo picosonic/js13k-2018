@@ -171,7 +171,7 @@ Added a hurt period following enemy collision, this was needed to stop the playe
 -----------
 Found out the on some browsers a certain platforms that [there is a limit to the number of audio contexts you can use](https://developer.mozilla.org/en-US/docs/Web/API/AudioContext/AudioContext#Usage_notes) and that they don't get garbage collected quickly enough. I changed the audio functions to try and use the least amount possible.
 
-Fixed some issues with levels.
+Fixed some issues with levels following play testing, enemies were too hard to squash, keys were in the wrong place and some areas were just plain inaccesible.
 
 27th August
 -----------
@@ -187,7 +187,7 @@ Realised the obvious, that SVG in text form takes up less space than in base64 f
 
 To make levels feel different, added code to change tile colours by swapping out fill colour in SVG.
 
-I liked the way anime.js could create animations from timelines, and wanted to incorporate generic timelines to fire functions at certain predefined points in time. So created my own since anime.js would be way to big to include.
+I liked the way [anime.js](http://animejs.com/) could create animations from timelines, and wanted to incorporate generic timelines to fire functions at certain predefined points in time. So created my own since anime.js would be way to big to include.
 
 Worked on game state machine and used new timeline to add a basic intro.
 
