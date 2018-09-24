@@ -102,7 +102,7 @@ I found that if I went to a different browser tab then back the game could freez
 
 22nd August
 -----------
-Added test for player/enemy collision detection.
+Added test for player/enemy collision detection. This simply checks for an overlap in the collision box for the player and each of the enemies.
 
 I'd now decided on a game title (with help from my son) and basic aim that a character from another planet needed help getting back online.
 
@@ -116,6 +116,8 @@ Fixed enemy AI.
 
 23rd August
 -----------
+![Locks and keys](aug23.png?raw=true "Locks and keys")
+
 Added the ability to climb stairs when 1 tile high steps to make the character flow better.
 
 Allow player to remove enemies from the playfield when jumping on them from above.
