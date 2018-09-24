@@ -1,28 +1,42 @@
+# Dev Diary / Postmortem
+
+![Planet Figadore has gone OFFLINE](../big_screenshot.png?raw=true "Planet Figadore has gone OFFLINE")
+
 This was my first game jam entry which I found out about via GitHub, also my first HTML5/JS game.
 
-I decided to try to write a 2d platformer without using a canvas and where all visual elements were vector based.
+My main goals were :
 
-What follows is a rough diary of progress.
+* 2D platformer with a retro feel
+* Full screen
+* No canvas elements
+* No 3rd party libraries
+* All visual elements vector based
+* Use CSS animations
+* Procedurally generated music
+* Sound effects
+* Gamepad support
+
+What follows is a rough diary of progress..
 
 13th August
 -----------
-I started with a concept of a DTMF modem dialler sound with carrier via web audio as a kind of nod to failing to get online in days gone by. I got the note frequency values from the wikipedia page on DTMF. This used a seeded pseudo random number generator to give random digits to dial.
+I started with a concept of a DTMF modem dialler sound with carrier via web audio as a kind of nod to failing to get online in days gone by. I got the note frequency values from the wikipedia page on [DTMF](https://en.wikipedia.org/wiki/Dual-tone_multi-frequency_signaling). This used a seeded pseudo random number generator to give random digits to dial.
 
-I created a bash script to run for the build process which would create a folder, pack everything into it, zip it up and report the resulting file size.
+I created a bash script to run the build process which would create a folder, pack everything into it, zip it up and report the resulting file size.
 
-To remain in keeping with the retro theme I decide to incorporate a tiny 8-bit font inspired by the BBC Micro game Repton. This was to become the only font used and can be seen in the terminal within the intro. The pixels in the font were converted individually into div elements.
+To remain in keeping with the retro theme I decide to incorporate a tiny 8-bit font inspired by the [BBC Micro game Repton](http://www.reptonresourcepage.co.uk/). This was to become the only font used and can be seen in the terminal within the intro. The pixels in the font were converted individually into div elements with gradient fill and rounded corners.
 
 Already being concious of the 13kb limit, I started removing bits of code which would never be executed or reducing bits that would.
 
 The basic player/enemy state was added with a number of physics attributes once I'd decided to make a 2d platform game. I'd recently watched some youtube videos on the physics required. Particularly useful was the GameMaker Platform tutorial on platform game mechanics http://youtu.be/CfHmiFUtWT4
 
-The basic layout and framework for the game loop called by requestanimationframe was added, it included a notion of accumulated time sine the last call so that the game would run as many update steps as necessary but only one redraw would occur.
+The basic layout and framework for the game loop called by [requestAnimationFrame](https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame) was added, it included a notion of accumulated time sine the last call so that the game would run as many update steps as necessary but only one redraw would occur.
 
 14th August
 -----------
-Added keyboard support, which updated a key bitfield that I displayed on screen in realtime for testing.
+Added keyboard support, which updated a key bitfield that I displayed on-screen in realtime for testing.
 
-After reading up on gamepads in browsers, I then decided to add support for gamepads, this fed into the same key bitfield so that you can use either control method.
+After reading up on [gamepads in browsers](https://developer.mozilla.org/en-US/docs/Web/API/Gamepad_API/Using_the_Gamepad_API), I then decided to add support for gamepads, this fed into the same key bitfield so that you can use either control method.
 
 There was a few quirks of gamepad support which I discovered. Firstly that not many gamepads were support out of the box, and only a handful would appear with "standard" mapping. Also some gamepads didn't always give connect events so I needed to add scanning for ones already connected.
 
@@ -30,15 +44,17 @@ There was a few quirks of gamepad support which I discovered. Firstly that not m
 -----------
 Added the player avatar as a single red square and applied physics to him to test the control methods. I simply clamped the ground at 500 pixels to test jumping and gravity.
 
-The player movement felt a little stuttery at times so I added a CSS 3d transform to try to force 3d acceleration.
+The player movement felt a little stuttery at times so I added a [CSS 3d transform](https://blog.teamtreehouse.com/increase-your-sites-performance-with-hardware-accelerated-css) to try to force 3d acceleration.
 
-Having previously played a few 2d platformers I wanted to add support for the character ducking, to get through tight spaces.
+Having previously played a few 2d platformers I wanted to add support for the character ducking, to get through tight spaces. Although I ended up just using duck as a form of defence to lessen health loss on enemy collision.
 
 Added some basic collision detection functions which checked for a pair of DOM elements overlapping.
 
 16th August
 -----------
-Wrote a small C program to convert the 8 bit font to hex values to save space.
+Wrote a small C program to convert the [8 bit font](https://github.com/picosonic/js13k-2018/blob/master/font.js) to hex values to save space.
+
+![Tiny 8 bit font](../alpha.png?raw=true "Tiny 8 bit font")
 
 17th August
 -----------
