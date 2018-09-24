@@ -137,7 +137,9 @@ Made keys unlock all locks of the same colour and remove them from the DOM.
 
 24th August
 -----------
-Added scoring.
+![Level border](aug24.png?raw=true "Level border")
+
+Added scoring, although this is never shown on the UI so I could have taken this out to save space.
 
 Loose health when hit by enemies.
 
@@ -153,9 +155,9 @@ Also added a border to the Tiled level so that the player couldn't fall out of t
 
 Added clearing of tiles/things/enemies when changing levels.
 
-Tested further minification using packer. Which although makes files smaller in most cases by using lookup tables for common words/phrases, the resulting file doesn't compress as well in a .zip as a file which hasn't been packed.
+Tested further minification using [packer](http://dean.edwards.name/packer/`). Which although makes files smaller in most cases by using lookup tables for common words/phrases, the resulting file doesn't compress as well in a .zip as a file which hasn't been packed.
 
-Added some very basic procedurally generated music using note digraphs frequency tables to try to make the "music" sound less generated.
+Added some very basic procedurally generated music using note digraphs frequency tables to try to make the "music" sound less generated. This was inspired by a chapter in the book [Advanced Programming Techniques For The BBC Micro](http://www.computinghistory.org.uk/det/8866/Advanced-Programming-Techniques-for-the-BBC-Micro/).
 
 Found the enemies were too fast, so slowed them down more.
 
@@ -167,7 +169,7 @@ Added a hurt period following enemy collision, this was needed to stop the playe
 
 26th August
 -----------
-Found out the on some browsers a certain platforms that there is a limit to the number of audio contexts you can use and that they don't get garbage collected quickly enough. I changed the audio functions to try and use the least amount possible.
+Found out the on some browsers a certain platforms that [there is a limit to the number of audio contexts you can use](https://developer.mozilla.org/en-US/docs/Web/API/AudioContext/AudioContext#Usage_notes) and that they don't get garbage collected quickly enough. I changed the audio functions to try and use the least amount possible.
 
 Fixed some issues with levels.
 
