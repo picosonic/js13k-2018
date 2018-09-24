@@ -76,6 +76,8 @@ After getting some feedback I changed the jump key to space and enter rather tha
 
 20th August
 -----------
+![Tile graphics update](aug20.png?raw=true "Tile graphics update")
+
 Made the enemies move slower than the player.
 
 Decided to use CSS animations so added classes for different player states, such as walking.
