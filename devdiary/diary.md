@@ -60,6 +60,8 @@ Wrote a small C program to convert the [8 bit font](https://github.com/picosonic
 
 17th August
 -----------
+![Test tiles and enemy](aug17.png?raw=true "Test tiles and enemy")
+
 When the player stops moving they get updated to directionless state, this was for future animation so they would look in the direction they were moving or facing.
 
 Added some test tiles and tile collision routines. Also added a test enemy.
@@ -74,6 +76,8 @@ After getting some feedback I changed the jump key to space and enter rather tha
 
 20th August
 -----------
+![Tile graphics update](aug20.png?raw=true "Tile graphics update")
+
 Made the enemies move slower than the player.
 
 Decided to use CSS animations so added classes for different player states, such as walking.
