@@ -60,6 +60,8 @@ Wrote a small C program to convert the [8 bit font](https://github.com/picosonic
 
 17th August
 -----------
+![Test tiles and enemy](aug17.png?raw=true "Test tiles and enemy")
+
 When the player stops moving they get updated to directionless state, this was for future animation so they would look in the direction they were moving or facing.
 
 Added some test tiles and tile collision routines. Also added a test enemy.
