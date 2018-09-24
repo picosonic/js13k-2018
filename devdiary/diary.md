@@ -2,7 +2,7 @@
 
 ![Planet Figadore has gone OFFLINE](../big_screenshot.png?raw=true "Planet Figadore has gone OFFLINE")
 
-This was my first game jam entry which I found out about via GitHub, also my first HTML5/JS game.
+This was my first game jam entry which I found out about via GitHub, also my first HTML5/JS game. Once I'd heard about the jam I watched loads of review videos by [Jupiter Hadley](https://www.youtube.com/watch?v=Izp3Vvx6F2E&list=PLYKU1lvSF85c4UPV3J1onIf-Qv13GJ7H8) from last years competition and played lots of the games from all previous years.
 
 My main goals were :
 
@@ -276,6 +276,8 @@ Feeling a great sense of relief that the pressure was off to shrink the game mor
 
 Summary
 -------
+I really enjoyed the challenge of creating a JS game in 13kb in just a month (although I was done after about 3 weeks). The combination of the filesize and timescale were just about right.
+
 If I had more KBs remaining, I'd have continued by adding the following :
 
 * More types of enemy
