@@ -112,7 +112,7 @@ To save space I decided to only include a single SVG tile, with the left and rig
 
 Now I felt it was time to start creating some levels. I used Tiled to create a basic 100x15 tile test level. As the playfield was now increasing in size, I added code to use the browsers built in scrollto function to keep the player in the centre of the view.
 
-For Tiled to work I had to create to sprite sheets, these are only used in Tiled and not in the game.
+For Tiled to work I had to create some sprite sheets, these are only used in Tiled and not in the game.
 
 ![Character sheet](../charsheet.png?raw=true "Character sheet")
 ![Collect sheet](../collectsheet.png?raw=true "Collect sheet")
