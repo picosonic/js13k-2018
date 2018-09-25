@@ -115,8 +115,8 @@ Now I felt it was time to start creating some levels. I used Tiled to create a b
 For Tiled to work I had to create to sprite sheets, these are only used in Tiled and not in the game.
 
 ![Character sheet](../charsheet.png?raw=true "Character sheet")
-![Collect sheet](../charsheet.png?raw=true "Collect sheet")
-![Tile sheet](../charsheet.png?raw=true "Tile sheet")
+![Collect sheet](../collectsheet.png?raw=true "Collect sheet")
+![Tile sheet](../tilesheet.png?raw=true "Tile sheet")
 
 Fixed enemy AI.
 
