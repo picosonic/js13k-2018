@@ -30,7 +30,7 @@ Already being concious of the 13kb limit, I started removing bits of code which 
 
 The basic player/enemy state was added with a number of physics attributes once I'd decided to make a 2d platform game. I'd recently watched some youtube videos on the physics required. Particularly useful was the GameMaker Platform tutorial on platform game mechanics http://youtu.be/CfHmiFUtWT4
 
-The basic layout and framework for the game loop called by [requestAnimationFrame](https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame) was added, it included a notion of accumulated time sine the last call so that the game would run as many update steps as necessary but only one redraw would occur.
+The basic layout and framework for the game loop called by [requestAnimationFrame](https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame) was added, it included a notion of accumulated time since the last call so that the game would run as many update steps as necessary but only one redraw would occur.
 
 14th August
 -----------
@@ -161,7 +161,7 @@ Also added a border to the Tiled level so that the player couldn't fall out of t
 
 Added clearing of tiles/things/enemies when changing levels.
 
-Tested further minification using [packer](http://dean.edwards.name/packer/`). Which although makes files smaller in most cases by using lookup tables for common words/phrases, the resulting file doesn't compress as well in a .zip as a file which hasn't been packed.
+Tested further minification using [packer](http://dean.edwards.name/packer/). Which although makes files smaller in most cases by using lookup tables for common words/phrases, the resulting file doesn't compress as well in a .zip as a file which hasn't been packed.
 
 Added some very basic procedurally generated music using note digraphs frequency tables to try to make the "music" sound less generated. This was inspired by a chapter in the book [Advanced Programming Techniques For The BBC Micro](http://www.computinghistory.org.uk/det/8866/Advanced-Programming-Techniques-for-the-BBC-Micro/).
 
