@@ -2,7 +2,7 @@
 
 ![Planet Figadore has gone OFFLINE](../big_screenshot.png?raw=true "Planet Figadore has gone OFFLINE")
 
-This was my first game jam entry which I found out about via GitHub, also my first HTML5/JS game. Once I'd heard about the jam I watched loads of review videos by [Jupiter Hadley](https://www.youtube.com/watch?v=Izp3Vvx6F2E&list=PLYKU1lvSF85c4UPV3J1onIf-Qv13GJ7H8) from last years competition and played lots of the games from all previous years.
+This was my first game jam entry which I found out about via GitHub, also my first HTML5/JS game. Once I'd heard about the jam I watched loads of review videos by [Jupiter Hadley](https://www.youtube.com/watch?v=Izp3Vvx6F2E&list=PLYKU1lvSF85c4UPV3J1onIf-Qv13GJ7H8) from last year's competition and played lots of the games from all previous years.
 
 My main goals were :
 
@@ -28,7 +28,7 @@ To remain in keeping with the retro theme I decide to incorporate a tiny 8-bit f
 
 Already being concious of the 13kb limit, I started removing bits of code which would never be executed or reducing bits that would.
 
-The basic player/enemy state was added with a number of physics attributes once I'd decided to make a 2d platform game. I'd recently watched some youtube videos on the physics required. Particularly useful was the GameMaker Platform tutorial on platform game mechanics http://youtu.be/CfHmiFUtWT4
+The basic player/enemy state was added with a number of physics attributes once I'd decided to make a 2d platform game. I'd recently watched some youtube videos on the physics required. Particularly useful was the [GameMaker Platform tutorial on platform game mechanics](http://youtu.be/CfHmiFUtWT4)
 
 The basic layout and framework for the game loop called by [requestAnimationFrame](https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame) was added, it included a notion of accumulated time since the last call so that the game would run as many update steps as necessary but only one redraw would occur.
 
@@ -46,9 +46,9 @@ There was a few quirks of gamepad support which I discovered. Firstly that not m
 
 Added the player avatar as a single red square and applied physics to him to test the control methods. I simply clamped the ground at 500 pixels to test jumping and gravity.
 
-The player movement felt a little stuttery at times so I added a [CSS 3d transform](https://blog.teamtreehouse.com/increase-your-sites-performance-with-hardware-accelerated-css) to try to force 3d acceleration.
+The player movement felt a little stuttery at times so I added a [CSS 3D transform](https://blog.teamtreehouse.com/increase-your-sites-performance-with-hardware-accelerated-css) to try to force 3D acceleration.
 
-Having previously played a few 2d platformers I wanted to add support for the character ducking, to get through tight spaces. Although I ended up just using duck as a form of defence to lessen health loss on enemy collision.
+Having previously played a few 2D platformers I wanted to add support for the character ducking, to get through tight spaces. Although I ended up just using duck as a form of defence to lessen health loss on enemy collision.
 
 Added some basic collision detection functions which checked for a pair of DOM elements overlapping.
 
@@ -72,7 +72,7 @@ I decided that enemy movement would be controlled by them also having a key stat
 -----------
 Applied physics and basic patrolling AI to the enemies.
 
-After getting some feedback I changed the jump key to space and enter rather than just use the up key. This was incase I decided to use ladders or ropes later in development.
+After getting some feedback I changed the jump key to Space and Enter rather than just use the Up key. This was incase I decided to use ladders or ropes later in development.
 
 20th August
 -----------
@@ -82,11 +82,11 @@ Made the enemies move slower than the player.
 
 Decided to use CSS animations so added classes for different player states, such as walking.
 
-I came across the Kenney.nl site and particularly liked the abstract 2d platformer graphics, so decided to incorporate them into my game since they were CC0 licensed. I achieved this by placing div elements for body, arms, legs, eyes e.t.c. Then using CSS animations to move the div elements.
+I came across the [Kenney.nl](https://kenney.nl/) site and particularly liked the [abstract 2d platformer](https://kenney.nl/assets/abstract-platformer) graphics, so decided to incorporate them into my game since they were CC0 licensed. I achieved this by placing div elements for body, arms, legs, eyes e.t.c. Then using CSS animations to move the div elements.
 
 I thought the background was a bit bland so added a linear gradient to give a feel of night time.
 
-I decided to change the tile size to 64 pixels as this can be divided better and fitted the screen better. This did require some rework on the animations and character element positions.
+I decided to change the tile size to 64x64 pixels as this can be divided better and fitted the screen better. This did require some rework on the animations and character element positions.
 
 21st August
 -----------
@@ -94,11 +94,11 @@ I decided to change the tile size to 64 pixels as this can be divided better and
 
 To simplify the various CSS animation transitions, I decided to remove the little changes of class to the characters and instead put it all into a single function which could be applied to all characters.
 
-Reduced the size of the SVG tile as it contained lots of data which was needed to render.
+Reduced the size of the SVG tile as it contained lots of data which wasn't needed to render.
 
-Added a player ducking and falling animations, also made the player look up or down depending on if they are jumping or falling. Found that the player seemed more natural when leaning in the direction they are moving.
+Added player ducking and falling animations, also made the player look up or down depending on if they are jumping or falling. Found that the player seemed more natural when leaning in the direction they are moving.
 
-I found that if I went to a different browser tab then back the game could freeze up a bit whilst running the simulation update for the elapsed time. To reduce this I limit the update delta to 15 seconds since previous update.
+I found that if I went to a different browser tab then back, the game could freeze up a bit whilst running the simulation update for the elapsed time. To reduce this I limit the update delta to 15 seconds since previous update.
 
 22nd August
 -----------
@@ -106,11 +106,11 @@ Added test for player/enemy collision detection. This simply checks for an overl
 
 I'd now decided on a game title (with help from my son) and basic aim that a character from another planet needed help getting back online.
 
-Added background and foreground div elements with a view to added parallax scrolling, however I ended up removing these when I ran out of KBs. Also added stars to the background to emphasise the night setting.
+Added background and foreground div elements with a view to adding parallax scrolling, however I ended up removing these when I ran out of KBs. Also added stars to the background to emphasise the night setting.
 
 To save space I decided to only include a single SVG tile, with the left and right corners and edges being done with CSS rounded corners.
 
-Now I felt it was time to start creating some levels. I used Tiled to create a basic 100x15 tile test level. As the playfield was now increasing in size, I added code to use the browsers built in scrollto function to keep the player in the centre of the view.
+Now I felt it was time to start creating some levels. I used Tiled to create a basic 100x15 tile test level. As the playfield was now increasing in size, I added code to use the browser's built in [scrollto](https://developer.mozilla.org/en-US/docs/Web/API/Window/scrollTo) function to keep the player in the centre of the view.
 
 For Tiled to work I had to create some sprite sheets, these are only used in Tiled and not in the game.
 
@@ -129,11 +129,12 @@ Added the ability to climb stairs when 1 tile high steps to make the character f
 Allow player to remove enemies from the playfield when jumping on them from above.
 
 Reduced level data size by removing spaces and zeroes.
+
 Added character start point to allow for respawing where they start per level rather than always at 0,0.
 
 I included some more on the game goal and character backstory.
 
-Added some collectable gold cubes and concept of coloured locks and matching keys. The locks are done with div elements, the keys are simplified SVG images. Both have colours changed with text replacement.
+Added some collectable gold cubes and concept of coloured locks and matching keys. The locks are done with div elements, the keys are simplified SVG images. Both have colours changed by text replacement.
 
 Found the levels were taking up too much space, so got rid of some unused Tiled attributes.
 
@@ -175,7 +176,7 @@ Added a hurt period following enemy collision, this was needed to stop the playe
 
 26th August
 -----------
-Found out the on some browsers a certain platforms that [there is a limit to the number of audio contexts you can use](https://developer.mozilla.org/en-US/docs/Web/API/AudioContext/AudioContext#Usage_notes) and that they don't get garbage collected quickly enough. I changed the audio functions to try and use the least amount possible.
+Found out that on some browsers and certain platforms that [there is a limit to the number of audio contexts you can use](https://developer.mozilla.org/en-US/docs/Web/API/AudioContext/AudioContext#Usage_notes) and that they don't get garbage collected quickly enough. I changed the audio functions to try and use the least amount possible.
 
 Fixed some issues with levels following play testing, enemies were too hard to squash, keys were in the wrong place and some areas were just plain inaccesible.
 
@@ -191,11 +192,11 @@ Added a test for level completion - once there are no more collectables and no m
 -----------
 ![Different tile colour scheme](aug28.png?raw=true "Different tile colour scheme")
 
-Realised the obvious, that SVG in text form takes up less space than in base64 form.
+Realised the obvious, that SVG in text form takes up less space than in base64 form (it takes 4 ascii bytes to represent 3 input bytes).
 
 To make levels feel different, added code to change tile colours by swapping out fill colour in SVG.
 
-I liked the way [anime.js](http://animejs.com/) could create animations from timelines, and wanted to incorporate generic timelines to fire functions at certain predefined points in time. So created my own since anime.js would be way to big to include.
+I liked the way [anime.js](http://animejs.com/) could create animations from timelines, and wanted to incorporate generic timelines to fire functions at certain predefined points in time. So created my own since anime.js would be way too big to include.
 
 Worked on game state machine and used new timeline to add a basic intro.
 
@@ -213,7 +214,7 @@ Added a title screen with some character back story. I found that when adding lo
 -------------
 ![Health bar](sep1.png?raw=true "Health bar")
 
-I thought the player could do with a notion of remaining health each time an enemy collision happens, so add an OSD for a health bar. This is shown every time health is lost and the bars represent 10% each. Each level is started with 100% health.
+I thought the player could do with a notion of remaining health each time an enemy collision happens, so add an OSD for a health bar. This is shown every time health is lost and the bars represent 10% each. Each level is started with 100% health. This is designed to look like an old CRT TV OSD volume control indicator.
 
 Added a check for game over when the player runs out of health. This clears the play field of collectables, tiles and enemies and returns to the title screen.
 
@@ -221,7 +222,7 @@ Decided to slow the character movement down when they are hit to enhance the fee
 
 2nd September
 -------------
-Improve the visual appearnce of the gold cubes by making them appear to float up and down in mid air.
+Improve the visual appearance of the gold cubes by making them appear to float up and down in mid air. This also draws attention to them to make them stand out from the background.
 
 Some play testing highlighted the character didn't stop quickly enough when controls were released. So decided to increase friction.
 
@@ -243,7 +244,7 @@ Decided that on some levels where you have to pass an enemy in order to squash t
 
 Found the intro text wrapped oddly (mid word) when the browser was running at different resolutions. To combat this I added span elements around each word being written, and marked them as non breaking.
 
-A quick check showed that I was over the 13k limit, so time to scale things back. Found the google closure compiler excellent for reducing file size. Also after identifying the levels as being a large use of space, I removed loads more attributes that Tiled added which I wasn't going to use.
+A quick check showed that I was over the 13k limit, so time to scale things back. Found the [Google closure compiler](https://closure-compiler.appspot.com/home) excellent for reducing file size. Also after identifying the levels as being a large use of space, I removed loads more attributes that Tiled added which I wasn't going to use.
 
 I read an article on improving zip compression of CSS and it suggested creating repeated sections by moving the order rules appeared in a selector (e.g. alphabetical) to increase the likelyhood of some matches. This didn't seem to have much difference on file sizes.
 
@@ -263,7 +264,7 @@ Revisited levels again to make them a bit harder.
 
 Added sound effects when collecting gold cubes and keys.
 
-Unfortunatly I was still way over budget in the 13kb limit so removed the gamepad support. I also compacted the 8 bit font more, by converting the hex to decimal as a max 3 character decimal value is always less than a value which always has 4 characters.
+Unfortunatly I was still way over budget in the 13kb limit so removed the gamepad support. I also compacted the 8 bit font more, by converting the hex to decimal as a max 3 character decimal value is always less than a hex value which always has 4 characters.
 
 Other space savings I did were to remove level 4, reduce the SVG for the key quite severely.
 
@@ -292,7 +293,7 @@ If I had more KBs remaining, I'd have continued by adding the following :
 * Foliage or other scenery
 * Support for going up stairs (this was almost working)
 * Better enemy AI (more then just patrolling, perhaps jumping, line-of-sight wake up, e.t.c)
-* More sound effects perhaps enhanced with envelopes
+* More sound effects perhaps enhanced with [envelopes](https://en.wikipedia.org/wiki/Synthesizer#ADSR_envelope)
 * Mobile/Tablet support
 * Better game completed screen
 * Animate the stars to twinkle
