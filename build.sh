@@ -3,7 +3,6 @@
 zipfile="js13k.zip"
 buildpath="build"
 jscat="${buildpath}/min.js"
-csscat="${buildpath}/min.css"
 indexcat="${buildpath}/index.html"
 leveljs="levels.js"
 
@@ -32,15 +31,17 @@ done
 sed -i "s/,height:0,properties:{},width:0,/,/g" "${jscat}"
 sed -i "s/,height:64,properties:{},width:64,/,/g" "${jscat}"
 
+# Add the index header
+echo -n '<!DOCTYPE html><html><head><meta charset="utf-8"/><meta http-equiv="Content-Type" content="text/html;charset=utf-8"/><title>Planet Figadore has gone OFFLINE</title><style>' > "${indexcat}"
+
 # Concatenate the CSS files
-touch "${csscat}"
 for file in main.css tiles.css collect.css player.css enemy.css
 do
-  yui-compressor "${file}" >> "${csscat}"
+  yui-compressor "${file}" >> "${indexcat}"
 done
 
-# Copy in the index file
-cp indexmin.html "${indexcat}"
+# Add on the rest of the index file
+echo -n '</style><script type="text/javascript" src="min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/></head><body><div id="wrapper"><div id="background"></div><div id="playfield" level="0"></div><div id="player"></div></div><div id="ui"></div></body></html>' >> "${indexcat}"
 
 # Zip everything up
 zip -j "${zipfile}" "${buildpath}"/*
