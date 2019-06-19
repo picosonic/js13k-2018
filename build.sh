@@ -2,7 +2,7 @@
 
 zipfile="js13k.zip"
 buildpath="build"
-jscat="${buildpath}/min.js"
+jscat="min.js"
 indexcat="${buildpath}/index.html"
 leveljs="levels.js"
 
@@ -21,15 +21,21 @@ done
 echo "];" >> "${leveljs}"
 
 # Concatenate the JS files
-touch "${jscat}"
+touch "${jscat}" >/dev/null 2>&1
 for file in random.js timeline.js dtmf.js music.js font.js writer.js levels.js main.js
 do
   yui-compressor "${file}" >> "${jscat}"
 done
 
 # Remove some fluff from the levels
-sed -i "s/,height:0,properties:{},width:0,/,/g" "${jscat}"
-sed -i "s/,height:64,properties:{},width:64,/,/g" "${jscat}"
+sed -i "s/,width:0,/,/g" "${jscat}"
+sed -i "s/,height:0,/,/g" "${jscat}"
+sed -i "s/,width:64,/,/g" "${jscat}"
+sed -i "s/,height:64,/,/g" "${jscat}"
+sed -i "s/properties:{},//g" "${jscat}"
+
+# Copy JS to build folder
+cp "${jscat}" "${buildpath}"
 
 # Add the index header
 echo -n '<!DOCTYPE html><html><head><meta charset="utf-8"/><meta http-equiv="Content-Type" content="text/html;charset=utf-8"/><title>Planet Figadore has gone OFFLINE</title><style>' > "${indexcat}"
