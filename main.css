@@ -99,6 +99,13 @@ body
   text-align:center;
 }
 
+@keyframes twinkle
+{
+  0% { opacity:1; }
+  50% { opacity:0; }
+  100% { opactiy:1; }
+}
+
 .star
 {
   position:absolute;
@@ -106,4 +113,29 @@ body
   width:1px;
   height:1px;
   background-color:white;
+  opacity:1;
+
+  animation-name:twinkle;
+  animation-duration:5s;
+  animation-iteration-count:infinite;
+}
+
+.star:nth-of-type(5n+1)
+{
+  animation-delay:1s;
+}
+
+.star:nth-of-type(5n+2)
+{
+  animation-delay:2s;
+}
+
+.star:nth-of-type(5n+3)
+{
+  animation-delay:3s;
+}
+
+.star:nth-of-type(5n+4)
+{
+  animation-delay:4s;
 }
