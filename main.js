@@ -20,10 +20,10 @@ function st(elem)
   this.d=false; // ducking
   this.htime=0; // hurt following an enemy collision
   this.dir=0; // direction (-1=left, 0=none, 1=right)
-  this.hsp=10; // max horizontal speed
-  this.vsp=20; // max vertical speed
-  this.speed=10; // walking speed
-  this.jumpspeed=20; // jumping speed
+  this.hsp=5; // max horizontal speed
+  this.vsp=15; // max vertical speed
+  this.speed=5; // walking speed
+  this.jumpspeed=15; // jumping speed
 
   this.lf=100; // remaining "life force"
 }
@@ -42,9 +42,9 @@ var gs={
   gamepadlastbutton:-1,
 
   // physics in pixels per frame @ 60fps
-  gravity:1,
-  terminalvelocity:50,
-  friction:2,
+  gravity:0.5,
+  terminalvelocity:25,
+  friction:1,
 
   // entities
   player:new st(),
@@ -59,6 +59,7 @@ var gs={
   tileheight:64,
   things:[], // collectables
   score:0,
+  scale:1,
 
   // audio related
   dialler:new dtmf_dial(),
@@ -257,12 +258,12 @@ function redraw()
   {
     try
     {
-      window.scrollTo({left:gs.player.x-(document.documentElement.clientWidth/2), top:gs.player.y-(document.documentElement.clientHeight/2), behaviour:"smooth"});
+      window.scrollTo({left:(gs.player.x*gs.scale)-(window.innerWidth/2), top:(gs.player.y*gs.scale)-(window.innerHeight/2), behaviour:"smooth"});
     }
     catch (e)
     {
       // Fallback to 2 parameters for older browsers
-      window.scrollTo(gs.player.x-(document.documentElement.clientWidth/2), gs.player.y-(document.documentElement.clientHeight/2));
+      window.scrollTo((gs.player.x*gs.scale)-(window.innerWidth/2), (gs.player.y*gs.scale)-(window.innerHeight/2));
     }
   }
 
@@ -1101,7 +1102,7 @@ function addenemy(x, y, w, h, enemyclass)
   enemyobj.sy=enemyobj.y=y;
   enemyobj.w=w;
   enemyobj.h=h;
-  enemyobj.speed=3;
+  enemyobj.speed=2;
 
   // Add to enemies array
   gs.enemies.push(enemyobj);
@@ -1360,6 +1361,25 @@ function start_music()
   setInterval(function(){ gs.music.randoms.seeda=3; gs.music.randoms.seedb=6; gs.music.randoms.seedc=6; gs.music.randoms.seedd=4; gs.music.play_tune(); }, ((1*60)+42)*1000);
 }
 
+// Handle resize events
+function playfieldsize()
+{
+  gs.scale=(window.innerWidth/(gs.tilewidth*10));
+
+  document.getElementById("wrapper").style="width:"+(gs.tilewidth*10)+"px; height:"+(((gs.tilewidth*10)/4)*3)+"px; transform-origin:0px 0px; transform:scale("+gs.scale+");";
+
+  // Move the view if required
+  try
+  {
+    window.scrollTo({left:(gs.player.x*gs.scale)-(window.innerWidth/2), top:(gs.player.y*gs.scale)-(window.innerHeight/2), behaviour:"smooth"});
+  }
+  catch (e)
+  {
+    // Fallback to 2 parameters for older browsers
+    window.scrollTo((gs.player.x*gs.scale)-(window.innerWidth/2), (gs.player.y*gs.scale)-(window.innerHeight/2));
+  }
+}
+
 // Initial entry point
 function init()
 {
@@ -1392,6 +1412,13 @@ function init()
   {
     gamepadHandler(e, false);
   });
+
+  window.addEventListener("resize", function(e)
+  {
+    playfieldsize();
+  });
+
+  playfieldsize();
 
   /////////////////////////////////////////////////////
   // Intro
