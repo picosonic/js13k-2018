@@ -37,9 +37,9 @@ Help Fred by unlocking doors, solving puzzles and collecting cubes to pay for th
 * Support for going up stairs (this was almost working)
 * Better enemy AI (more then just patrolling, perhaps jumping, line-of-sight wake up, e.t.c)
 * More sound effects perhaps enhanced with envelopes
-* Mobile/Tablet support
+* Playfield scaling
 * Better game completed screen
-* Animate the stars to twinkle
+- [x] Animate the stars to twinkle
 * Enemy squash and puzzle animations
 
 # Tools used
