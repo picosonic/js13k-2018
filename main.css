@@ -17,7 +17,6 @@ body
 {
   transform:translate3d(0, 0, 0);
   position:absolute;
-  overflow-hidden;
   left:0px;
   top:0px;
   width:100%;
