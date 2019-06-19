@@ -2,7 +2,7 @@
 
 zipfile="js13k.zip"
 buildpath="build"
-jscat="min.js"
+jscat="${buildpath}/min.js"
 indexcat="${buildpath}/index.html"
 leveljs="levels.js"
 
@@ -34,8 +34,8 @@ sed -i "s/,width:64,/,/g" "${jscat}"
 sed -i "s/,height:64,/,/g" "${jscat}"
 sed -i "s/properties:{},//g" "${jscat}"
 
-# Copy JS to build folder
-cp "${jscat}" "${buildpath}"
+# Copy minified JS from build folder
+cp "${jscat}" .
 
 # Add the index header
 echo -n '<!DOCTYPE html><html><head><meta charset="utf-8"/><meta http-equiv="Content-Type" content="text/html;charset=utf-8"/><title>Planet Figadore has gone OFFLINE</title><style>' > "${indexcat}"
