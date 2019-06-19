@@ -16,7 +16,7 @@ mkdir "${buildpath}"
 echo "var levels=[" > "${leveljs}"
 for file in level*.json
 do
-  cat "${file}" | sed 's/ 0,/,/g' | egrep -v "(name|type|visible|opacity|image|orientation|margin|spacing|version)" >> "${leveljs}"
+  cat "${file}" | sed 's/ 0,/,/g' | sed 's/, /,/g' | egrep -v '(name|type|visible|opacity|image|orientation|margin|spacing|version|rotation|draworder|renderorder|tilecount|columns|nextobjectid|firstgid|"id")' >> "${leveljs}"
   echo "," >> "${leveljs}"
 done
 echo "];" >> "${leveljs}"
