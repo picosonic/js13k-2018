@@ -539,6 +539,12 @@ function updateanimation(character)
   else
     character.e.classList.remove("duck");
 
+  // Hurt
+  if (character.htime>0)
+    character.e.classList.add("hurt");
+  else
+    character.e.classList.remove("hurt");
+
   // Not moving
   if ((character.dir==0) && (character.hs==0) && (character.vs==0))
     character.e.classList.add("idle");
@@ -1398,22 +1404,28 @@ function init()
   };
 
   // Stop things from being dragged around
-  window.ondragstart=function(event) { event.preventDefault(); };
+  window.ondragstart=function(e)
+  {
+    e = e || window.event;
+    e.preventDefault();
+  };
 
   // Gamepad support
   gamepadscan();
 
   window.addEventListener("gamepadconnected", function(e)
   {
+    e = e || window.event;
     gamepadHandler(e, true);
   });
 
   window.addEventListener("gamepaddisconnected", function(e)
   {
+    e = e || window.event;
     gamepadHandler(e, false);
   });
 
-  window.addEventListener("resize", function(e)
+  window.addEventListener("resize", function()
   {
     playfieldsize();
   });
