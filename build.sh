@@ -53,7 +53,7 @@ echo -n '</style><script type="text/javascript" src="min.js"></script><meta name
 zip -j "${zipfile}" "${buildpath}"/*
 
 # Save about 1k more with advzip
-advzip -z -4 "${zipfile}"
+advzip -k -z -4 "${zipfile}"
 
 # Determine file sizes and compression
 unzip -lv "${zipfile}"
