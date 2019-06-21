@@ -36,8 +36,9 @@ var gs={
   lasttime:0, // time of last frame
 
   // control state
-  gamepads:{},
+  gamepad:-1,
   gamepadbuttons:[],
+  gamepadaxes:[],
   gamepadassignbutton:-1,
   gamepadlastbutton:-1,
 
@@ -72,161 +73,212 @@ var gs={
   state:0 // state machine, 0=intro, 1=menu, 2=playing, 3=complete
 };
 
-// Find a gamepad by its ID
-function getgamepadbyid(padid)
-{
-  if ((navigator.getGamepads||navigator.webkitGetGamepads||navigator.webkitGamepads||undefined)==undefined) return undefined;
-
-  return (navigator.getGamepads && navigator.getGamepads()[padid]) || (navigator.webkitGetGamepads && navigator.webkitGetGamepads()[padid]);
-}
-
-// Handle connection/disconnection of a gamepad
-function gamepadHandler(event, connecting)
-{
-  var gamepad=event.gamepad;
-  // Note:
-  // gamepad === navigator.getGamepads()[gamepad.index]
-
-  if (connecting)
-  {
-//    console.log("Gamepad connected at index %d: %s. %d buttons, %d axes.",
-//      gamepad.index, gamepad.id,
-//      gamepad.buttons.length, gamepad.axes.length);
-
-    gs.gamepads[gamepad.index]=gamepad.id;
-    if (gamepad.mapping==="standard")
-    {
-      gs.gamepadbuttons[0]=14; // left (left) d-left
-      gs.gamepadbuttons[1]=15; // right (left) d-right
-      gs.gamepadbuttons[2]=12; // top (left) d-up
-      gs.gamepadbuttons[3]=13; // bottom (left) d-down
-      gs.gamepadbuttons[4]=0;  // bottom button (right) x
-    }
-//    else
-//      gs.gamepadassignbutton=0; // require manual mapping
-  }
-  else
-  {
-//    console.log("Gamepad disconnected from index %d: %s",
-//      gamepad.index, gamepad.id);
-
-    delete gs.gamepads[gamepad.index];
-  }
-}
-
-// Scan for any gamepads already connected
+// Scan for any connected gamepads
 function gamepadscan()
 {
-  if ((navigator.getGamepads||navigator.webkitGetGamepads||navigator.webkitGamepads||undefined)==undefined) return;
+  var gamepads=navigator.getGamepads();
+  var found=0;
+  var i=0;
 
-  var gamepads=(navigator.getGamepads && navigator.getGamepads()) || (navigator.webkitGetGamepads && navigator.webkitGetGamepads());
+  var gleft=false;
+  var gright=false;
+  var gup=false;
+  var gdown=false;
+  var gjump=false;
 
+  // Find active pads
   for (var padid=0; padid<gamepads.length; padid++)
   {
-    if (gamepads[padid]!=undefined)
+    // Only support first found gamepad
+    if ((found==0) && (gamepads[padid] && gamepads[padid].connected))
     {
-      // Simulate this gamepad being connected
-      var ev={gamepad:getgamepadbyid(padid)};
-      gamepadHandler(ev, true);
-    }
-  }
-}
+      found++;
 
-// Poll all gamepads to update keystate, also allow mapping
-function pollGamepads()
-{
-  var i=0;
-  var j;
-
-  for (j in gs.gamepads)
-  {
-    var gamepad=getgamepadbyid(j);
-    if (gamepad==undefined) continue;
-
-    for (i=0; i<gamepad.buttons.length; i++)
-    {
-      var val=gamepad.buttons[i];
-      var pressed=val==1.0;
-
-      if (typeof(val)=="object")
+      // If we don't already have this one, add mapping for it
+      if (gs.gamepad!=padid)
       {
-        pressed=val.pressed;
-        val=val.value;
+        console.log("Found new gamepad "+padid+" '"+gamepads[padid].id+"'");
+
+        gs.gamepad=padid;
+
+        if (gamepads[padid].mapping==="standard")
+        {
+          gs.gamepadbuttons[0]=14; // left (left) d-left
+          gs.gamepadbuttons[1]=15; // right (left) d-right
+          gs.gamepadbuttons[2]=12; // top (left) d-up
+          gs.gamepadbuttons[3]=13; // bottom (left) d-down
+          gs.gamepadbuttons[4]=0;  // bottom button (right) x
+
+          gs.gamepadaxes[0]=0; // left/right axis
+          gs.gamepadaxes[1]=1; // up/down axis
+          gs.gamepadaxes[2]=2; // cam left/right axis
+          gs.gamepadaxes[3]=3; // cam up/down axis
+        }
+        else
+        if (gamepads[padid].id=="054c-0268-Sony PLAYSTATION(R)3 Controller")
+        {
+          // PS3
+          gs.gamepadbuttons[0]=15; // left (left) d-left
+          gs.gamepadbuttons[1]=16; // right (left) d-right
+          gs.gamepadbuttons[2]=13; // top (left) d-up
+          gs.gamepadbuttons[3]=14; // bottom (left) d-down
+          gs.gamepadbuttons[4]=0;  // bottom button (right) x
+
+          gs.gamepadaxes[0]=0; // left/right axis
+          gs.gamepadaxes[1]=1; // up/down axis
+          gs.gamepadaxes[2]=3; // cam left/right axis
+          gs.gamepadaxes[3]=4; // cam up/down axis
+        }
+        else
+        if (gamepads[padid].id=="045e-028e-Microsoft X-Box 360 pad")
+        {
+          // XBOX 360
+          gs.gamepadbuttons[0]=-1; // left (left) d-left
+          gs.gamepadbuttons[1]=-1; // right (left) d-right
+          gs.gamepadbuttons[2]=-1; // top (left) d-up
+          gs.gamepadbuttons[3]=-1; // bottom (left) d-down
+          gs.gamepadbuttons[4]=0;  // bottom button (right) x
+
+          gs.gamepadaxes[0]=6; // left/right axis
+          gs.gamepadaxes[1]=7; // up/down axis
+          gs.gamepadaxes[2]=3; // cam left/right axis
+          gs.gamepadaxes[3]=4; // cam up/down axis
+        }
+        else
+        if (gamepads[padid].id=="0f0d-00c1-  Switch Controller")
+        {
+          // Nintendo Switch
+          gs.gamepadbuttons[0]=-1; // left (left) d-left
+          gs.gamepadbuttons[1]=-1; // right (left) d-right
+          gs.gamepadbuttons[2]=-1; // top (left) d-up
+          gs.gamepadbuttons[3]=-1; // bottom (left) d-down
+          gs.gamepadbuttons[4]=1;  // bottom button (right) x
+
+          gs.gamepadaxes[0]=4; // left/right axis
+          gs.gamepadaxes[1]=5; // up/down axis
+          gs.gamepadaxes[2]=2; // cam left/right axis
+          gs.gamepadaxes[3]=3; // cam up/down axis
+        }
+        else
+        {
+          // Unknown non-"standard" mapping
+          gs.gamepadbuttons[0]=-1; // left (left) d-left
+          gs.gamepadbuttons[1]=-1; // right (left) d-right
+          gs.gamepadbuttons[2]=-1; // top (left) d-up
+          gs.gamepadbuttons[3]=-1; // bottom (left) d-down
+          gs.gamepadbuttons[4]=-1;  // bottom button (right) x
+
+          gs.gamepadaxes[0]=-1; // left/right axis
+          gs.gamepadaxes[1]=-1; // up/down axis
+          gs.gamepadaxes[2]=-1; // cam left/right axis
+          gs.gamepadaxes[3]=-1; // cam up/down axis
+        }
       }
 
-/*
-      // Check for assignment mode
-      if (gs.gamepadassignbutton>-1)
+      // Check analog axes
+      for (i=0; i<gamepads[padid].axes.length; i++)
       {
-        // Is this button pressed
+        var val=gamepads[padid].axes[i];
+
+        if (i==gs.gamepadaxes[0])
+        {
+          if (val<-0.5) // Left
+            gleft=true;
+
+          if (val>0.5) // Right
+            gright=true;
+        }
+
+        if (i==gs.gamepadaxes[1])
+        {
+          if (val<-0.5) // Up
+            gup=true;
+
+          if (val>0.5) // Down
+            gdown=true;
+        }
+      }
+
+      // Check buttons
+      for (i=0; i<gamepads[padid].buttons.length; i++)
+      {
+        var val=gamepads[padid].buttons[i];
+        var pressed=val==1.0;
+
+        if (typeof(val)=="object")
+        {
+          pressed=val.pressed;
+          val=val.value;
+        }
+
         if (pressed)
         {
-          // Is it different to the last button assigned
-          if (gs.gamepadlastbutton!=i)
+          switch (i)
           {
-            // Remember this button was pressed last
-            gs.gamepadlastbutton=i;
-            gs.gamepadbuttons[gs.gamepadassignbutton]=i;
-            console.log("Button["+gs.gamepadassignbutton+"]="+i);
-
-            // Move on to next button
-            gs.gamepadassignbutton++;
-
-            // Check for end of assignments
-            if (gs.gamepadassignbutton>4)
-            {
-              console.log("Gamepad mapping complete");
-              gs.gamepadassignbutton=-1;
-            }
+            case gs.gamepadbuttons[0]: gleft=true; break;
+            case gs.gamepadbuttons[1]: gright=true; break;
+            case gs.gamepadbuttons[2]: gup=true; break;
+            case gs.gamepadbuttons[3]: gdown=true; break;
+            case gs.gamepadbuttons[4]: gjump=true; break;
+            default: break;
           }
         }
       }
+
+      // Update keystate
+      if (gup)
+        gs.player.keystate|=2;
       else
-*/
+        gs.player.keystate&=~2;
+
+      if (gdown)
+        gs.player.keystate|=8;
+      else
+        gs.player.keystate&=~8;
+
+      if (gleft)
+        gs.player.keystate|=1;
+      else
+        gs.player.keystate&=~1;
+
+      if (gright)
+        gs.player.keystate|=4;
+      else
+        gs.player.keystate&=~4;
+
+      if (gjump)
       {
-        if (i==gs.gamepadbuttons[0]) // left
-        {
-          if (pressed)
-            gs.player.keystate|=1;
-          else
-            gs.player.keystate&=~1;
-        }
+        gs.player.keystate|=16;
 
-        if (i==gs.gamepadbuttons[1]) // right
+        // If in menu start playing
+        if (gs.state==1)
         {
-          if (pressed)
-            gs.player.keystate|=4;
-          else
-            gs.player.keystate&=~4;
+          hide_screen();
+          gs.state=2;
+          launchgame(0);
         }
+      }
+      else
+        gs.player.keystate&=~16;
 
-        if (i==gs.gamepadbuttons[2]) // up
-        {
-          if (pressed)
-            gs.player.keystate|=2;
-          else
-            gs.player.keystate&=~2;
-        }
-
-        if (i==gs.gamepadbuttons[3]) // down
-        {
-          if (pressed)
-            gs.player.keystate|=8;
-          else
-            gs.player.keystate&=~8;
-        }
-
-        if (i==gs.gamepadbuttons[4]) // jump
-        {
-          if (pressed)
-            gs.player.keystate|=16;
-          else
-            gs.player.keystate&=~16;
-        }
-
+      // Output button debug for unknown gamepads
+      if ((gs.gamepadbuttons[0]==-1) && (gs.gamepadaxes[0]==-1))
+      {
+        if (pressed)
+          console.log("Pressed "+i);
       }
     }
   }
+
+  // Detect disconnect
+  if ((found==0) && (gs.gamepad!=-1))
+  {
+    console.log("Disconnected gamepad "+padid);
+    
+    gs.gamepad=-1;
+  }
+
+  window.requestAnimationFrame(gamepadscan);
 }
 
 // Has this level been completed?
@@ -796,9 +848,6 @@ function buildalphablockstyle(pixelsize)
 // Update the game state prior to rendering
 function update()
 {
-  // Check for gamepad input
-  pollGamepads();
-
   // Apply keystate/physics to player
   updatemovements(gs.player);
 
@@ -1370,7 +1419,7 @@ function start_music()
 // Handle resize events
 function playfieldsize()
 {
-  gs.scale=(window.innerWidth/(gs.tilewidth*10));
+  gs.scale=(window.innerWidth/(gs.tilewidth*12));
 
   document.getElementById("wrapper").style="width:"+(gs.tilewidth*10)+"px; height:"+(((gs.tilewidth*10)/4)*3)+"px; transform-origin:0px 0px; transform:scale("+gs.scale+");";
 
@@ -1411,19 +1460,8 @@ function init()
   };
 
   // Gamepad support
-  gamepadscan();
-
-  window.addEventListener("gamepadconnected", function(e)
-  {
-    e = e || window.event;
-    gamepadHandler(e, true);
-  });
-
-  window.addEventListener("gamepaddisconnected", function(e)
-  {
-    e = e || window.event;
-    gamepadHandler(e, false);
-  });
+  if (!!(navigator.getGamepads))
+    window.requestAnimationFrame(gamepadscan);
 
   window.addEventListener("resize", function()
   {
