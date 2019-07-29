@@ -30,17 +30,17 @@ Help Fred by unlocking doors, solving puzzles and collecting cubes to pay for th
 * Pseudo random generator inspired by BBC Micro
 
 # Stuff I'd have done with more KBs
-* More types of enemy
-* Parallax scrolling backgrounds
-* Better music (had to lower volume to make it more acceptable)
-* Foliage or other scenery
-* Support for going up stairs (this was almost working)
-* Better enemy AI (more then just patrolling, perhaps jumping, line-of-sight wake up, e.t.c)
-* More sound effects perhaps enhanced with envelopes
+- [ ] More types of enemy
+- [ ] Parallax scrolling backgrounds
+- [ ] Better music (had to lower volume to make it more acceptable)
+- [ ] Foliage or other scenery
+- [ ] Support for going up stairs (this was almost working)
+- [ ] Better enemy AI (more then just patrolling, perhaps jumping, line-of-sight wake up, e.t.c)
+- [ ] More sound effects perhaps enhanced with envelopes
 - [x] Playfield scaling
-* Better game completed screen
+- [ ] Better game completed screen
 - [x] Animate the stars to twinkle
-* Enemy squash and puzzle animations
+- [ ] Enemy squash and puzzle animations
 
 # Tools used
 * [Ubuntu OS](https://www.ubuntu.com/)
