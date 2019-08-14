@@ -8,7 +8,7 @@ leveljs="levels.js"
 
 # Create clean build folder
 rm -Rf "${buildpath}" >/dev/null 2>&1
-rm -Rf "${zipfile}"
+rm -Rf "${zipfile}" >/dev/null 2>&1
 mkdir "${buildpath}"
 
 # Concatenate the JSON level files
@@ -56,7 +56,7 @@ echo -n '</style><script type="text/javascript" src="min.js"></script><meta name
 # Zip everything up
 zip -j "${zipfile}" "${buildpath}"/*
 
-# Save about 1k more with advzip
+# Re-Zip with advzip to save a bit more
 advzip -i 20 -k -z -4 "${zipfile}"
 
 # Determine file sizes and compression
