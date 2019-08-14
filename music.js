@@ -167,7 +167,7 @@ function gen_music()
       for (var pairs=0; pairs<dig_len; pairs++)
       {
         var w=this.randoms.rnd(this.tune_weights);
-        for (j=0; j<this.tune_pop.length; j++)
+        for (var j=0; j<this.tune_pop.length; j++)
         {
           if (w<this.tune_pop[j].score)
             break;
