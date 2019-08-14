@@ -64,11 +64,11 @@ unzip -lv "${zipfile}"
 stat "${zipfile}"
 
 zipsize=`stat -c %s "${zipfile}"`
-bytesleft=$(((12*1024)-${zipsize}))
+bytesleft=$(((13*1024)-${zipsize}))
 
 if [ ${bytesleft} -ge 0 ]
 then
   echo "YAY, it fits with ${bytesleft} bytes spare"
 else
-  echo "OH NO, it's gone ovey by "$((0-${bytesleft}))" bytes"
+  echo "OH NO, it's gone over by "$((0-${bytesleft}))" bytes"
 fi
