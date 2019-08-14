@@ -5,6 +5,7 @@ function timelineobj()
   this.timelinepos=0; // Point in time of last update
   this.timelineepoch=0; // Epoch when timeline was started
   this.callback=null; // Optional callback on each timeline "tick"
+  this.running=false; // Start in non-running state
 
   // Add a new function to timeline with a given start time
   this.add=function(itemstart, newitem)
@@ -27,6 +28,9 @@ function timelineobj()
   this.timelineraf=function(timestamp)
   {
     var remain=0;
+
+    // Stop further processing if we're not running
+    if (!this.running) return;
 
     // If this is the first call then just record the epoch
     if (this.timelinepos==0)
@@ -68,6 +72,14 @@ function timelineobj()
   // Start the timeline running
   this.begin=function()
   {
+    this.running=true;
+
     window.requestAnimationFrame(this.timelineraf.bind(this));
+  };
+
+  // Stop the timeline running
+  this.end=function()
+  {
+    this.running=false;
   };
 }
