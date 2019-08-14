@@ -272,6 +272,16 @@ function gamepadscan()
           gs.state=2;
           launchgame(0);
         }
+
+        // If in intro, skip to menu
+        if (gs.state==0)
+        {
+          gs.timeline.end();
+          hide_screen();
+          gs.state=1;
+          show_title();
+          start_music();
+        }
       }
       else
         gs.player.keystate&=~16;
@@ -1018,6 +1028,16 @@ function updatekeystate(e, dir)
       break;
 
     case 27: // escape
+      // If in intro, skip to menu
+      if (gs.state==0)
+      {
+        gs.timeline.end();
+        hide_screen();
+        gs.state=1;
+        show_title();
+        start_music();
+      }
+
       // If playing, go back to menu
       if (gs.state==2)
       {
