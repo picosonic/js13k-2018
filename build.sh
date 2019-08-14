@@ -1,7 +1,7 @@
 #!/bin/bash
 
 zipfile="js13k.zip"
-buildpath="build"
+buildpath="tmpbuild"
 jscat="${buildpath}/min.js"
 indexcat="${buildpath}/index.html"
 leveljs="levels.js"
@@ -35,7 +35,11 @@ sed -i "s/,height:64,/,/g" "${jscat}"
 sed -i "s/properties:{},//g" "${jscat}"
 
 # Copy minified JS from build folder
-cp "${jscat}" .
+cp "${jscat}" "${jscat}.b.js"
+./closeyoureyes.sh "${jscat}.b.js" > "${jscat}" 2>/dev/null
+
+# Remove the minified JS
+rm "${jscat}.b.js" >/dev/null 2>&1
 
 # Add the index header
 echo -n '<!DOCTYPE html><html><head><meta charset="utf-8"/><meta http-equiv="Content-Type" content="text/html;charset=utf-8"/><title>Planet Figadore has gone OFFLINE</title><style>' > "${indexcat}"
@@ -53,12 +57,18 @@ echo -n '</style><script type="text/javascript" src="min.js"></script><meta name
 zip -j "${zipfile}" "${buildpath}"/*
 
 # Save about 1k more with advzip
-advzip -k -z -4 "${zipfile}"
+advzip -i 20 -k -z -4 "${zipfile}"
 
 # Determine file sizes and compression
 unzip -lv "${zipfile}"
 stat "${zipfile}"
 
-echo "Manual step now required to comply with 13k limit"
-echo "Use Google Closure compiler in advanced mode on build/min.js"
-echo "https://closure-compiler.appspot.com/home"
+zipsize=`stat -c %s "${zipfile}"`
+bytesleft=$(((12*1024)-${zipsize}))
+
+if [ ${bytesleft} -ge 0 ]
+then
+  echo "YAY, it fits with ${bytesleft} bytes spare"
+else
+  echo "OH NO, it's gone ovey by "$((0-${bytesleft}))" bytes"
+fi

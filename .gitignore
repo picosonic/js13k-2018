@@ -1,8 +1,9 @@
 # Build folder
-build
+tmpbuild
 
 # Other folders
 abstract
+closure
 packer
 
 # Zip files
