@@ -64,11 +64,13 @@ unzip -lv "${zipfile}"
 stat "${zipfile}"
 
 zipsize=`stat -c %s "${zipfile}"`
-bytesleft=$(((13*1024)-${zipsize}))
+maxsize=$((13*1024))
+bytesleft=$((${maxsize}-${zipsize}))
+percent=$((200*${zipsize}/${maxsize} % 2 + 100*${zipsize}/${maxsize}))
 
 if [ ${bytesleft} -ge 0 ]
 then
-  echo "YAY, it fits with ${bytesleft} bytes spare"
+  echo "YAY ${percent}% used - it fits with ${bytesleft} bytes spare"
 else
-  echo "OH NO, it's gone over by "$((0-${bytesleft}))" bytes"
+  echo "OH NO ${percent}% used - it's gone ovey by "$((0-${bytesleft}))" bytes"
 fi
