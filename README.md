@@ -49,6 +49,7 @@ Help Fred by unlocking doors, solving puzzles and collecting cubes to pay for th
 * [Tiled](https://github.com/bjorn/tiled) map editor
 * [Inkscape](https://github.com/inkscape/inkscape) SVG editor
 * [GIMP](https://github.com/GNOME/gimp) image editor
+* [YUI Compressor](https://github.com/yui/yuicompressor) JS/CSS compressor
 * [Google closure compiler](https://closure-compiler.appspot.com/home)
 * [advzip](https://github.com/amadvance/advancecomp) (uses [7-Zip](https://sourceforge.net/projects/sevenzip/files/7-Zip/) deflate to compress further)
 
