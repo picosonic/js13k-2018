@@ -3,7 +3,8 @@ function st(elem)
 {
   this.e=(elem||null); // DOM element
 
-  this.keystate=0; // bitfield [action][down][right][up][left]
+  this.keystate=0; // keyboard bitfield [action][down][right][up][left]
+  this.padstate=0; // gamepad bitfield [action][down][right][up][left]
 
   this.x=0; // x position
   this.y=0; // y position
@@ -72,6 +73,19 @@ var gs={
 
   state:0 // state machine, 0=intro, 1=menu, 2=playing, 3=complete
 };
+
+// Clear both keyboard and gamepad input state
+function clearinputstate(character)
+{
+  character.keystate=0;
+  character.padstate=0;
+}
+
+// Check if an input is set in either keyboard or gamepad input state
+function ispressed(character, keybit)
+{
+  return (((character.keystate&keybit)!=0) || ((character.padstate&keybit)!=0));
+}
 
 // Scan for any connected gamepads
 function gamepadscan()
@@ -240,30 +254,30 @@ function gamepadscan()
         }
       }
 
-      // Update keystate
+      // Update padstate
       if (gup)
-        gs.player.keystate|=2;
+        gs.player.padstate|=2;
       else
-        gs.player.keystate&=~2;
+        gs.player.padstate&=~2;
 
       if (gdown)
-        gs.player.keystate|=8;
+        gs.player.padstate|=8;
       else
-        gs.player.keystate&=~8;
+        gs.player.padstate&=~8;
 
       if (gleft)
-        gs.player.keystate|=1;
+        gs.player.padstate|=1;
       else
-        gs.player.keystate&=~1;
+        gs.player.padstate&=~1;
 
       if (gright)
-        gs.player.keystate|=4;
+        gs.player.padstate|=4;
       else
-        gs.player.keystate&=~4;
+        gs.player.padstate&=~4;
 
       if (gjump)
       {
-        gs.player.keystate|=16;
+        gs.player.padstate|=16;
 
         // If in menu start playing
         if (gs.state==1)
@@ -284,7 +298,7 @@ function gamepadscan()
         }
       }
       else
-        gs.player.keystate&=~16;
+        gs.player.padstate&=~16;
 
       // Output button debug for unknown gamepads
       if ((gs.gamepadbuttons[0]==-1) && (gs.gamepadaxes[0]==-1))
@@ -410,7 +424,7 @@ function collisioncheck(character)
 /*
   // Climb stairs, TODO - revisit this if time allowing
   if ((character==gs.player) // it's the player
-    && (character.keystate!=0) // key still pressed
+    && ((character.keystate!=0) || (character.padstate!=0)) // key still pressed
     && (character.dir!=0) // was moving
     && (character.hs==0) // horizontal collision occured
     && (!collide(character, character.x, character.y-character.h)) // nothing above us
@@ -456,7 +470,7 @@ function groundcheck(character)
     character.f=false;
 
     // Check for jump pressed, when not ducking
-    if (((character.keystate&16)!=0) && (!character.d))
+    if ((ispressed(character, 16)) && (!character.d))
     {
       character.j=true;
       character.vs=-character.jumpspeed;
@@ -493,14 +507,14 @@ function jumpcheck(character)
 function standcheck(character)
 {
   // Check for ducking, or injured
-  if (((character.keystate&8)!=0) || (character.htime>0))
+  if ((ispressed(character, 8)) || (character.htime>0))
     character.d=true;
   else
     character.d=false;
 
   // When no horizontal movement pressed, slow down by friction
-  if ((((character.keystate&1)==0) && ((character.keystate&4)==0)) ||
-      (((character.keystate&1)!=0) && ((character.keystate&4)!=0)))
+  if (((!ispressed(character, 1)) && (!ispressed(character, 4))) ||
+      ((ispressed(character, 1)) && (ispressed(character, 4))))
   {
     // Going left
     if (character.dir==-1)
@@ -561,14 +575,14 @@ function updateenemyai(character)
     {
       if ((collide(character, character.x+1, character.y))
         || (!collide(character, character.x+(character.w/2), character.y+character.h)))
-        character.keystate=0;
+        clearinputstate(character);
     }
     else // if moving left
     if (character.dir==-1)
     {
       if ((collide(character, character.x-1, character.y))
       || (!collide(character, character.x-(character.w/2), character.y+character.h)))
-        character.keystate=0;
+        clearinputstate(character);
     }
   }
 }
@@ -654,17 +668,17 @@ function updatemovements(character)
   standcheck(character);
 
   // Move player when a key is pressed
-  if (character.keystate!=0)
+  if ((character.keystate!=0) || (character.padstate!=0))
   {
     // Left key
-    if (((character.keystate&1)!=0) && ((character.keystate&4)==0))
+    if ((ispressed(character, 1)) && (!ispressed(character, 4)))
     {
       character.hs=character.htime==0?-character.speed:-2;
       character.dir=-1;
     }
 
     // Right key
-    if (((character.keystate&4)!=0) && ((character.keystate&1)==0))
+    if ((ispressed(character, 4)) && (!ispressed(character, 1)))
     {
       character.hs=character.htime==0?character.speed:2;
       character.dir=1;
