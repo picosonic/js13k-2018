@@ -189,7 +189,7 @@ function gamepadscan()
           gs.gamepadaxes[3]=4; // cam up/down axis
         }
         else
-        if (gamepads[padid].id=="054c-0ce6-Sony Interactive Entertainment Wireless Controller")
+        if ((gamepads[padid].id=="054c-0ce6-Sony Interactive Entertainment Wireless Controller") || (gamepads[padid].id=="054c-0ce6-Wireless Controller"))
         {
           // PS5
           gs.gamepadbuttons[0]=-1; // left (left) d-left
