@@ -117,6 +117,7 @@ function gamepadscan()
 
         if (gamepads[padid].mapping==="standard")
         {
+	  // Browser supported "standard" gamepad
           gs.gamepadbuttons[0]=14; // left (left) d-left
           gs.gamepadbuttons[1]=15; // right (left) d-right
           gs.gamepadbuttons[2]=12; // top (left) d-up
@@ -131,7 +132,7 @@ function gamepadscan()
         else
         if (gamepads[padid].id=="054c-0268-Sony PLAYSTATION(R)3 Controller")
         {
-          // PS3
+          // PS3 DualShock 3
           gs.gamepadbuttons[0]=15; // left (left) d-left
           gs.gamepadbuttons[1]=16; // right (left) d-right
           gs.gamepadbuttons[2]=13; // top (left) d-up
@@ -174,9 +175,10 @@ function gamepadscan()
           gs.gamepadaxes[3]=3; // cam up/down axis
         }
         else
-        if (gamepads[padid].id=="054c-05c4-Sony Computer Entertainment Wireless Controller")
+        if ((gamepads[padid].id=="054c-05c4-Sony Computer Entertainment Wireless Controller") || (gamepads[padid].id=="045e-02e0-8Bitdo SF30 Pro"))
         {
-          // PS4
+          // PS4 DualShock 4
+          // 8Bitdo SF30 Pro GamePad (XInput mode)
           gs.gamepadbuttons[0]=-1; // left (left) d-left
           gs.gamepadbuttons[1]=-1; // right (left) d-right
           gs.gamepadbuttons[2]=-1; // top (left) d-up
@@ -191,7 +193,7 @@ function gamepadscan()
         else
         if ((gamepads[padid].id=="054c-0ce6-Sony Interactive Entertainment Wireless Controller") || (gamepads[padid].id=="054c-0ce6-Wireless Controller"))
         {
-          // PS5
+          // PS5 DualSense
           gs.gamepadbuttons[0]=-1; // left (left) d-left
           gs.gamepadbuttons[1]=-1; // right (left) d-right
           gs.gamepadbuttons[2]=-1; // top (left) d-up
@@ -202,6 +204,37 @@ function gamepadscan()
           gs.gamepadaxes[1]=1; // up/down axis
           gs.gamepadaxes[2]=2; // cam left/right axis
           gs.gamepadaxes[3]=5; // cam up/down axis
+        }
+        else
+        if (gamepads[padid].id=="057e-2009-Pro Controller")
+        {
+          // Nintendo Switch Pro Controller
+          // 8Bitdo SF30 Pro GamePad (Switch mode)
+          gs.gamepadbuttons[0]=-1; // left (left) d-left
+          gs.gamepadbuttons[1]=-1; // right (left) d-right
+          gs.gamepadbuttons[2]=-1; // top (left) d-up
+          gs.gamepadbuttons[3]=-1; // bottom (left) d-down
+          gs.gamepadbuttons[4]=0;  // bottom button (right) x
+
+          gs.gamepadaxes[0]=0; // left/right axis
+          gs.gamepadaxes[1]=1; // up/down axis
+          gs.gamepadaxes[2]=2; // cam left/right axis
+          gs.gamepadaxes[3]=3; // cam up/down axis
+        }
+        else
+        if (gamepads[padid].id=="2dc8-6100-8Bitdo SF30 Pro")
+        {
+          // 8Bitdo SF30 Pro GamePad (DInput mode)
+          gs.gamepadbuttons[0]=-1; // left (left) d-left
+          gs.gamepadbuttons[1]=-1; // right (left) d-right
+          gs.gamepadbuttons[2]=-1; // top (left) d-up
+          gs.gamepadbuttons[3]=-1; // bottom (left) d-down
+          gs.gamepadbuttons[4]=1;  // bottom button (right) x
+
+          gs.gamepadaxes[0]=0; // left/right axis
+          gs.gamepadaxes[1]=1; // up/down axis
+          gs.gamepadaxes[2]=2; // cam left/right axis
+          gs.gamepadaxes[3]=3; // cam up/down axis
         }
         else
         {
