@@ -176,10 +176,11 @@ function gamepadscan()
           gs.gamepadaxes[3]=3; // cam up/down axis
         }
         else
-        if ((gamepads[padid].id=="054c-05c4-Sony Computer Entertainment Wireless Controller") || (gamepads[padid].id=="045e-02e0-8Bitdo SF30 Pro"))
+        if ((gamepads[padid].id=="054c-05c4-Sony Computer Entertainment Wireless Controller") || (gamepads[padid].id=="045e-02e0-8Bitdo SF30 Pro") || (gamepads[padid].id=="045e-02e0-8BitDo GBros Adapter"))
         {
           // PS4 DualShock 4
           // 8Bitdo SF30 Pro GamePad (XInput mode)
+          // 8Bitdo GBros. Adapter (XInput mode)
           gs.gamepadbuttons[0]=-1; // left (left) d-left
           gs.gamepadbuttons[1]=-1; // right (left) d-right
           gs.gamepadbuttons[2]=-1; // top (left) d-up
@@ -211,6 +212,7 @@ function gamepadscan()
         {
           // Nintendo Switch Pro Controller
           // 8Bitdo SF30 Pro GamePad (Switch mode)
+          // 8Bitdo GBros. Adapter (Switch mode)
           gs.gamepadbuttons[0]=-1; // left (left) d-left
           gs.gamepadbuttons[1]=-1; // right (left) d-right
           gs.gamepadbuttons[2]=-1; // top (left) d-up
