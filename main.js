@@ -148,6 +148,7 @@ function gamepadscan()
         if (gamepads[padid].id=="045e-028e-Microsoft X-Box 360 pad")
         {
           // XBOX 360
+          // 8Bitdo GBros. Adapter (XInput mode)
           gs.gamepadbuttons[0]=-1; // left (left) d-left
           gs.gamepadbuttons[1]=-1; // right (left) d-right
           gs.gamepadbuttons[2]=-1; // top (left) d-up
