@@ -440,9 +440,9 @@ function collide(character, x, y)
   // Make a collision box for the character in the centre/bottom of their sprite
   //  1/2 the width and 1/2 the height to allow for overlaps
   var pos={
-    offsetLeft:x+(character.w/4),
+    offsetLeft:x+(character.w/3),
     offsetTop:y+(character.h/2),
-    clientWidth:(character.w/2),
+    clientWidth:(character.w/4),
     clientHeight:(character.h/2)
   };
 
