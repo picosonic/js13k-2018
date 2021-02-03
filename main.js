@@ -536,7 +536,7 @@ function groundcheck(character)
   else
   {
     // Check for jump pressed, when not ducking, and coyote time not expired
-    if ((ispressed(character, 16)) && (!character.d) && (character.c>0))
+    if ((ispressed(character, 16)) && (!character.d) && (character.j==false) && (character.c>0))
     {
       character.j=true;
       character.vs=-character.jumpspeed;
