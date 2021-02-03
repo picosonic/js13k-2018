@@ -25,6 +25,7 @@ function st(elem)
   this.vsp=15; // max vertical speed
   this.speed=5; // walking speed
   this.jumpspeed=15; // jumping speed
+  this.c=0; // coyote timer (time after leaving ground where you can still jump)
 
   this.lf=100; // remaining "life force"
 }
@@ -513,12 +514,17 @@ function offmapcheck(character)
 // Check for player being on the ground
 function groundcheck(character)
 {
+  // Check for coyote time
+  if (character.c>0)
+    character.c--;
+
   // Check we are on the ground
   if (collide(character, character.x, character.y+1))
   {
     character.vs=0;
     character.j=false;
     character.f=false;
+    character.c=15;
 
     // Check for jump pressed, when not ducking
     if ((ispressed(character, 16)) && (!character.d))
@@ -529,6 +535,13 @@ function groundcheck(character)
   }
   else
   {
+    // Check for jump pressed, when not ducking, and coyote time not expired
+    if ((ispressed(character, 16)) && (!character.d) && (character.c>0))
+    {
+      character.j=true;
+      character.vs=-character.jumpspeed;
+    }
+
     // We're in the air, increase falling speed until we're at terminal velocity
     if (character.vs<gs.terminalvelocity)
       character.vs+=gs.gravity;
