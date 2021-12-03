@@ -189,20 +189,6 @@ function gamepadscan()
           gs.gamepadaxes[3]=4; // cam up/down axis
         }
         else
-        if (gamepads[padid].id=="18d1-9400-Google Inc. Stadia Controller")
-        {
-          gs.gamepadbuttons[0]=-1; // left (left) d-left
-          gs.gamepadbuttons[1]=-1; // right (left) d-right
-          gs.gamepadbuttons[2]=-1; // top (left) d-up
-          gs.gamepadbuttons[3]=-1; // bottom (left) d-down
-          gs.gamepadbuttons[4]=0;  // bottom button (right) A
-
-          gs.gamepadaxes[0]=0; // left/right axis
-          gs.gamepadaxes[1]=1; // up/down axis
-          gs.gamepadaxes[2]=2; // cam left/right axis
-          gs.gamepadaxes[3]=3; // cam up/down axis
-        }
-        else
         {
           // Unknown non-"standard" mapping
           gs.gamepadbuttons[0]=-1; // left (left) d-left
