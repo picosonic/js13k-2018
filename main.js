@@ -25,6 +25,7 @@ function st(elem)
   this.vsp=15; // max vertical speed
   this.speed=5; // walking speed
   this.jumpspeed=15; // jumping speed
+  this.c=0; // coyote timer (time after leaving ground where you can still jump)
 
   this.lf=100; // remaining "life force"
 }
@@ -117,6 +118,7 @@ function gamepadscan()
 
         if (gamepads[padid].mapping==="standard")
         {
+          // Browser supported "standard" gamepad
           gs.gamepadbuttons[0]=14; // left (left) d-left
           gs.gamepadbuttons[1]=15; // right (left) d-right
           gs.gamepadbuttons[2]=12; // top (left) d-up
@@ -131,7 +133,7 @@ function gamepadscan()
         else
         if (gamepads[padid].id=="054c-0268-Sony PLAYSTATION(R)3 Controller")
         {
-          // PS3
+          // PS3 DualShock 3
           gs.gamepadbuttons[0]=15; // left (left) d-left
           gs.gamepadbuttons[1]=16; // right (left) d-right
           gs.gamepadbuttons[2]=13; // top (left) d-up
@@ -147,6 +149,7 @@ function gamepadscan()
         if (gamepads[padid].id=="045e-028e-Microsoft X-Box 360 pad")
         {
           // XBOX 360
+          // 8Bitdo GBros. Adapter (XInput mode)
           gs.gamepadbuttons[0]=-1; // left (left) d-left
           gs.gamepadbuttons[1]=-1; // right (left) d-right
           gs.gamepadbuttons[2]=-1; // top (left) d-up
@@ -174,9 +177,11 @@ function gamepadscan()
           gs.gamepadaxes[3]=3; // cam up/down axis
         }
         else
-        if (gamepads[padid].id=="054c-05c4-Sony Computer Entertainment Wireless Controller")
+        if ((gamepads[padid].id=="054c-05c4-Sony Computer Entertainment Wireless Controller") || (gamepads[padid].id=="045e-02e0-8Bitdo SF30 Pro") || (gamepads[padid].id=="045e-02e0-8BitDo GBros Adapter"))
         {
-          // PS4
+          // PS4 DualShock 4
+          // 8Bitdo SF30 Pro GamePad (XInput mode)
+          // 8Bitdo GBros. Adapter (XInput mode)
           gs.gamepadbuttons[0]=-1; // left (left) d-left
           gs.gamepadbuttons[1]=-1; // right (left) d-right
           gs.gamepadbuttons[2]=-1; // top (left) d-up
@@ -187,6 +192,68 @@ function gamepadscan()
           gs.gamepadaxes[1]=1; // up/down axis
           gs.gamepadaxes[2]=3; // cam left/right axis
           gs.gamepadaxes[3]=4; // cam up/down axis
+        }
+        else
+        if ((gamepads[padid].id=="054c-0ce6-Sony Interactive Entertainment Wireless Controller") || (gamepads[padid].id=="054c-0ce6-Wireless Controller"))
+        {
+          // PS5 DualSense
+          gs.gamepadbuttons[0]=-1; // left (left) d-left
+          gs.gamepadbuttons[1]=-1; // right (left) d-right
+          gs.gamepadbuttons[2]=-1; // top (left) d-up
+          gs.gamepadbuttons[3]=-1; // bottom (left) d-down
+          gs.gamepadbuttons[4]=1;  // bottom button (right) x
+
+          gs.gamepadaxes[0]=0; // left/right axis
+          gs.gamepadaxes[1]=1; // up/down axis
+          gs.gamepadaxes[2]=2; // cam left/right axis
+          gs.gamepadaxes[3]=5; // cam up/down axis
+        }
+        else
+        if (gamepads[padid].id=="057e-2009-Pro Controller")
+        {
+          // Nintendo Switch Pro Controller
+          // 8Bitdo SF30 Pro GamePad (Switch mode)
+          // 8Bitdo GBros. Adapter (Switch mode)
+          gs.gamepadbuttons[0]=-1; // left (left) d-left
+          gs.gamepadbuttons[1]=-1; // right (left) d-right
+          gs.gamepadbuttons[2]=-1; // top (left) d-up
+          gs.gamepadbuttons[3]=-1; // bottom (left) d-down
+          gs.gamepadbuttons[4]=0;  // bottom button (right) x
+
+          gs.gamepadaxes[0]=0; // left/right axis
+          gs.gamepadaxes[1]=1; // up/down axis
+          gs.gamepadaxes[2]=2; // cam left/right axis
+          gs.gamepadaxes[3]=3; // cam up/down axis
+        }
+        else
+        if (gamepads[padid].id=="2dc8-6100-8Bitdo SF30 Pro")
+        {
+          // 8Bitdo SF30 Pro GamePad (DInput mode)
+          gs.gamepadbuttons[0]=-1; // left (left) d-left
+          gs.gamepadbuttons[1]=-1; // right (left) d-right
+          gs.gamepadbuttons[2]=-1; // top (left) d-up
+          gs.gamepadbuttons[3]=-1; // bottom (left) d-down
+          gs.gamepadbuttons[4]=1;  // bottom button (right) x
+
+          gs.gamepadaxes[0]=0; // left/right axis
+          gs.gamepadaxes[1]=1; // up/down axis
+          gs.gamepadaxes[2]=2; // cam left/right axis
+          gs.gamepadaxes[3]=3; // cam up/down axis
+        }
+        else
+        if (gamepads[padid].id=="18d1-9400-Google Inc. Stadia Controller")
+        {
+          // Stadia controller
+          gs.gamepadbuttons[0]=-1; // left (left) d-left
+          gs.gamepadbuttons[1]=-1; // right (left) d-right
+          gs.gamepadbuttons[2]=-1; // top (left) d-up
+          gs.gamepadbuttons[3]=-1; // bottom (left) d-down
+          gs.gamepadbuttons[4]=0;  // bottom button (right) A
+
+          gs.gamepadaxes[0]=0; // left/right axis
+          gs.gamepadaxes[1]=1; // up/down axis
+          gs.gamepadaxes[2]=2; // cam left/right axis
+          gs.gamepadaxes[3]=3; // cam up/down axis
         }
         else
         {
@@ -389,9 +456,9 @@ function collide(character, x, y)
   // Make a collision box for the character in the centre/bottom of their sprite
   //  1/2 the width and 1/2 the height to allow for overlaps
   var pos={
-    offsetLeft:x+(character.w/4),
+    offsetLeft:x+(character.w/3),
     offsetTop:y+(character.h/2),
-    clientWidth:(character.w/2),
+    clientWidth:(character.w/4),
     clientHeight:(character.h/2)
   };
 
@@ -462,12 +529,17 @@ function offmapcheck(character)
 // Check for player being on the ground
 function groundcheck(character)
 {
+  // Check for coyote time
+  if (character.c>0)
+    character.c--;
+
   // Check we are on the ground
   if (collide(character, character.x, character.y+1))
   {
     character.vs=0;
     character.j=false;
     character.f=false;
+    character.c=15;
 
     // Check for jump pressed, when not ducking
     if ((ispressed(character, 16)) && (!character.d))
@@ -478,6 +550,13 @@ function groundcheck(character)
   }
   else
   {
+    // Check for jump pressed, when not ducking, and coyote time not expired
+    if ((ispressed(character, 16)) && (!character.d) && (character.j==false) && (character.c>0))
+    {
+      character.j=true;
+      character.vs=-character.jumpspeed;
+    }
+
     // We're in the air, increase falling speed until we're at terminal velocity
     if (character.vs<gs.terminalvelocity)
       character.vs+=gs.gravity;
