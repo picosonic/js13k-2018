@@ -209,16 +209,17 @@ function gamepadscan()
           gs.gamepadaxes[3]=5; // cam up/down axis
         }
         else
-        if (gamepads[padid].id=="057e-2009-Pro Controller")
+        if ((gamepads[padid].id=="057e-2009-Pro Controller") || (gamepads[padid].id=="18d1-9400-Google Inc. Stadia Controller"))
         {
           // Nintendo Switch Pro Controller
           // 8Bitdo SF30 Pro GamePad (Switch mode)
           // 8Bitdo GBros. Adapter (Switch mode)
+          // Google Stadia Controller
           gs.gamepadbuttons[0]=-1; // left (left) d-left
           gs.gamepadbuttons[1]=-1; // right (left) d-right
           gs.gamepadbuttons[2]=-1; // top (left) d-up
           gs.gamepadbuttons[3]=-1; // bottom (left) d-down
-          gs.gamepadbuttons[4]=0;  // bottom button (right) x
+          gs.gamepadbuttons[4]=0;  // bottom button (right) x (a on Stadia)
 
           gs.gamepadaxes[0]=0; // left/right axis
           gs.gamepadaxes[1]=1; // up/down axis
@@ -234,21 +235,6 @@ function gamepadscan()
           gs.gamepadbuttons[2]=-1; // top (left) d-up
           gs.gamepadbuttons[3]=-1; // bottom (left) d-down
           gs.gamepadbuttons[4]=1;  // bottom button (right) x
-
-          gs.gamepadaxes[0]=0; // left/right axis
-          gs.gamepadaxes[1]=1; // up/down axis
-          gs.gamepadaxes[2]=2; // cam left/right axis
-          gs.gamepadaxes[3]=3; // cam up/down axis
-        }
-        else
-        if (gamepads[padid].id=="18d1-9400-Google Inc. Stadia Controller")
-        {
-          // Stadia controller
-          gs.gamepadbuttons[0]=-1; // left (left) d-left
-          gs.gamepadbuttons[1]=-1; // right (left) d-right
-          gs.gamepadbuttons[2]=-1; // top (left) d-up
-          gs.gamepadbuttons[3]=-1; // bottom (left) d-down
-          gs.gamepadbuttons[4]=0;  // bottom button (right) A
 
           gs.gamepadaxes[0]=0; // left/right axis
           gs.gamepadaxes[1]=1; // up/down axis
