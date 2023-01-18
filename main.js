@@ -209,12 +209,12 @@ function gamepadscan()
           gs.gamepadaxes[3]=5; // cam up/down axis
         }
         else
-        if ((gamepads[padid].id=="057e-2009-Pro Controller") || (gamepads[padid].id=="18d1-9400-Google Inc. Stadia Controller"))
+        if ((gamepads[padid].id=="057e-2009-Pro Controller") || (gamepads[padid].id=="18d1-9400-Google Inc. Stadia Controller") || (gamepads[padid].id=="18d1-9400-StadiaZYSW-7992"))
         {
           // Nintendo Switch Pro Controller
           // 8Bitdo SF30 Pro GamePad (Switch mode)
           // 8Bitdo GBros. Adapter (Switch mode)
-          // Google Stadia Controller
+          // Google Stadia Controller (Wired and Bluetooth)
           gs.gamepadbuttons[0]=-1; // left (left) d-left
           gs.gamepadbuttons[1]=-1; // right (left) d-right
           gs.gamepadbuttons[2]=-1; // top (left) d-up
