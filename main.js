@@ -209,7 +209,7 @@ function gamepadscan()
           gs.gamepadaxes[3]=5; // cam up/down axis
         }
         else
-        if ((gamepads[padid].id=="057e-2009-Pro Controller") || (gamepads[padid].id=="18d1-9400-Google Inc. Stadia Controller") || (gamepads[padid].id=="18d1-9400-StadiaZYSW-7992"))
+        if ((gamepads[padid].id=="057e-2009-Pro Controller") || (gamepads[padid].id=="18d1-9400-Google Inc. Stadia Controller") || (gamepads[padid].id=="18d1-9400-Google LLC Stadia Controller rev. A") || (gamepads[padid].id=="18d1-9400-StadiaZYSW-7992"))
         {
           // Nintendo Switch Pro Controller
           // 8Bitdo SF30 Pro GamePad (Switch mode)
