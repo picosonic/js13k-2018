@@ -51,13 +51,18 @@ do
 done
 
 # Add on the rest of the index file
-echo -n '</style><script type="text/javascript" src="min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/></head><body><div id="wrapper"><div id="background"></div><div id="playfield" level="0"></div><div id="player"></div></div><div id="ui"></div></body></html>' >> "${indexcat}"
+echo -n '</style><script type="text/javascript">' >> "${indexcat}"
+cat "${jscat}" >> "${indexcat}"
+echo -n '</script><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/></head><body><div id="wrapper"><div id="background"></div><div id="playfield" level="0"></div><div id="player"></div></div><div id="ui"></div></body></html>' >> "${indexcat}"
+
+# Remove the minified JS
+rm "${jscat}" >/dev/null 2>&1
 
 # Zip everything up
 zip -j "${zipfile}" "${buildpath}"/*
 
 # Re-Zip with advzip to save a bit more
-advzip -i 20 -k -z -4 "${zipfile}"
+advzip -i 200 -k -z -4 "${zipfile}"
 
 # Determine file sizes and compression
 unzip -lv "${zipfile}"
